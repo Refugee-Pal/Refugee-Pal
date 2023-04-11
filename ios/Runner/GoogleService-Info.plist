@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>939869975986-vc5pf4a8fsgh3due7a359mqqvkqgof4d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.939869975986-vc5pf4a8fsgh3due7a359mqqvkqgof4d</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>939869975986-6gmlgf9dpbbtia3o5nlq2fq5gjasp663.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDIwg7Kvw0cMmYGvJf0FZL3il_2juxTeuY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>939869975986</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.innovationfair.refugeepal</string>
+	<key>PROJECT_ID</key>
+	<string>refugee-pal-476d6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>refugee-pal-476d6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:939869975986:ios:2a48d92323ce389e44a0ab</string>
+</dict>
+</plist>

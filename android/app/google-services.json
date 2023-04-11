@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "939869975986",
+    "project_id": "refugee-pal-476d6",
+    "storage_bucket": "refugee-pal-476d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939869975986:android:3780eaf998eb80b944a0ab",
+        "android_client_info": {
+          "package_name": "com.innovationfair.refugeepal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939869975986-6gmlgf9dpbbtia3o5nlq2fq5gjasp663.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.innovationfair.refugeepal",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "939869975986-158gbo9u6laehbouskfbdshn383p6ikk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2_HVGfCMvlqG_1XnwTA6zh_8eWzo_s1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939869975986-158gbo9u6laehbouskfbdshn383p6ikk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "939869975986-vc5pf4a8fsgh3due7a359mqqvkqgof4d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.innovationfair.refugeepal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
