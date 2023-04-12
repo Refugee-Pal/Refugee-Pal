@@ -514,7 +514,7 @@ class _RefugeepalwelcomescreenWidgetState
                                     context.pushNamed('home');
                                   },
                                   text: FFLocalizations.of(context).getText(
-                                    'peqbp5xz' /* Next */,
+                                    'c4bo7pjy' /* Next */,
                                   ),
                                   options: FFButtonOptions(
                                     width: 160.0,

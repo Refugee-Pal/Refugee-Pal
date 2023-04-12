@@ -46,6 +46,8 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
   @BuiltValueField(wireName: 'phone_number')
   String? get phoneNumber;
 
+  String? get description;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -63,7 +65,8 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
     ..isRefugee = false
     ..translateApp = false
     ..areasOfInterest = ListBuilder()
-    ..phoneNumber = '';
+    ..phoneNumber = ''
+    ..description = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
@@ -94,6 +97,7 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
           ..areasOfInterest =
               safeGet(() => ListBuilder(snapshot.data['areasOfInterest']))
           ..phoneNumber = snapshot.data['phone_number']
+          ..description = snapshot.data['description']
           ..ffRef = UserRecord.collection.doc(snapshot.objectID),
       );
 
@@ -135,6 +139,7 @@ Map<String, dynamic> createUserRecordData({
   bool? isRefugee,
   bool? translateApp,
   String? phoneNumber,
+  String? description,
 }) {
   final firestoreData = serializers.toFirestore(
     UserRecord.serializer,
@@ -153,7 +158,8 @@ Map<String, dynamic> createUserRecordData({
         ..isRefugee = isRefugee
         ..translateApp = translateApp
         ..areasOfInterest = null
-        ..phoneNumber = phoneNumber,
+        ..phoneNumber = phoneNumber
+        ..description = description,
     ),
   );
 

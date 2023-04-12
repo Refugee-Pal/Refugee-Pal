@@ -39,6 +39,12 @@ class ConnecthealthcareModel extends FlutterFlowModel {
 
   bool? closeChat = false;
 
+  bool? isEdit = false;
+
+  bool? isNew = false;
+
+  ProfessionalsRecord? professionalToEdit;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey1 = GlobalKey<FormState>();
@@ -83,6 +89,9 @@ class ConnecthealthcareModel extends FlutterFlowModel {
   late ChatInterfaceModel chatInterfaceModel;
   // Model for chatBox component.
   late ChatBoxModel chatBoxModel;
+  // State field(s) for emailAddress widget.
+  TextEditingController? emailAddressController;
+  String? Function(BuildContext, String?)? emailAddressControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -98,6 +107,7 @@ class ConnecthealthcareModel extends FlutterFlowModel {
     inputModel2.dispose();
     chatInterfaceModel.dispose();
     chatBoxModel.dispose();
+    emailAddressController?.dispose();
   }
 
   /// Additional helper methods are added here.

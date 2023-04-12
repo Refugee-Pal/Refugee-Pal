@@ -125,6 +125,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'connecthealthcare',
           path: '/connecthealthcare',
+          requireAuth: true,
           asyncParams: {
             'chatToLoad': getDoc(['chats'], ChatsRecord.serializer),
             'messagesToLoad':
@@ -181,6 +182,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'settingsProfile',
           path: '/settingsProfile',
           builder: (context, params) => SettingsProfileWidget(),
+        ),
+        FFRoute(
+          name: 'settingsAccInfo',
+          path: '/settingsProfileCopy',
+          builder: (context, params) => SettingsAccInfoWidget(),
+        ),
+        FFRoute(
+          name: 'settingsNotifs',
+          path: '/settingsNotifs',
+          builder: (context, params) => SettingsNotifsWidget(),
+        ),
+        FFRoute(
+          name: 'settingsAccInfoCopy',
+          path: '/settingsProfileCopy2',
+          builder: (context, params) => SettingsAccInfoCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,

@@ -17,3 +17,9 @@ export '/categoriespages/subcategory/subcategory_widget.dart'
 export '/userjourney/userjourney_widget.dart' show UserjourneyWidget;
 export '/settings_pages/settings_profile/settings_profile_widget.dart'
     show SettingsProfileWidget;
+export '/settings_pages/settings_acc_info/settings_acc_info_widget.dart'
+    show SettingsAccInfoWidget;
+export '/settings_pages/settings_notifs/settings_notifs_widget.dart'
+    show SettingsNotifsWidget;
+export '/settings_pages/settings_acc_info_copy/settings_acc_info_copy_widget.dart'
+    show SettingsAccInfoCopyWidget;
