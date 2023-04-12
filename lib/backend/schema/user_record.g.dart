@@ -47,13 +47,6 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    value = object.phoneNumber;
-    if (value != null) {
-      result
-        ..add('phone_number')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.language;
     if (value != null) {
       result
@@ -96,6 +89,35 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.isRefugee;
+    if (value != null) {
+      result
+        ..add('isRefugee')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.translateApp;
+    if (value != null) {
+      result
+        ..add('translateApp')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.areasOfInterest;
+    if (value != null) {
+      result
+        ..add('areasOfInterest')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.phoneNumber;
+    if (value != null) {
+      result
+        ..add('phone_number')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -134,10 +156,6 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
           result.createdTime = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime?;
           break;
-        case 'phone_number':
-          result.phoneNumber = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'language':
           result.language = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -160,6 +178,24 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
           break;
         case 'display_name':
           result.displayName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isRefugee':
+          result.isRefugee = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'translateApp':
+          result.translateApp = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'areasOfInterest':
+          result.areasOfInterest.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'phone_number':
+          result.phoneNumber = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
@@ -185,8 +221,6 @@ class _$UserRecord extends UserRecord {
   @override
   final DateTime? createdTime;
   @override
-  final String? phoneNumber;
-  @override
   final String? language;
   @override
   final String? countryOfOrigin;
@@ -199,6 +233,14 @@ class _$UserRecord extends UserRecord {
   @override
   final String? displayName;
   @override
+  final bool? isRefugee;
+  @override
+  final bool? translateApp;
+  @override
+  final BuiltList<String>? areasOfInterest;
+  @override
+  final String? phoneNumber;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserRecord([void Function(UserRecordBuilder)? updates]) =>
@@ -209,13 +251,16 @@ class _$UserRecord extends UserRecord {
       this.photoUrl,
       this.uid,
       this.createdTime,
-      this.phoneNumber,
       this.language,
       this.countryOfOrigin,
       this.refugeeStatus,
       this.durationInCanada,
       this.name,
       this.displayName,
+      this.isRefugee,
+      this.translateApp,
+      this.areasOfInterest,
+      this.phoneNumber,
       this.ffRef})
       : super._();
 
@@ -234,13 +279,16 @@ class _$UserRecord extends UserRecord {
         photoUrl == other.photoUrl &&
         uid == other.uid &&
         createdTime == other.createdTime &&
-        phoneNumber == other.phoneNumber &&
         language == other.language &&
         countryOfOrigin == other.countryOfOrigin &&
         refugeeStatus == other.refugeeStatus &&
         durationInCanada == other.durationInCanada &&
         name == other.name &&
         displayName == other.displayName &&
+        isRefugee == other.isRefugee &&
+        translateApp == other.translateApp &&
+        areasOfInterest == other.areasOfInterest &&
+        phoneNumber == other.phoneNumber &&
         ffRef == other.ffRef;
   }
 
@@ -251,13 +299,16 @@ class _$UserRecord extends UserRecord {
     _$hash = $jc(_$hash, photoUrl.hashCode);
     _$hash = $jc(_$hash, uid.hashCode);
     _$hash = $jc(_$hash, createdTime.hashCode);
-    _$hash = $jc(_$hash, phoneNumber.hashCode);
     _$hash = $jc(_$hash, language.hashCode);
     _$hash = $jc(_$hash, countryOfOrigin.hashCode);
     _$hash = $jc(_$hash, refugeeStatus.hashCode);
     _$hash = $jc(_$hash, durationInCanada.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, displayName.hashCode);
+    _$hash = $jc(_$hash, isRefugee.hashCode);
+    _$hash = $jc(_$hash, translateApp.hashCode);
+    _$hash = $jc(_$hash, areasOfInterest.hashCode);
+    _$hash = $jc(_$hash, phoneNumber.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -270,13 +321,16 @@ class _$UserRecord extends UserRecord {
           ..add('photoUrl', photoUrl)
           ..add('uid', uid)
           ..add('createdTime', createdTime)
-          ..add('phoneNumber', phoneNumber)
           ..add('language', language)
           ..add('countryOfOrigin', countryOfOrigin)
           ..add('refugeeStatus', refugeeStatus)
           ..add('durationInCanada', durationInCanada)
           ..add('name', name)
           ..add('displayName', displayName)
+          ..add('isRefugee', isRefugee)
+          ..add('translateApp', translateApp)
+          ..add('areasOfInterest', areasOfInterest)
+          ..add('phoneNumber', phoneNumber)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -300,10 +354,6 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   DateTime? _createdTime;
   DateTime? get createdTime => _$this._createdTime;
   set createdTime(DateTime? createdTime) => _$this._createdTime = createdTime;
-
-  String? _phoneNumber;
-  String? get phoneNumber => _$this._phoneNumber;
-  set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
 
   String? _language;
   String? get language => _$this._language;
@@ -332,6 +382,24 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   String? get displayName => _$this._displayName;
   set displayName(String? displayName) => _$this._displayName = displayName;
 
+  bool? _isRefugee;
+  bool? get isRefugee => _$this._isRefugee;
+  set isRefugee(bool? isRefugee) => _$this._isRefugee = isRefugee;
+
+  bool? _translateApp;
+  bool? get translateApp => _$this._translateApp;
+  set translateApp(bool? translateApp) => _$this._translateApp = translateApp;
+
+  ListBuilder<String>? _areasOfInterest;
+  ListBuilder<String> get areasOfInterest =>
+      _$this._areasOfInterest ??= new ListBuilder<String>();
+  set areasOfInterest(ListBuilder<String>? areasOfInterest) =>
+      _$this._areasOfInterest = areasOfInterest;
+
+  String? _phoneNumber;
+  String? get phoneNumber => _$this._phoneNumber;
+  set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -347,13 +415,16 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _photoUrl = $v.photoUrl;
       _uid = $v.uid;
       _createdTime = $v.createdTime;
-      _phoneNumber = $v.phoneNumber;
       _language = $v.language;
       _countryOfOrigin = $v.countryOfOrigin;
       _refugeeStatus = $v.refugeeStatus;
       _durationInCanada = $v.durationInCanada;
       _name = $v.name;
       _displayName = $v.displayName;
+      _isRefugee = $v.isRefugee;
+      _translateApp = $v.translateApp;
+      _areasOfInterest = $v.areasOfInterest?.toBuilder();
+      _phoneNumber = $v.phoneNumber;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -375,20 +446,36 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   UserRecord build() => _build();
 
   _$UserRecord _build() {
-    final _$result = _$v ??
-        new _$UserRecord._(
-            email: email,
-            photoUrl: photoUrl,
-            uid: uid,
-            createdTime: createdTime,
-            phoneNumber: phoneNumber,
-            language: language,
-            countryOfOrigin: countryOfOrigin,
-            refugeeStatus: refugeeStatus,
-            durationInCanada: durationInCanada,
-            name: name,
-            displayName: displayName,
-            ffRef: ffRef);
+    _$UserRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$UserRecord._(
+              email: email,
+              photoUrl: photoUrl,
+              uid: uid,
+              createdTime: createdTime,
+              language: language,
+              countryOfOrigin: countryOfOrigin,
+              refugeeStatus: refugeeStatus,
+              durationInCanada: durationInCanada,
+              name: name,
+              displayName: displayName,
+              isRefugee: isRefugee,
+              translateApp: translateApp,
+              areasOfInterest: _areasOfInterest?.build(),
+              phoneNumber: phoneNumber,
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'areasOfInterest';
+        _areasOfInterest?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'UserRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

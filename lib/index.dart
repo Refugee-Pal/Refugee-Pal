@@ -2,7 +2,7 @@
 export '/pages/home/home_widget.dart' show HomeWidget;
 export '/categoriespages/categoriesgallery/categoriesgallery_widget.dart'
     show CategoriesgalleryWidget;
-export '/pages/settings/settings_widget.dart' show SettingsWidget;
+export '/settings_pages/settings/settings_widget.dart' show SettingsWidget;
 export '/pages/interactivemap/interactivemap_widget.dart'
     show InteractivemapWidget;
 export '/refugeepalwelcomescreen/refugeepalwelcomescreen_widget.dart'
@@ -14,3 +14,6 @@ export '/forgotpassword/forgotpassword_widget.dart' show ForgotpasswordWidget;
 export '/categoriespages/category/category_widget.dart' show CategoryWidget;
 export '/categoriespages/subcategory/subcategory_widget.dart'
     show SubcategoryWidget;
+export '/userjourney/userjourney_widget.dart' show UserjourneyWidget;
+export '/settings_pages/settings_profile/settings_profile_widget.dart'
+    show SettingsProfileWidget;

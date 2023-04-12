@@ -171,6 +171,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ParamType.DocumentReference, false, ['subcategory']),
             ),
           ),
+        ),
+        FFRoute(
+          name: 'userjourney',
+          path: '/userjourney',
+          builder: (context, params) => UserjourneyWidget(),
+        ),
+        FFRoute(
+          name: 'settingsProfile',
+          path: '/settingsProfile',
+          builder: (context, params) => SettingsProfileWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,

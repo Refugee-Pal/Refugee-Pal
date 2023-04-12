@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
@@ -122,18 +123,6 @@ class _RefugeepalwelcomescreenWidgetState
         ),
       ],
     ),
-    'textOnPageLoadAnimation8': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 1000.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
   };
 
   @override
@@ -161,7 +150,10 @@ class _RefugeepalwelcomescreenWidgetState
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF49C0E4), FlutterFlowTheme.of(context).primary],
+            colors: [
+              FlutterFlowTheme.of(context).primary,
+              FlutterFlowTheme.of(context).primary
+            ],
             stops: [0.0, 1.0],
             begin: AlignmentDirectional(1.0, -1.0),
             end: AlignmentDirectional(-1.0, 1.0),
@@ -471,61 +463,6 @@ class _RefugeepalwelcomescreenWidgetState
                                       0.0, 24.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
-                                      'h5yt7nth' /* Connect with Community */,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .displaySmall
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          color: Colors.white,
-                                          fontSize: 28.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'textOnPageLoadAnimation7']!),
-                                ),
-                              ),
-                              Image.asset(
-                                'assets/images/culture_and_community.png',
-                                width: 300.0,
-                                height: 300.0,
-                                fit: BoxFit.contain,
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(0.0, -0.2),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 0.0, 10.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'kz4bqtuj' /* Find and interact with members... */,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                          fontSize: 17.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0.0, -0.9),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 24.0, 0.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
                                       'z9xmaiwx' /* Accessibility for All */,
                                     ),
                                     textAlign: TextAlign.center,
@@ -538,7 +475,7 @@ class _RefugeepalwelcomescreenWidgetState
                                           fontWeight: FontWeight.w600,
                                         ),
                                   ).animateOnPageLoad(animationsMap[
-                                      'textOnPageLoadAnimation8']!),
+                                      'textOnPageLoadAnimation7']!),
                                 ),
                               ),
                               Image.asset(
@@ -569,6 +506,40 @@ class _RefugeepalwelcomescreenWidgetState
                                   ),
                                 ),
                               ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 50.0, 0.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    context.pushNamed('home');
+                                  },
+                                  text: FFLocalizations.of(context).getText(
+                                    'peqbp5xz' /* Next */,
+                                  ),
+                                  options: FFButtonOptions(
+                                    width: 160.0,
+                                    height: 50.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                        ),
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(25.0),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -582,7 +553,7 @@ class _RefugeepalwelcomescreenWidgetState
                         child: smooth_page_indicator.SmoothPageIndicator(
                           controller: _model.pageViewController ??=
                               PageController(initialPage: 0),
-                          count: 7,
+                          count: 6,
                           axisDirection: Axis.horizontal,
                           onDotClicked: (i) {
                             _model.pageViewController!.animateToPage(

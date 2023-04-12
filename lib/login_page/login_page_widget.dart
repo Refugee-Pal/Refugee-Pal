@@ -1226,7 +1226,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                           userCreateData);
 
                                                                   context.pushNamedAuth(
-                                                                      'refugeepalwelcomescreen',
+                                                                      'userjourney',
                                                                       mounted);
                                                                 },
                                                                 text: FFLocalizations.of(
