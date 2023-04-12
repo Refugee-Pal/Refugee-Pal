@@ -149,7 +149,11 @@ class _SubcategoryWidgetState extends State<SubcategoryWidget> {
                       ),
                     ),
                     StreamBuilder<List<ResourceproviderRecord>>(
-                      stream: queryResourceproviderRecord(),
+                      stream: queryResourceproviderRecord(
+                        queryBuilder: (resourceproviderRecord) =>
+                            resourceproviderRecord.where('subcategory',
+                                isEqualTo: widget.subcategorydetail?.id),
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {

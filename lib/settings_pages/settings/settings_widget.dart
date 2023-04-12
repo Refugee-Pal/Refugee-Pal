@@ -65,7 +65,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           ),
           title: Text(
             FFLocalizations.of(context).getText(
-              'f0080zm2' /* Settings */,
+              '7t4a9v0s' /* Settings */,
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Inter',
@@ -88,7 +88,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 25.0),
                   child: Text(
                     FFLocalizations.of(context).getText(
-                      'd7ry9zwb' /* Settings */,
+                      'c9rf64ke' /* Settings */,
                     ),
                     style: FlutterFlowTheme.of(context).headlineLarge.override(
                           fontFamily: 'Inter',
@@ -99,11 +99,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      context.pushNamed('settingsProfile');
                     },
                     text: FFLocalizations.of(context).getText(
-                      'a2bj4hem' /* Profile */,
+                      'y5kk7xj7' /* Profile */,
                     ),
                     options: FFButtonOptions(
                       width: double.infinity,
@@ -131,11 +131,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      context.pushNamed('settingsAccInfoCopy');
                     },
                     text: FFLocalizations.of(context).getText(
-                      'g017plo0' /* Account info */,
+                      'yhl3scio' /* Account Info */,
                     ),
                     options: FFButtonOptions(
                       width: double.infinity,
@@ -163,11 +163,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      context.pushNamed('settingsAccInfo');
                     },
                     text: FFLocalizations.of(context).getText(
-                      'k52t3f5q' /* Other info */,
+                      'qn1vsn1i' /* Personal Info */,
                     ),
                     options: FFButtonOptions(
                       width: double.infinity,
@@ -195,11 +195,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      context.pushNamed('settingsNotifs');
                     },
                     text: FFLocalizations.of(context).getText(
-                      'igjbweks' /* Notifications */,
+                      'p4adglfc' /* Notifications */,
                     ),
                     options: FFButtonOptions(
                       width: double.infinity,
@@ -235,7 +235,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       context.goNamedAuth('loginPage', mounted);
                     },
                     text: FFLocalizations.of(context).getText(
-                      'a7t2bpl4' /* Log out */,
+                      'jqftu137' /* Log out */,
                     ),
                     icon: Icon(
                       Icons.logout,

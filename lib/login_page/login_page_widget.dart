@@ -1217,6 +1217,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                     name: _model
                                                                         .nameCreateController
                                                                         .text,
+                                                                    photoUrl:
+                                                                        'https://yt3.ggpht.com/-_fExgATRXLY/AAAAAAAAAAI/AAAAAAAAAAA/-fmo8LhN7Pg/s240-c-k-no-rj-c0xffffff/photo.jpg',
+                                                                    isRefugee:
+                                                                        true,
                                                                   );
                                                                   await UserRecord
                                                                       .collection

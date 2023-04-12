@@ -118,6 +118,13 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.description;
+    if (value != null) {
+      result
+        ..add('description')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -198,6 +205,10 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
           result.phoneNumber = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'description':
+          result.description = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -241,6 +252,8 @@ class _$UserRecord extends UserRecord {
   @override
   final String? phoneNumber;
   @override
+  final String? description;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserRecord([void Function(UserRecordBuilder)? updates]) =>
@@ -261,6 +274,7 @@ class _$UserRecord extends UserRecord {
       this.translateApp,
       this.areasOfInterest,
       this.phoneNumber,
+      this.description,
       this.ffRef})
       : super._();
 
@@ -289,6 +303,7 @@ class _$UserRecord extends UserRecord {
         translateApp == other.translateApp &&
         areasOfInterest == other.areasOfInterest &&
         phoneNumber == other.phoneNumber &&
+        description == other.description &&
         ffRef == other.ffRef;
   }
 
@@ -309,6 +324,7 @@ class _$UserRecord extends UserRecord {
     _$hash = $jc(_$hash, translateApp.hashCode);
     _$hash = $jc(_$hash, areasOfInterest.hashCode);
     _$hash = $jc(_$hash, phoneNumber.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -331,6 +347,7 @@ class _$UserRecord extends UserRecord {
           ..add('translateApp', translateApp)
           ..add('areasOfInterest', areasOfInterest)
           ..add('phoneNumber', phoneNumber)
+          ..add('description', description)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -400,6 +417,10 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   String? get phoneNumber => _$this._phoneNumber;
   set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
 
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -425,6 +446,7 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _translateApp = $v.translateApp;
       _areasOfInterest = $v.areasOfInterest?.toBuilder();
       _phoneNumber = $v.phoneNumber;
+      _description = $v.description;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -464,6 +486,7 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
               translateApp: translateApp,
               areasOfInterest: _areasOfInterest?.build(),
               phoneNumber: phoneNumber,
+              description: description,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
