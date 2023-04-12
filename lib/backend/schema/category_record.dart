@@ -23,8 +23,6 @@ abstract class CategoryRecord
 
   String? get icon;
 
-  String? get algolia;
-
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -34,8 +32,7 @@ abstract class CategoryRecord
     ..description = ''
     ..banner = ''
     ..isinmap = false
-    ..icon = ''
-    ..algolia = '';
+    ..icon = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('category');
@@ -56,7 +53,6 @@ abstract class CategoryRecord
           ..banner = snapshot.data['banner']
           ..isinmap = snapshot.data['isinmap']
           ..icon = snapshot.data['icon']
-          ..algolia = snapshot.data['algolia']
           ..ffRef = CategoryRecord.collection.doc(snapshot.objectID),
       );
 
@@ -91,7 +87,6 @@ Map<String, dynamic> createCategoryRecordData({
   String? banner,
   bool? isinmap,
   String? icon,
-  String? algolia,
 }) {
   final firestoreData = serializers.toFirestore(
     CategoryRecord.serializer,
@@ -101,8 +96,7 @@ Map<String, dynamic> createCategoryRecordData({
         ..description = description
         ..banner = banner
         ..isinmap = isinmap
-        ..icon = icon
-        ..algolia = algolia,
+        ..icon = icon,
     ),
   );
 

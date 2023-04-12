@@ -351,7 +351,8 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
                   if (query != _model.pagingQuery) {
                     // The query has changed
                     _model.pagingQuery = query;
-
+                    _model.streamSubscriptions.forEach((s) => s?.cancel());
+                    _model.streamSubscriptions.clear();
                     _model.pagingController!.refresh();
                   }
                   return _model.pagingController!;
@@ -367,12 +368,29 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
                         messagesRecord.orderBy('time'),
                     nextPageMarker: nextPageMarker,
                     pageSize: 25,
-                    isStream: false,
+                    isStream: true,
                   ).then((page) {
                     _model.pagingController!.appendPage(
                       page.data,
                       page.nextPageMarker,
                     );
+                    final streamSubscription = page.dataStream?.listen((data) {
+                      data.forEach((item) {
+                        final itemIndexes = _model.pagingController!.itemList!
+                            .asMap()
+                            .map((k, v) => MapEntry(v.reference.id, k));
+                        final index = itemIndexes[item.reference.id];
+                        final items = _model.pagingController!.itemList!;
+                        if (index != null) {
+                          items.replaceRange(index, index + 1, [item]);
+                          _model.pagingController!.itemList = {
+                            for (var item in items) item.reference: item
+                          }.values.toList();
+                        }
+                      });
+                      setState(() {});
+                    });
+                    _model.streamSubscriptions.add(streamSubscription);
                   });
                 });
                 return _model.pagingController!;

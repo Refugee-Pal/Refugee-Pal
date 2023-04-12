@@ -21,9 +21,6 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
   @BuiltValueField(wireName: 'created_time')
   DateTime? get createdTime;
 
-  @BuiltValueField(wireName: 'phone_number')
-  String? get phoneNumber;
-
   String? get language;
 
   @BuiltValueField(wireName: 'country_of_origin')
@@ -40,6 +37,15 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
   @BuiltValueField(wireName: 'display_name')
   String? get displayName;
 
+  bool? get isRefugee;
+
+  bool? get translateApp;
+
+  BuiltList<String>? get areasOfInterest;
+
+  @BuiltValueField(wireName: 'phone_number')
+  String? get phoneNumber;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -48,13 +54,16 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
     ..email = ''
     ..photoUrl = ''
     ..uid = ''
-    ..phoneNumber = ''
     ..language = ''
     ..countryOfOrigin = ''
     ..refugeeStatus = ''
     ..durationInCanada = ''
     ..name = ''
-    ..displayName = '';
+    ..displayName = ''
+    ..isRefugee = false
+    ..translateApp = false
+    ..areasOfInterest = ListBuilder()
+    ..phoneNumber = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
@@ -74,13 +83,17 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
           ..uid = snapshot.data['uid']
           ..createdTime = safeGet(() => DateTime.fromMillisecondsSinceEpoch(
               snapshot.data['created_time']))
-          ..phoneNumber = snapshot.data['phone_number']
           ..language = snapshot.data['language']
           ..countryOfOrigin = snapshot.data['country_of_origin']
           ..refugeeStatus = snapshot.data['refugee_status']
           ..durationInCanada = snapshot.data['duration_in_canada']
           ..name = snapshot.data['name']
           ..displayName = snapshot.data['display_name']
+          ..isRefugee = snapshot.data['isRefugee']
+          ..translateApp = snapshot.data['translateApp']
+          ..areasOfInterest =
+              safeGet(() => ListBuilder(snapshot.data['areasOfInterest']))
+          ..phoneNumber = snapshot.data['phone_number']
           ..ffRef = UserRecord.collection.doc(snapshot.objectID),
       );
 
@@ -113,13 +126,15 @@ Map<String, dynamic> createUserRecordData({
   String? photoUrl,
   String? uid,
   DateTime? createdTime,
-  String? phoneNumber,
   String? language,
   String? countryOfOrigin,
   String? refugeeStatus,
   String? durationInCanada,
   String? name,
   String? displayName,
+  bool? isRefugee,
+  bool? translateApp,
+  String? phoneNumber,
 }) {
   final firestoreData = serializers.toFirestore(
     UserRecord.serializer,
@@ -129,13 +144,16 @@ Map<String, dynamic> createUserRecordData({
         ..photoUrl = photoUrl
         ..uid = uid
         ..createdTime = createdTime
-        ..phoneNumber = phoneNumber
         ..language = language
         ..countryOfOrigin = countryOfOrigin
         ..refugeeStatus = refugeeStatus
         ..durationInCanada = durationInCanada
         ..name = name
-        ..displayName = displayName,
+        ..displayName = displayName
+        ..isRefugee = isRefugee
+        ..translateApp = translateApp
+        ..areasOfInterest = null
+        ..phoneNumber = phoneNumber,
     ),
   );
 

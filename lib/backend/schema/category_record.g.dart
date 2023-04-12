@@ -56,13 +56,6 @@ class _$CategoryRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.algolia;
-    if (value != null) {
-      result
-        ..add('algolia')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -106,10 +99,6 @@ class _$CategoryRecordSerializer
           result.icon = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'algolia':
-          result.algolia = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -135,8 +124,6 @@ class _$CategoryRecord extends CategoryRecord {
   @override
   final String? icon;
   @override
-  final String? algolia;
-  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$CategoryRecord([void Function(CategoryRecordBuilder)? updates]) =>
@@ -148,7 +135,6 @@ class _$CategoryRecord extends CategoryRecord {
       this.banner,
       this.isinmap,
       this.icon,
-      this.algolia,
       this.ffRef})
       : super._();
 
@@ -169,7 +155,6 @@ class _$CategoryRecord extends CategoryRecord {
         banner == other.banner &&
         isinmap == other.isinmap &&
         icon == other.icon &&
-        algolia == other.algolia &&
         ffRef == other.ffRef;
   }
 
@@ -181,7 +166,6 @@ class _$CategoryRecord extends CategoryRecord {
     _$hash = $jc(_$hash, banner.hashCode);
     _$hash = $jc(_$hash, isinmap.hashCode);
     _$hash = $jc(_$hash, icon.hashCode);
-    _$hash = $jc(_$hash, algolia.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -195,7 +179,6 @@ class _$CategoryRecord extends CategoryRecord {
           ..add('banner', banner)
           ..add('isinmap', isinmap)
           ..add('icon', icon)
-          ..add('algolia', algolia)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -225,10 +208,6 @@ class CategoryRecordBuilder
   String? get icon => _$this._icon;
   set icon(String? icon) => _$this._icon = icon;
 
-  String? _algolia;
-  String? get algolia => _$this._algolia;
-  set algolia(String? algolia) => _$this._algolia = algolia;
-
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -245,7 +224,6 @@ class CategoryRecordBuilder
       _banner = $v.banner;
       _isinmap = $v.isinmap;
       _icon = $v.icon;
-      _algolia = $v.algolia;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -274,7 +252,6 @@ class CategoryRecordBuilder
             banner: banner,
             isinmap: isinmap,
             icon: icon,
-            algolia: algolia,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

@@ -559,7 +559,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                5.0, 10.0, 0.0, 0.0),
+                                5.0, 10.0, 0.0, 5.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
                                 'g35gljal' /* Locations */,
@@ -589,6 +589,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: List.generate(
                                     rowLocationsRecordList.length, (rowIndex) {
                                   final rowLocationsRecord =
@@ -624,17 +626,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             Clip.antiAliasWithSaveLayer,
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
                                         child: Container(
-                                          width: 100.0,
-                                          height: 100.0,
+                                          width: 125.0,
+                                          height: 150.0,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                           ),
-                                          child: Text(
-                                            rowLocationsRecord.name!,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 5.0, 5.0, 5.0),
+                                            child: Text(
+                                              rowLocationsRecord.name!,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -648,93 +660,112 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ],
                     ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(-1.0, 0.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              5.0, 10.0, 0.0, 0.0),
-                          child: Text(
-                            FFLocalizations.of(context).getText(
-                              '5ysniyfp' /* Resources */,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                5.0, 10.0, 0.0, 5.0),
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                '5ysniyfp' /* Resources */,
+                              ),
+                              style: FlutterFlowTheme.of(context).titleLarge,
                             ),
-                            style: FlutterFlowTheme.of(context).titleLarge,
                           ),
                         ),
-                      ),
-                      StreamBuilder<List<SubcategoryRecord>>(
-                        stream: querySubcategoryRecord(),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  color: FlutterFlowTheme.of(context).primary,
+                        StreamBuilder<List<SubcategoryRecord>>(
+                          stream: querySubcategoryRecord(),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                          List<SubcategoryRecord> rowSubcategoryRecordList =
-                              snapshot.data!;
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: List.generate(
-                                  rowSubcategoryRecordList.length, (rowIndex) {
-                                final rowSubcategoryRecord =
-                                    rowSubcategoryRecordList[rowIndex];
-                                return Visibility(
-                                  visible: ((rowSubcategoryRecord.category ==
-                                              _model.categoryID) ||
-                                          (_model.categorySelected == 'all')) &&
-                                      !(!_model.showAll! &&
-                                          !_model.resourceSearchResults
-                                              .contains(
-                                                  rowSubcategoryRecord.name)),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        'subcategory',
-                                        queryParams: {
-                                          'subcategorydetail': serializeParam(
-                                            rowSubcategoryRecord.reference,
-                                            ParamType.DocumentReference,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    },
-                                    child: Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      child: Container(
-                                        width: 100.0,
-                                        height: 100.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
+                              );
+                            }
+                            List<SubcategoryRecord> rowSubcategoryRecordList =
+                                snapshot.data!;
+                            return SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: List.generate(
+                                    rowSubcategoryRecordList.length,
+                                    (rowIndex) {
+                                  final rowSubcategoryRecord =
+                                      rowSubcategoryRecordList[rowIndex];
+                                  return Visibility(
+                                    visible: ((rowSubcategoryRecord.category ==
+                                                _model.categoryID) ||
+                                            (_model.categorySelected ==
+                                                'all')) &&
+                                        !(!_model.showAll! &&
+                                            !_model.resourceSearchResults
+                                                .contains(
+                                                    rowSubcategoryRecord.name)),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          'subcategory',
+                                          queryParams: {
+                                            'subcategorydetail': serializeParam(
+                                              rowSubcategoryRecord.reference,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      child: Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
-                                        child: Text(
-                                          rowSubcategoryRecord.name!,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
+                                        child: Container(
+                                          width: 125.0,
+                                          height: 150.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 5.0, 5.0, 5.0),
+                                            child: Text(
+                                              rowSubcategoryRecord.name!,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                                  );
+                                }),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding:
@@ -746,7 +777,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                5.0, 10.0, 0.0, 0.0),
+                                5.0, 10.0, 0.0, 5.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
                                 '4z1r74v3' /* Questions and Answers */,
@@ -779,6 +810,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: List.generate(
                                     rowChatsRecordList.length, (rowIndex) {
                                   final rowChatsRecord =
@@ -843,19 +876,28 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Clip.antiAliasWithSaveLayer,
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
                                             child: Container(
-                                              width: 100.0,
-                                              height: 100.0,
+                                              width: 125.0,
+                                              height: 150.0,
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                               ),
-                                              child: Text(
-                                                rowChatsRecord.name!,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        5.0, 5.0, 5.0, 5.0),
+                                                child: Text(
+                                                  rowChatsRecord.name!,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium,
+                                                ),
                                               ),
                                             ),
                                           ),

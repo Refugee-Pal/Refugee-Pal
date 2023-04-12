@@ -15,12 +15,15 @@ class ChatInterfaceModel extends FlutterFlowModel {
   // State field(s) for ListView widget.
   PagingController<DocumentSnapshot?, MessagesRecord>? pagingController;
   Query? pagingQuery;
+  List<StreamSubscription?> streamSubscriptions = [];
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
 
-  void dispose() {}
+  void dispose() {
+    streamSubscriptions.forEach((s) => s?.cancel());
+  }
 
   /// Additional helper methods are added here.
 

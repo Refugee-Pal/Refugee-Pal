@@ -53,6 +53,7 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
         setState(() {
           _model.chatting = true;
           _model.chat = widget.chatToLoad;
+          _model.isQA = true;
         });
       }
     });
