@@ -1623,7 +1623,7 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                                             0.0),
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .secondary,
+                                                                        .primary,
                                                                     textStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .titleLarge
@@ -1653,7 +1653,15 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                             List<
                                                                 ProfessionalsRecord>>(
                                                           stream:
-                                                              queryProfessionalsRecord(),
+                                                              queryProfessionalsRecord(
+                                                            queryBuilder: (professionalsRecord) =>
+                                                                professionalsRecord.where(
+                                                                    'language',
+                                                                    isEqualTo: valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.language,
+                                                                        '')),
+                                                          ),
                                                           builder: (context,
                                                               snapshot) {
                                                             // Customize what your widget looks like when it's loading.

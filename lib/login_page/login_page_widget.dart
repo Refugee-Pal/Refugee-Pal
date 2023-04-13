@@ -117,7 +117,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                     width: 300.0,
                     height: 300.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondary,
+                      color: FlutterFlowTheme.of(context).primary,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -172,11 +172,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                       children: [
                                         if (Theme.of(context).brightness ==
                                             Brightness.light)
-                                          Image.asset(
-                                            'assets/images/refugeepal-logo.png',
-                                            width: 170.0,
-                                            height: 172.4,
-                                            fit: BoxFit.fitWidth,
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                            child: Image.asset(
+                                              'assets/images/officialicon.png',
+                                              width: 170.0,
+                                              height: 172.4,
+                                              fit: BoxFit.fitWidth,
+                                            ),
                                           ),
                                         if (Theme.of(context).brightness ==
                                             Brightness.dark)

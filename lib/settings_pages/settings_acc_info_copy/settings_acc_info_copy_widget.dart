@@ -134,28 +134,28 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                           color: Color(0xFFDBE2E7),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       filled: true,
                       fillColor: Colors.white,
@@ -198,28 +198,28 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                               color: Color(0xFFDBE2E7),
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(40.0),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(40.0),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(40.0),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(40.0),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
                           filled: true,
                           fillColor: Colors.white,
@@ -251,18 +251,17 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                         textStyle:
                             FlutterFlowTheme.of(context).titleLarge.override(
                                   fontFamily: 'Inter',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: FlutterFlowTheme.of(context).secondary,
                                 ),
                         borderSide: BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(0.0),
                       ),
                     ),
                   ),
@@ -306,7 +305,7 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 25.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         await deleteUser(context);
@@ -323,7 +322,7 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).error,
+                        color: Color(0xADDF3F3F),
                         textStyle:
                             FlutterFlowTheme.of(context).titleLarge.override(
                                   fontFamily: 'Inter',

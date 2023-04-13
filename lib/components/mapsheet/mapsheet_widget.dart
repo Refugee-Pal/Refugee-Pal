@@ -146,7 +146,7 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
                     borderRadius: 35.0,
                     borderWidth: 1.0,
                     buttonSize: 75.0,
-                    fillColor: FlutterFlowTheme.of(context).alternate,
+                    fillColor: FlutterFlowTheme.of(context).primaryText,
                     icon: FaIcon(
                       FontAwesomeIcons.directions,
                       color: FlutterFlowTheme.of(context).btnText,

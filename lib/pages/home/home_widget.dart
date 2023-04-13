@@ -131,7 +131,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 print('Button pressed ...');
                               },
                               text: FFLocalizations.of(context).getText(
-                                'bo4eu37w' /* new messages */,
+                                'bo4eu37w' /* New messages */,
                               ),
                               options: FFButtonOptions(
                                 width: double.infinity,
@@ -164,10 +164,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 print('Button pressed ...');
                               },
                               text: FFLocalizations.of(context).getText(
-                                'tqwhg48m' /* unanswered Q&A chat threads */,
+                                'tqwhg48m' /* Unanswered Q&A chat threads */,
                               ),
                               options: FFButtonOptions(
-                                width: double.infinity,
                                 height: 60.0,
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
