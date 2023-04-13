@@ -33,3 +33,10 @@ This feature enables refugees to chat with community groups separated by country
 ### 💬 Q&A Chat Threads
 
 The Q&A feature that allows refugees to post questions within different forums separated in the same categories as the digital resource hub and map feature. Settlement workers or other qualified professionals can reply to their questions, providing refugees with answers to their questions.
+
+### 🧪 Links for Science Fair
+
+ProjectBoard https://projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees 
+Old repository (web app) https://github.com/chubbiloo/Refugee-Pal
+Video https://www.youtube.com/watch?v=Vx1OtWmFCNI
+
