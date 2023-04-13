@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -26,6 +26,11 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  int get pageViewCurrentIndex => _model.pageViewController != null &&
+          _model.pageViewController!.hasClients &&
+          _model.pageViewController!.page != null
+      ? _model.pageViewController!.page!.round()
+      : 0;
 
   @override
   void initState() {
@@ -1150,8 +1155,9 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                     PageController(initialPage: 0),
                                 count: 6,
                                 axisDirection: Axis.horizontal,
-                                onDotClicked: (i) {
-                                  _model.pageViewController!.animateToPage(
+                                onDotClicked: (i) async {
+                                  await _model.pageViewController!
+                                      .animateToPage(
                                     i,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease,

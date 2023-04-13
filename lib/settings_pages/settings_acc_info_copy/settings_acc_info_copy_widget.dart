@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -308,7 +308,7 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        await deleteUser(context);
+                        await authManager.deleteUser(context);
 
                         context.pushNamed('loginPage');
                       },

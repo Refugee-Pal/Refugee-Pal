@@ -25,6 +25,11 @@ class _RefugeepalwelcomescreenWidgetState
   late RefugeepalwelcomescreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  int get pageViewCurrentIndex => _model.pageViewController != null &&
+          _model.pageViewController!.hasClients &&
+          _model.pageViewController!.page != null
+      ? _model.pageViewController!.page!.round()
+      : 0;
 
   final animationsMap = {
     'imageOnPageLoadAnimation': AnimationInfo(
@@ -576,8 +581,8 @@ class _RefugeepalwelcomescreenWidgetState
                               PageController(initialPage: 0),
                           count: 6,
                           axisDirection: Axis.horizontal,
-                          onDotClicked: (i) {
-                            _model.pageViewController!.animateToPage(
+                          onDotClicked: (i) async {
+                            await _model.pageViewController!.animateToPage(
                               i,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease,

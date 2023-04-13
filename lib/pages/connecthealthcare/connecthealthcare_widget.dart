@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/chat_box/chat_box_widget.dart';
 import '/components/chat_interface/chat_interface_widget.dart';
@@ -396,114 +396,36 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       children: [
-                                                        if (_model.isQA ?? true)
-                                                          Expanded(
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          15.0),
-                                                              child:
-                                                                  FFButtonWidget(
-                                                                onPressed:
-                                                                    () async {
-                                                                  if (_model
-                                                                          .checkboxListTileCheckedItems1
-                                                                          .length >
-                                                                      0) {
-                                                                    if (_model.inputModel1.emailAddressController.text ==
-                                                                            null ||
-                                                                        _model.inputModel1.emailAddressController.text ==
-                                                                            '') {
-                                                                      ScaffoldMessenger.of(
-                                                                              context)
-                                                                          .showSnackBar(
-                                                                        SnackBar(
-                                                                          content:
-                                                                              Text(
-                                                                            'No question name provided',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                            ),
-                                                                          ),
-                                                                          duration:
-                                                                              Duration(milliseconds: 4000),
-                                                                          backgroundColor:
-                                                                              FlutterFlowTheme.of(context).error,
-                                                                        ),
-                                                                      );
-                                                                    } else {
-                                                                      final chatsCreateData =
-                                                                          {
-                                                                        ...createChatsRecordData(
-                                                                          name: _model
-                                                                              .inputModel1
-                                                                              .emailAddressController
-                                                                              .text,
-                                                                          type:
-                                                                              'QA',
-                                                                        ),
-                                                                        'users':
-                                                                            [
-                                                                          valueOrDefault(
-                                                                              currentUserDocument?.name,
-                                                                              '')
-                                                                        ],
-                                                                        'categories': _model
-                                                                            .checkboxListTileCheckedItems1
-                                                                            .map((e) =>
-                                                                                e.title)
-                                                                            .withoutNulls
-                                                                            .toList(),
-                                                                      };
-                                                                      var chatsRecordReference = ChatsRecord
-                                                                          .collection
-                                                                          .doc();
-                                                                      await chatsRecordReference
-                                                                          .set(
-                                                                              chatsCreateData);
-                                                                      _model.newQChat = ChatsRecord.getDocumentFromData(
-                                                                          chatsCreateData,
-                                                                          chatsRecordReference);
-
-                                                                      final messagesCreateData =
-                                                                          createMessagesRecordData(
-                                                                        text:
-                                                                            'Created chat',
-                                                                      );
-                                                                      var messagesRecordReference = MessagesRecord.createDoc(_model
-                                                                          .newQChat!
-                                                                          .reference);
-                                                                      await messagesRecordReference
-                                                                          .set(
-                                                                              messagesCreateData);
-                                                                      _model.newQMessages = MessagesRecord.getDocumentFromData(
-                                                                          messagesCreateData,
-                                                                          messagesRecordReference);
-                                                                      setState(
-                                                                          () {
-                                                                        _model.chat =
-                                                                            _model.newQChat;
-                                                                        _model.messages =
-                                                                            _model.newQMessages;
-                                                                        _model.chatting =
-                                                                            true;
-                                                                        _model.closeChat =
-                                                                            true;
-                                                                      });
-                                                                    }
-                                                                  } else {
+                                                        Expanded(
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        10.0,
+                                                                        0.0,
+                                                                        15.0),
+                                                            child:
+                                                                FFButtonWidget(
+                                                              onPressed:
+                                                                  () async {
+                                                                if (_model
+                                                                        .checkboxListTileCheckedItems1
+                                                                        .length >
+                                                                    0) {
+                                                                  if (_model.inputModel1.emailAddressController
+                                                                              .text ==
+                                                                          null ||
+                                                                      _model.inputModel1.emailAddressController
+                                                                              .text ==
+                                                                          '') {
                                                                     ScaffoldMessenger.of(
                                                                             context)
                                                                         .showSnackBar(
                                                                       SnackBar(
                                                                         content:
                                                                             Text(
-                                                                          'Must select at least 1 category',
+                                                                          'No question name provided',
                                                                           style:
                                                                               TextStyle(
                                                                             color:
@@ -516,58 +438,147 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                                             FlutterFlowTheme.of(context).error,
                                                                       ),
                                                                     );
-                                                                  }
-
-                                                                  setState(
-                                                                      () {});
-                                                                },
-                                                                text: FFLocalizations.of(
-                                                                        context)
-                                                                    .getText(
-                                                                  '1v9fgrzl' /* Submit Question */,
-                                                                ),
-                                                                options:
-                                                                    FFButtonOptions(
-                                                                  width: 130.0,
-                                                                  height: 50.0,
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  iconPadding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  textStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLarge
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
+                                                                  } else {
+                                                                    final chatsCreateData =
+                                                                        {
+                                                                      ...createChatsRecordData(
+                                                                        name: _model
+                                                                            .inputModel1
+                                                                            .emailAddressController
+                                                                            .text,
+                                                                        type:
+                                                                            'QA',
                                                                       ),
-                                                                  borderSide:
-                                                                      BorderSide(
-                                                                    color: Colors
-                                                                        .transparent,
-                                                                    width: 1.0,
-                                                                  ),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              25.0),
+                                                                      'users': [
+                                                                        valueOrDefault(
+                                                                            currentUserDocument?.name,
+                                                                            '')
+                                                                      ],
+                                                                      'categories': _model
+                                                                          .checkboxListTileCheckedItems1
+                                                                          .map((e) =>
+                                                                              e.title)
+                                                                          .withoutNulls
+                                                                          .toList(),
+                                                                    };
+                                                                    var chatsRecordReference =
+                                                                        ChatsRecord
+                                                                            .collection
+                                                                            .doc();
+                                                                    await chatsRecordReference
+                                                                        .set(
+                                                                            chatsCreateData);
+                                                                    _model.newQChat =
+                                                                        ChatsRecord.getDocumentFromData(
+                                                                            chatsCreateData,
+                                                                            chatsRecordReference);
+
+                                                                    final messagesCreateData =
+                                                                        createMessagesRecordData(
+                                                                      text:
+                                                                          'Created chat',
+                                                                    );
+                                                                    var messagesRecordReference =
+                                                                        MessagesRecord.createDoc(_model
+                                                                            .newQChat!
+                                                                            .reference);
+                                                                    await messagesRecordReference
+                                                                        .set(
+                                                                            messagesCreateData);
+                                                                    _model.newQMessages =
+                                                                        MessagesRecord.getDocumentFromData(
+                                                                            messagesCreateData,
+                                                                            messagesRecordReference);
+                                                                    setState(
+                                                                        () {
+                                                                      _model.chat =
+                                                                          _model
+                                                                              .newQChat;
+                                                                      _model.messages =
+                                                                          _model
+                                                                              .newQMessages;
+                                                                      _model.chatting =
+                                                                          true;
+                                                                      _model.closeChat =
+                                                                          true;
+                                                                    });
+                                                                  }
+                                                                } else {
+                                                                  ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(
+                                                                    SnackBar(
+                                                                      content:
+                                                                          Text(
+                                                                        'Must select at least 1 category',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                        ),
+                                                                      ),
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              4000),
+                                                                      backgroundColor:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .error,
+                                                                    ),
+                                                                  );
+                                                                }
+
+                                                                setState(() {});
+                                                              },
+                                                              text: FFLocalizations
+                                                                      .of(context)
+                                                                  .getText(
+                                                                '1v9fgrzl' /* Submit Question */,
+                                                              ),
+                                                              options:
+                                                                  FFButtonOptions(
+                                                                width: 130.0,
+                                                                height: 50.0,
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                iconPadding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                textStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleLarge
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                    ),
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  width: 1.0,
                                                                 ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            25.0),
                                                               ),
                                                             ),
                                                           ),
+                                                        ),
                                                       ],
                                                     ),
                                                   ],
@@ -1453,11 +1464,17 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                                         ),
                                                                         child: Image
                                                                             .network(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            circleImageUserRecord!.photoUrl,
-                                                                            'https://picsum.photos/seed/486/600',
-                                                                          ),
+                                                                          () {
+                                                                            if (circleImageUserRecord !=
+                                                                                null) {
+                                                                              return circleImageUserRecord!.photoUrl!;
+                                                                            } else if (currentUserPhoto != null &&
+                                                                                currentUserPhoto != '') {
+                                                                              return currentUserPhoto;
+                                                                            } else {
+                                                                              return 'https://picsum.photos/seed/486/600';
+                                                                            }
+                                                                          }(),
                                                                           fit: BoxFit
                                                                               .cover,
                                                                         ),
@@ -1507,7 +1524,15 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                                                 MainAxisAlignment.spaceBetween,
                                                                             children: [
                                                                               Text(
-                                                                                listViewChatsRecord.type == 'GC' ? '${listViewChatsRecord.users!.toList().first} & ${(listViewChatsRecord.users!.toList().length - 2).toString()} others' : 'Direct Message',
+                                                                                () {
+                                                                                  if (listViewChatsRecord.type == 'GC') {
+                                                                                    return '${listViewChatsRecord.users!.toList().first} & ${(listViewChatsRecord.users!.toList().length - 2).toString()} others';
+                                                                                  } else if (listViewChatsRecord.type == 'QA') {
+                                                                                    return listViewChatsRecord.categories!.toList().first;
+                                                                                  } else {
+                                                                                    return 'Direct Message';
+                                                                                  }
+                                                                                }(),
                                                                                 style: FlutterFlowTheme.of(context).labelLarge,
                                                                               ),
                                                                               Text(
@@ -3030,7 +3055,7 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                                       child: FlutterFlowDropDown<
                                                                           String>(
                                                                         controller:
-                                                                            _model.dropDownController1 ??=
+                                                                            _model.dropDownValueController1 ??=
                                                                                 FormFieldController<String>(
                                                                           _model
                                                                               .dropDownValue1 ??= _model.professionalToEdit !=
@@ -3105,7 +3130,7 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                                       child: FlutterFlowDropDown<
                                                                           String>(
                                                                         controller:
-                                                                            _model.dropDownController2 ??=
+                                                                            _model.dropDownValueController2 ??=
                                                                                 FormFieldController<String>(
                                                                           _model
                                                                               .dropDownValue2 ??= _model.professionalToEdit !=
