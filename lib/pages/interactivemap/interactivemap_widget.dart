@@ -309,231 +309,242 @@ class _InteractivemapWidgetState extends State<InteractivemapWidget> {
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                           ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 10.0, 0.0, 10.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    FFButtonWidget(
-                                      onPressed: () async {
-                                        setState(() {
-                                          _model.isFiltering = false;
-                                        });
-                                      },
-                                      text: FFLocalizations.of(context).getText(
-                                        '1lvxoyd9' /* Xmark */,
-                                      ),
-                                      options: FFButtonOptions(
-                                        width: 60.0,
-                                        height: 60.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBtnText,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .override(
-                                              fontFamily: 'fa',
-                                              fontSize: 30.0,
-                                              fontWeight: FontWeight.normal,
-                                              useGoogleFonts: false,
-                                            ),
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'wvn627bu' /* Filter by category */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleLarge,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    25.0, 0.0, 25.0, 0.0),
-                                child: InkWell(
-                                  onTap: () async {
-                                    setState(() {
-                                      _model.isFiltering = false;
-                                      _model.categorySelected = 'none';
-                                    });
-                                  },
-                                  child: Column(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 10.0, 0.0, 10.0),
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
                                     children: [
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          setState(() {
+                                            _model.isFiltering = false;
+                                          });
+                                        },
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          '1lvxoyd9' /* Xmark */,
+                                        ),
+                                        options: FFButtonOptions(
+                                          width: 60.0,
+                                          height: 60.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBtnText,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleLarge
+                                                  .override(
+                                                    fontFamily: 'fa',
+                                                    fontSize: 30.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                      ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 5.0, 0.0, 5.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 10.0, 0.0),
-                                              child: Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  'obnfndut' /* bars */,
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'fa',
-                                                          fontSize: 30.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ),
-                                            Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                '19ijymgm' /* No filter */,
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLarge,
-                                            ),
-                                          ],
+                                            10.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          FFLocalizations.of(context).getText(
+                                            'wvn627bu' /* Filter by category */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleLarge,
                                         ),
-                                      ),
-                                      Divider(
-                                        thickness: 2.0,
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent3,
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              StreamBuilder<List<CategoryRecord>>(
-                                stream: queryCategoryRecord(
-                                  queryBuilder: (categoryRecord) =>
-                                      categoryRecord.where('isinmap',
-                                          isEqualTo: true),
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  List<CategoryRecord>
-                                      columnCategoryRecordList = snapshot.data!;
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: List.generate(
-                                        columnCategoryRecordList.length,
-                                        (columnIndex) {
-                                      final columnCategoryRecord =
-                                          columnCategoryRecordList[columnIndex];
-                                      return Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 0.0, 25.0, 0.0),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            setState(() {
-                                              _model.isFiltering = false;
-                                              _model.categorySelected =
-                                                  columnCategoryRecord.title;
-                                            });
-                                          },
-                                          child: Column(
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      25.0, 0.0, 25.0, 0.0),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        _model.isFiltering = false;
+                                        _model.categorySelected = 'none';
+                                      });
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 5.0, 0.0, 5.0),
+                                          child: Row(
                                             mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 5.0, 0.0, 5.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        columnCategoryRecord
-                                                            .icon!,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily: 'fa',
-                                                              fontSize: 30.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
+                                                        0.0, 0.0, 10.0, 0.0),
+                                                child: Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'obnfndut' /* bars */,
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'fa',
+                                                        fontSize: 30.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        useGoogleFonts: false,
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      columnCategoryRecord
-                                                          .title!,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleLarge,
-                                                    ),
-                                                  ],
                                                 ),
                                               ),
-                                              Divider(
-                                                thickness: 2.0,
-                                                color:
+                                              Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  '19ijymgm' /* No filter */,
+                                                ),
+                                                style:
                                                     FlutterFlowTheme.of(context)
-                                                        .accent4,
+                                                        .titleLarge,
                                               ),
                                             ],
                                           ),
                                         ),
+                                        Divider(
+                                          thickness: 2.0,
+                                          color: FlutterFlowTheme.of(context)
+                                              .accent3,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                StreamBuilder<List<CategoryRecord>>(
+                                  stream: queryCategoryRecord(
+                                    queryBuilder: (categoryRecord) =>
+                                        categoryRecord.where('isinmap',
+                                            isEqualTo: true),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
                                       );
-                                    }),
-                                  );
-                                },
-                              ),
-                            ],
+                                    }
+                                    List<CategoryRecord>
+                                        columnCategoryRecordList =
+                                        snapshot.data!;
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: List.generate(
+                                          columnCategoryRecordList.length,
+                                          (columnIndex) {
+                                        final columnCategoryRecord =
+                                            columnCategoryRecordList[
+                                                columnIndex];
+                                        return Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  25.0, 0.0, 25.0, 0.0),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              setState(() {
+                                                _model.isFiltering = false;
+                                                _model.categorySelected =
+                                                    columnCategoryRecord.title;
+                                              });
+                                            },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 5.0, 0.0, 5.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          columnCategoryRecord
+                                                              .icon!,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'fa',
+                                                                fontSize: 30.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        columnCategoryRecord
+                                                            .title!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleLarge,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  thickness: 2.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .accent4,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                     ],
