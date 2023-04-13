@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -419,12 +420,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Text(
+                                                AutoSizeText(
                                                   FFLocalizations.of(context)
                                                       .getText(
                                                     'i138394q' /* book */,
                                                   ),
                                                   textAlign: TextAlign.center,
+                                                  maxLines: 1,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -433,7 +435,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         color: FlutterFlowTheme
                                                                 .of(context)
                                                             .secondaryBackground,
-                                                        fontSize: 60.0,
+                                                        fontSize: 55.0,
                                                         useGoogleFonts: false,
                                                       ),
                                                 ),
@@ -584,7 +586,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           context)
                                                                       .secondaryBackground,
                                                                   fontSize:
-                                                                      60.0,
+                                                                      55.0,
                                                                   useGoogleFonts:
                                                                       false,
                                                                 ),
@@ -918,8 +920,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     BorderRadius.circular(10.0),
                                               ),
                                               child: Container(
-                                                width: 125.0,
-                                                height: 160.0,
+                                                width: 140.0,
+                                                height: 175.0,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
                                                           context)
@@ -1131,8 +1133,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     BorderRadius.circular(10.0),
                                               ),
                                               child: Container(
-                                                width: 125.0,
-                                                height: 160.0,
+                                                width: 140.0,
+                                                height: 175.0,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
                                                           context)
@@ -1286,8 +1288,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             10.0),
                                                   ),
                                                   child: Container(
-                                                    width: 125.0,
-                                                    height: 160.0,
+                                                    width: 140.0,
+                                                    height: 175.0,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
                                                               .of(context)
