@@ -4,6 +4,9 @@ Refugee Pal is a comprehensive mobile application designed to provide aid and as
 The app is developed using the Dart programming language and the Flutter framework, a dynamic and powerful combination that enables us to create a smooth and efficient user interface. To accelerate the development process, we leveraged the benefits of FlutterFlow, a no-code builder that helped us streamline our workflow and expedite the app's delivery.
 
 Furthermore, Refugee Pal's backend infrastructure is built on Firebase, a secure and reliable cloud-based platform that allows us to manage and store data with ease. With its cutting-edge technology and robust features, Firebase ensures that the app functions smoothly and efficiently, providing a seamless experience for our users.
+
+### [Logbook for SFRSF Judges](https://github.com/AliSoufi42/refugeepal/blob/main/logbook.md)
+
 # 🖥️ Our Features
 
 ## 💻 Digital Resource Hub:
