@@ -87,7 +87,7 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 8.0, 0.0),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,23 +107,19 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
                           maxHeight: double.infinity,
                         ),
                         decoration: BoxDecoration(),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 10.0, 10.0, 10.0),
-                          child: AutoSizeText(
-                            valueOrDefault<String>(
-                              widget.doc!.name,
-                              'error',
-                            ),
-                            textAlign: TextAlign.start,
-                            maxLines: 3,
-                            style: FlutterFlowTheme.of(context)
-                                .headlineMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
+                        child: AutoSizeText(
+                          valueOrDefault<String>(
+                            widget.doc!.name,
+                            'error',
                           ),
+                          textAlign: TextAlign.start,
+                          maxLines: 3,
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                       ),
                     ),
@@ -144,12 +140,12 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
                   ],
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(-0.1, 0.0),
                   child: FlutterFlowIconButton(
                     borderColor: Colors.transparent,
                     borderRadius: 35.0,
                     borderWidth: 1.0,
-                    buttonSize: 70.0,
+                    buttonSize: 75.0,
                     fillColor: FlutterFlowTheme.of(context).alternate,
                     icon: FaIcon(
                       FontAwesomeIcons.directions,
@@ -175,12 +171,12 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 10.0, 0.0),
+                              30.0, 0.0, 10.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -220,7 +216,7 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 10.0, 0.0),
+                              15.0, 0.0, 15.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -307,7 +303,9 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(10.0, 25.0, 10.0, 0.0),
             child: Container(
               width: MediaQuery.of(context).size.width * 1.0,
-              height: 100.0,
+              constraints: BoxConstraints(
+                maxHeight: double.infinity,
+              ),
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 boxShadow: [
@@ -317,10 +315,10 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
                     offset: Offset(0.0, 2.0),
                   )
                 ],
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                padding: EdgeInsetsDirectional.fromSTEB(15.0, 15.0, 15.0, 15.0),
                 child: Text(
                   valueOrDefault<String>(
                     widget.doc!.description,
@@ -335,7 +333,9 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(10.0, 25.0, 10.0, 25.0),
             child: Container(
               width: MediaQuery.of(context).size.width * 1.0,
-              height: 100.0,
+              constraints: BoxConstraints(
+                maxHeight: double.infinity,
+              ),
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 boxShadow: [
@@ -345,15 +345,29 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
                     offset: Offset(0.0, 2.0),
                   )
                 ],
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
-                child: Text(
-                  FFLocalizations.of(context).getText(
-                    'kjgs5jxx' /* Hello World */,
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
+                padding: EdgeInsetsDirectional.fromSTEB(15.0, 15.0, 15.0, 15.0),
+                child: Builder(
+                  builder: (context) {
+                    final bullet = widget.doc!.bullet!.toList();
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(bullet.length, (bulletIndex) {
+                        final bulletItem = bullet[bulletIndex];
+                        return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 7.0),
+                          child: Text(
+                            '• ${bulletItem}',
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        );
+                      }),
+                    );
+                  },
                 ),
               ),
             ),

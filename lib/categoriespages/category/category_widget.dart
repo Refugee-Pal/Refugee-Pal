@@ -108,59 +108,40 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(15.0),
-                        bottomRight: Radius.circular(15.0),
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(10.0),
                         topLeft: Radius.circular(0.0),
                         topRight: Radius.circular(0.0),
                       ),
                       child: Image.network(
                         categoryCategoryRecord.banner!,
                         width: MediaQuery.of(context).size.width * 1.0,
-                        height: MediaQuery.of(context).size.height * 0.22,
+                        height: MediaQuery.of(context).size.height * 0.25,
                         fit: BoxFit.cover,
                       ),
                     ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            10.0, 10.0, 10.0, 10.0),
-                        child: Text(
-                          categoryCategoryRecord.title!,
-                          textAlign: TextAlign.start,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    fontSize: 35.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                        ),
+                    Text(
+                      FFLocalizations.of(context).getText(
+                        'e7fb91mz' /* Hello World */,
                       ),
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            fontSize: 35.0,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            10.0, 0.0, 10.0, 10.0),
-                        child: Text(
-                          categoryCategoryRecord.description!,
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Inter',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                fontSize: 14.0,
-                              ),
-                        ),
+                    Text(
+                      FFLocalizations.of(context).getText(
+                        's2f28xx4' /* Hello World */,
                       ),
+                      style: FlutterFlowTheme.of(context).bodyMedium,
                     ),
                     StreamBuilder<List<SubcategoryRecord>>(
                       stream: querySubcategoryRecord(
                         queryBuilder: (subcategoryRecord) =>
                             subcategoryRecord.where('category',
-                                isEqualTo: widget.catrgorydetailed?.id),
+                                isEqualTo: categoryCategoryRecord.reference.id),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -197,17 +178,12 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                         ParamType.DocumentReference,
                                       ),
                                     }.withoutNulls,
-                                    extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
-                                        hasTransition: true,
-                                        transitionType: PageTransitionType.fade,
-                                      ),
-                                    },
                                   );
                                 },
                                 child: Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.9,
+                                  height: 100.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -220,21 +196,19 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                     ],
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                  child: Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 45.0, 10.0, 45.0),
-                                      child: Text(
-                                        columnSubcategoryRecord.name!,
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 10.0, 10.0, 10.0),
+                                    child: Text(
+                                      columnSubcategoryRecord.name!,
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
                                   ),
                                 ),

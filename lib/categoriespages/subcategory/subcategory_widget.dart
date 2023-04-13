@@ -136,12 +136,17 @@ class _SubcategoryWidgetState extends State<SubcategoryWidget> {
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 10.0, 10.0, 10.0),
+                                    15.0, 10.0, 15.0, 10.0),
                                 child: Text(
                                   subcategorySubcategoryRecord.information!,
-                                  textAlign: TextAlign.start,
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                 ),
                               ),
                             ),
@@ -152,7 +157,8 @@ class _SubcategoryWidgetState extends State<SubcategoryWidget> {
                       stream: queryResourceproviderRecord(
                         queryBuilder: (resourceproviderRecord) =>
                             resourceproviderRecord.where('subcategory',
-                                isEqualTo: widget.subcategorydetail?.id),
+                                isEqualTo:
+                                    subcategorySubcategoryRecord.reference.id),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.

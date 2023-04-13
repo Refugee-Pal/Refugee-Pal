@@ -1218,7 +1218,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                         .nameCreateController
                                                                         .text,
                                                                     photoUrl:
-                                                                        'https://yt3.ggpht.com/-_fExgATRXLY/AAAAAAAAAAI/AAAAAAAAAAA/-fmo8LhN7Pg/s240-c-k-no-rj-c0xffffff/photo.jpg',
+                                                                        'https://i.stack.imgur.com/34AD2.jpg',
                                                                     isRefugee:
                                                                         true,
                                                                   );

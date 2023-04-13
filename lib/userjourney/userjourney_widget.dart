@@ -99,17 +99,17 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 50.0, 0.0, 0.0),
+                                          0.0, 25.0, 0.0, 0.0),
                                       child: SvgPicture.asset(
                                         'assets/images/undraw_personalization_re_grty.svg',
-                                        width: 260.0,
-                                        height: 260.0,
+                                        width: 250.0,
+                                        height: 250.0,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          30.0, 50.0, 30.0, 0.0),
+                                          30.0, 25.0, 30.0, 0.0),
                                       child: Text(
                                         FFLocalizations.of(context).getText(
                                           '9et910d4' /* Refugee Pal offers limitless p... */,
