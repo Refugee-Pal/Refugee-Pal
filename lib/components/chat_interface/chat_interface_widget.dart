@@ -1,12 +1,13 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'chat_interface_model.dart';
 export 'chat_interface_model.dart';
@@ -211,9 +212,8 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
                     collapsed: Container(),
                     expanded: Container(
                       width: double.infinity,
-                      height: 100.0,
                       constraints: BoxConstraints(
-                        maxHeight: 500.0,
+                        maxHeight: 220.0,
                       ),
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -225,7 +225,8 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
                           stream: queryMessagesRecord(
                             parent: widget.chat!.reference,
                             queryBuilder: (messagesRecord) => messagesRecord
-                                .where('isAnswer', isEqualTo: true),
+                                .where('isAnswer', isEqualTo: true)
+                                .orderBy('time'),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -249,48 +250,80 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
                               itemBuilder: (context, listViewIndex) {
                                 final listViewMessagesRecord =
                                     listViewMessagesRecordList[listViewIndex];
-                                return Visibility(
-                                  visible:
-                                      widget.messages!.text != '8900911532',
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 5.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        if (listViewMessagesRecord.showTime ??
-                                            true)
-                                          Text(
-                                            dateTimeFormat(
-                                              'M/d H:mm',
-                                              listViewMessagesRecord.time!,
-                                              locale:
-                                                  FFLocalizations.of(context)
-                                                      .languageCode,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodySmall,
+                                return Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 5.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          dateTimeFormat(
+                                            'M/d h:mm a',
+                                            listViewMessagesRecord.time!,
+                                            locale: FFLocalizations.of(context)
+                                                .languageCode,
                                           ),
-                                        if (listViewMessagesRecord.showName ??
-                                            true)
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 10.0),
-                                            child: Row(
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodySmall,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 10.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
                                               children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Container(
+                                                StreamBuilder<List<UserRecord>>(
+                                                  stream: queryUserRecord(
+                                                    queryBuilder: (userRecord) =>
+                                                        userRecord.where('name',
+                                                            isEqualTo:
+                                                                listViewMessagesRecord
+                                                                    .user),
+                                                    singleRecord: true,
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    List<UserRecord>
+                                                        circleImageUserRecordList =
+                                                        snapshot.data!;
+                                                    // Return an empty Container when the item does not exist.
+                                                    if (snapshot
+                                                        .data!.isEmpty) {
+                                                      return Container();
+                                                    }
+                                                    final circleImageUserRecord =
+                                                        circleImageUserRecordList
+                                                                .isNotEmpty
+                                                            ? circleImageUserRecordList
+                                                                .first
+                                                            : null;
+                                                    return Container(
                                                       width: 40.0,
                                                       height: 40.0,
                                                       clipBehavior:
@@ -299,62 +332,49 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: Image.network(
-                                                        'https://picsum.photos/seed/486/600',
+                                                        valueOrDefault<String>(
+                                                          circleImageUserRecord!
+                                                              .photoUrl,
+                                                          'https://picsum.photos/seed/486/600',
+                                                        ),
                                                         fit: BoxFit.cover,
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        listViewMessagesRecord
-                                                            .user!,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                    );
+                                                  },
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          10.0, 0.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    listViewMessagesRecord
+                                                        .user!,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium,
+                                                  ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 5.0),
-                                                child: Text(
-                                                  listViewMessagesRecord.text!,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium,
-                                                ),
-                                              ),
-                                              Divider(
-                                                thickness: 2.0,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .accent3,
-                                              ),
-                                            ],
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            7.0, 0.0, 7.0, 0.0),
+                                        child: SelectionArea(
+                                            child: Text(
+                                          listViewMessagesRecord.text!,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                        )),
+                                      ),
+                                      Divider(
+                                        thickness: 2.0,
+                                        color: FlutterFlowTheme.of(context)
+                                            .accent3,
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
@@ -376,289 +396,341 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
             ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(10.0, 15.0, 10.0, 0.0),
-            child: PagedListView<DocumentSnapshot<Object?>?, MessagesRecord>(
-              pagingController: () {
-                final Query<Object?> Function(Query<Object?>) queryBuilder =
-                    (messagesRecord) => messagesRecord.orderBy('time');
-                if (_model.pagingController != null) {
-                  final query = queryBuilder(MessagesRecord.collection());
-                  if (query != _model.pagingQuery) {
-                    // The query has changed
-                    _model.pagingQuery = query;
-                    _model.streamSubscriptions.forEach((s) => s?.cancel());
-                    _model.streamSubscriptions.clear();
-                    _model.pagingController!.refresh();
-                  }
-                  return _model.pagingController!;
-                }
-
-                _model.pagingController = PagingController(firstPageKey: null);
-                _model.pagingQuery = queryBuilder(MessagesRecord.collection());
-                _model.pagingController!
-                    .addPageRequestListener((nextPageMarker) {
-                  queryMessagesRecordPage(
-                    parent: widget.chat!.reference,
-                    queryBuilder: (messagesRecord) =>
-                        messagesRecord.orderBy('time'),
-                    nextPageMarker: nextPageMarker,
-                    pageSize: 25,
-                    isStream: true,
-                  ).then((page) {
-                    _model.pagingController!.appendPage(
-                      page.data,
-                      page.nextPageMarker,
-                    );
-                    final streamSubscription = page.dataStream?.listen((data) {
-                      data.forEach((item) {
-                        final itemIndexes = _model.pagingController!.itemList!
-                            .asMap()
-                            .map((k, v) => MapEntry(v.reference.id, k));
-                        final index = itemIndexes[item.reference.id];
-                        final items = _model.pagingController!.itemList!;
-                        if (index != null) {
-                          items.replaceRange(index, index + 1, [item]);
-                          _model.pagingController!.itemList = {
-                            for (var item in items) item.reference: item
-                          }.values.toList();
-                        }
-                      });
-                      setState(() {});
-                    });
-                    _model.streamSubscriptions.add(streamSubscription);
-                  });
-                });
-                return _model.pagingController!;
-              }(),
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              reverse: false,
-              scrollDirection: Axis.vertical,
-              builderDelegate: PagedChildBuilderDelegate<MessagesRecord>(
-                // Customize what your widget looks like when it's loading the first page.
-                firstPageProgressIndicatorBuilder: (_) => Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      color: FlutterFlowTheme.of(context).primary,
+            child: StreamBuilder<List<MessagesRecord>>(
+              stream: queryMessagesRecord(
+                parent: widget.chat!.reference,
+                queryBuilder: (messagesRecord) =>
+                    messagesRecord.orderBy('time'),
+              ),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: CircularProgressIndicator(
+                        color: FlutterFlowTheme.of(context).primary,
+                      ),
                     ),
-                  ),
-                ),
-
-                itemBuilder: (context, _, listViewIndex) {
-                  final listViewMessagesRecord =
-                      _model.pagingController!.itemList![listViewIndex];
-                  return Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        if (listViewMessagesRecord.showTime ?? true)
-                          Text(
-                            valueOrDefault<String>(
-                              dateTimeFormat(
-                                'M/d h:mm a',
-                                listViewMessagesRecord.time,
-                                locale:
-                                    FFLocalizations.of(context).languageCode,
-                              ),
-                              'Loading...',
-                            ),
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context).bodySmall,
-                          ),
-                        if (listViewMessagesRecord.showName ?? true)
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 10.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    StreamBuilder<List<UserRecord>>(
-                                      stream: queryUserRecord(
-                                        queryBuilder: (userRecord) =>
-                                            userRecord.where('name',
-                                                isEqualTo:
-                                                    listViewMessagesRecord
-                                                        .user),
-                                        singleRecord: true,
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: CircularProgressIndicator(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        List<UserRecord>
-                                            circleImageUserRecordList =
-                                            snapshot.data!;
-                                        // Return an empty Container when the item does not exist.
-                                        if (snapshot.data!.isEmpty) {
-                                          return Container();
-                                        }
-                                        final circleImageUserRecord =
-                                            circleImageUserRecordList.isNotEmpty
-                                                ? circleImageUserRecordList
-                                                    .first
-                                                : null;
-                                        return Container(
-                                          width: 40.0,
-                                          height: 40.0,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.network(
-                                            valueOrDefault<String>(
-                                              circleImageUserRecord!.photoUrl,
-                                              'https://picsum.photos/seed/486/600',
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          listViewMessagesRecord.user,
-                                          'Loading...',
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                      ),
-                                    ),
-                                  ],
+                  );
+                }
+                List<MessagesRecord> listViewMessagesRecordList =
+                    snapshot.data!;
+                return ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: listViewMessagesRecordList.length,
+                  itemBuilder: (context, listViewIndex) {
+                    final listViewMessagesRecord =
+                        listViewMessagesRecordList[listViewIndex];
+                    return Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (listViewMessagesRecord.showTime ?? true)
+                            Text(
+                              valueOrDefault<String>(
+                                dateTimeFormat(
+                                  'M/d h:mm a',
+                                  listViewMessagesRecord.time,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
                                 ),
-                              ],
+                                'Loading...',
+                              ),
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).bodySmall,
                             ),
-                          ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Stack(
-                              children: [
-                                if (listViewMessagesRecord.user !=
-                                    valueOrDefault(
-                                        currentUserDocument?.name, ''))
-                                  Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
-                                    child: AuthUserStreamWidget(
-                                      builder: (context) => Container(
-                                        constraints: BoxConstraints(
-                                          maxWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.85,
-                                          maxHeight: 90.0,
+                          if (listViewMessagesRecord.showName ?? true)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 10.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      StreamBuilder<List<UserRecord>>(
+                                        stream: queryUserRecord(
+                                          queryBuilder: (userRecord) =>
+                                              userRecord.where('name',
+                                                  isEqualTo:
+                                                      listViewMessagesRecord
+                                                          .user),
+                                          singleRecord: true,
                                         ),
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(25.0),
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  7.0, 5.0, 7.0, 5.0),
-                                          child: SelectionArea(
-                                              child: Text(
-                                            valueOrDefault<String>(
-                                              listViewMessagesRecord.text,
-                                              'Loading...',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
                                                 ),
-                                          )),
+                                              ),
+                                            );
+                                          }
+                                          List<UserRecord>
+                                              circleImageUserRecordList =
+                                              snapshot.data!;
+                                          // Return an empty Container when the item does not exist.
+                                          if (snapshot.data!.isEmpty) {
+                                            return Container();
+                                          }
+                                          final circleImageUserRecord =
+                                              circleImageUserRecordList
+                                                      .isNotEmpty
+                                                  ? circleImageUserRecordList
+                                                      .first
+                                                  : null;
+                                          return Container(
+                                            width: 40.0,
+                                            height: 40.0,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Image.network(
+                                              valueOrDefault<String>(
+                                                circleImageUserRecord!.photoUrl,
+                                                'https://picsum.photos/seed/486/600',
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          valueOrDefault<String>(
+                                            listViewMessagesRecord.user,
+                                            'Loading...',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                if (listViewMessagesRecord.user ==
-                                    valueOrDefault(
-                                        currentUserDocument?.name, ''))
-                                  Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
-                                    child: AuthUserStreamWidget(
-                                      builder: (context) => Container(
-                                        constraints: BoxConstraints(
-                                          maxWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.85,
-                                          maxHeight: 90.0,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          borderRadius:
-                                              BorderRadius.circular(25.0),
-                                          border: Border.all(
+                                ],
+                              ),
+                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Stack(
+                                children: [
+                                  if (listViewMessagesRecord.user !=
+                                      valueOrDefault(
+                                          currentUserDocument?.name, ''))
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(-1.0, 0.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => Container(
+                                          constraints: BoxConstraints(
+                                            maxWidth: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.85,
+                                            maxHeight: 90.0,
+                                          ),
+                                          decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(25.0),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    7.0, 5.0, 7.0, 5.0),
+                                            child: SelectionArea(
+                                                child: Text(
+                                              valueOrDefault<String>(
+                                                listViewMessagesRecord.text,
+                                                'Loading...',
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                      ),
+                                            )),
                                           ),
                                         ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  7.0, 5.0, 7.0, 5.0),
-                                          child: SelectionArea(
-                                              child: Text(
-                                            valueOrDefault<String>(
-                                              listViewMessagesRecord.text,
-                                              'Loading...',
+                                      ),
+                                    ),
+                                  if (listViewMessagesRecord.user ==
+                                      valueOrDefault(
+                                          currentUserDocument?.name, ''))
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(-1.0, 0.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => Container(
+                                          constraints: BoxConstraints(
+                                            maxWidth: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.85,
+                                            maxHeight: 90.0,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            borderRadius:
+                                                BorderRadius.circular(25.0),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              width: 2.0,
                                             ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                ),
-                                          )),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10.0, 5.0, 10.0, 5.0),
+                                            child: SelectionArea(
+                                                child: Text(
+                                              valueOrDefault<String>(
+                                                listViewMessagesRecord.text,
+                                                'Loading...',
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                      ),
+                                            )),
+                                          ),
                                         ),
                                       ),
                                     ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  if (listViewMessagesRecord.user ==
+                                      valueOrDefault(
+                                          currentUserDocument?.name, ''))
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 2.0, 0.0, 0.0),
+                                      child: AuthUserStreamWidget(
+                                        builder: (context) => InkWell(
+                                          onTap: () async {
+                                            await listViewMessagesRecord
+                                                .reference
+                                                .delete();
+                                          },
+                                          child: FaIcon(
+                                            FontAwesomeIcons.solidTrashAlt,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 22.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  Stack(
+                                    children: [
+                                      if (!valueOrDefault<bool>(
+                                          currentUserDocument?.isRefugee,
+                                          false))
+                                        AuthUserStreamWidget(
+                                          builder: (context) => ToggleIcon(
+                                            onPressed: () async {
+                                              final messagesUpdateData = {
+                                                'isAnswer':
+                                                    !listViewMessagesRecord
+                                                        .isAnswer!,
+                                              };
+                                              await listViewMessagesRecord
+                                                  .reference
+                                                  .update(messagesUpdateData);
+                                            },
+                                            value: listViewMessagesRecord
+                                                .isAnswer!,
+                                            onIcon: FaIcon(
+                                              FontAwesomeIcons.solidStar,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .warning,
+                                              size: 22.0,
+                                            ),
+                                            offIcon: FaIcon(
+                                              FontAwesomeIcons.star,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .warning,
+                                              size: 22.0,
+                                            ),
+                                          ),
+                                        ),
+                                      if (valueOrDefault<bool>(
+                                              currentUserDocument?.isRefugee,
+                                              false) &&
+                                          listViewMessagesRecord.isAnswer!)
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 7.0, 5.0, 5.0),
+                                          child: AuthUserStreamWidget(
+                                            builder: (context) => FaIcon(
+                                              FontAwesomeIcons.solidStar,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .warning,
+                                              size: 22.0,
+                                            ),
+                                          ),
+                                        ),
+                                    ],
                                   ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
         ],

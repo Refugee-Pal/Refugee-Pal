@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -16,10 +16,10 @@ class SettingsAccInfoModel extends FlutterFlowModel {
 
   // State field(s) for DropDown widget.
   String? dropDownValue1;
-  FormFieldController<String>? dropDownController1;
+  FormFieldController<String>? dropDownValueController1;
   // State field(s) for DropDown widget.
   String? dropDownValue2;
-  FormFieldController<String>? dropDownController2;
+  FormFieldController<String>? dropDownValueController2;
   // State field(s) for SwitchListTile widget.
   bool? switchListTileValue;
   // State field(s) for CheckboxListTile widget.

@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_language_selector.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -250,7 +250,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       GoRouter.of(context).prepareAuthEvent();
-                      await signOut();
+                      await authManager.signOut();
                       GoRouter.of(context).clearRedirectLocation();
 
                       context.goNamedAuth('loginPage', mounted);

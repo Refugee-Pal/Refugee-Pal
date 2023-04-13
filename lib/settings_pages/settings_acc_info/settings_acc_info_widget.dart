@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -107,7 +107,7 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                     child: AuthUserStreamWidget(
                       builder: (context) => FlutterFlowDropDown<String>(
-                        controller: _model.dropDownController1 ??=
+                        controller: _model.dropDownValueController1 ??=
                             FormFieldController<String>(
                           _model.dropDownValue1 ??= valueOrDefault(
                               currentUserDocument?.refugeeStatus, ''),
@@ -160,7 +160,7 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                     child: AuthUserStreamWidget(
                       builder: (context) => FlutterFlowDropDown<String>(
-                        controller: _model.dropDownController2 ??=
+                        controller: _model.dropDownValueController2 ??=
                             FormFieldController<String>(
                           _model.dropDownValue2 ??=
                               valueOrDefault(currentUserDocument?.language, ''),

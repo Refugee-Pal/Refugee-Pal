@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -600,7 +600,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                           .prepareAuthEvent();
 
                                                                       final user =
-                                                                          await signInWithEmail(
+                                                                          await authManager
+                                                                              .signInWithEmail(
                                                                         context,
                                                                         _model
                                                                             .emailAddressController
@@ -1199,7 +1200,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                       .prepareAuthEvent();
 
                                                                   final user =
-                                                                      await createAccountWithEmail(
+                                                                      await authManager
+                                                                          .createAccountWithEmail(
                                                                     context,
                                                                     _model
                                                                         .emailAddressCreateController
