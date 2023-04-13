@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -69,7 +69,7 @@ class _ChatBoxWidgetState extends State<ChatBoxWidget> {
               borderRadius: BorderRadius.circular(28.0),
             ),
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.77,
+              width: MediaQuery.of(context).size.width * 0.85,
               height: 56.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryBackground,
@@ -151,7 +151,7 @@ class _ChatBoxWidgetState extends State<ChatBoxWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
-                      borderRadius: 30.0,
+                      borderRadius: 32.0,
                       borderWidth: 1.0,
                       buttonSize: 56.0,
                       icon: FaIcon(
@@ -181,6 +181,7 @@ class _ChatBoxWidgetState extends State<ChatBoxWidget> {
                                     currentUserDocument?.name, ''),
                                 showTime: false,
                                 showName: false,
+                                isAnswer: false,
                               ),
                               'time': FieldValue.serverTimestamp(),
                             };
@@ -195,6 +196,7 @@ class _ChatBoxWidgetState extends State<ChatBoxWidget> {
                                     currentUserDocument?.name, ''),
                                 showName: false,
                                 showTime: true,
+                                isAnswer: false,
                               ),
                               'time': FieldValue.serverTimestamp(),
                             };

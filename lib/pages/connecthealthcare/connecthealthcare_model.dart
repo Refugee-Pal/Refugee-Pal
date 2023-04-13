@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/chat_box/chat_box_widget.dart';
 import '/components/chat_interface/chat_interface_widget.dart';
@@ -108,10 +108,10 @@ class ConnecthealthcareModel extends FlutterFlowModel {
   String? Function(BuildContext, String?)? emailAddressController5Validator;
   // State field(s) for DropDown widget.
   String? dropDownValue1;
-  FormFieldController<String>? dropDownController1;
+  FormFieldController<String>? dropDownValueController1;
   // State field(s) for DropDown widget.
   String? dropDownValue2;
-  FormFieldController<String>? dropDownController2;
+  FormFieldController<String>? dropDownValueController2;
 
   /// Initialization and disposal methods.
 
