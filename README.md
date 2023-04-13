@@ -36,9 +36,9 @@ The Q&A feature that allows refugees to post questions within different forums s
 
 ### 🧪 Links for Science Fair
 
-[ProjectBoard]()
+[ProjectBoard]: 
 
-[Old repository (web app)](github.cm/chubbiloo/refugee-pal)
+[Old repository (web app)]:
 
-[Video]()
+[Video]: https://www.youtube.com/watch?v=Vx1OtWmFCNI
 
