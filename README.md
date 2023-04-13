@@ -38,7 +38,7 @@ The Q&A feature that allows refugees to post questions within different forums s
 
 [ProjectBoard]()
 
-[Old repository (web app)]()
+[Old repository (web app)](github.cm/chubbiloo/refugee-pal)
 
 [Video]()
 
