@@ -23,3 +23,4 @@ export '/settings_pages/settings_notifs/settings_notifs_widget.dart'
     show SettingsNotifsWidget;
 export '/settings_pages/settings_acc_info_copy/settings_acc_info_copy_widget.dart'
     show SettingsAccInfoCopyWidget;
+export '/misc/misc_widget.dart' show MiscWidget;

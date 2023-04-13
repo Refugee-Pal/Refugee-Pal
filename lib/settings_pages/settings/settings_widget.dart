@@ -112,19 +112,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleLarge.override(
-                                fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
+                      color: Color(0xFFE0E3E7),
+                      textStyle: FlutterFlowTheme.of(context)
+                          .titleLarge
+                          .override(
+                            fontFamily: 'Inter',
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
                 ),
@@ -144,19 +144,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleLarge.override(
-                                fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
+                      color: FlutterFlowTheme.of(context).lineColor,
+                      textStyle: FlutterFlowTheme.of(context)
+                          .titleLarge
+                          .override(
+                            fontFamily: 'Inter',
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
                 ),
@@ -176,19 +176,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleLarge.override(
-                                fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
+                      color: FlutterFlowTheme.of(context).lineColor,
+                      textStyle: FlutterFlowTheme.of(context)
+                          .titleLarge
+                          .override(
+                            fontFamily: 'Inter',
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
                 ),
@@ -208,19 +208,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleLarge.override(
-                                fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
+                      color: FlutterFlowTheme.of(context).lineColor,
+                      textStyle: FlutterFlowTheme.of(context)
+                          .titleLarge
+                          .override(
+                            fontFamily: 'Inter',
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
                 ),
@@ -260,7 +260,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(25.0),
                     ),
                   ),
                 ),

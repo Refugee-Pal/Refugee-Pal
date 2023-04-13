@@ -331,12 +331,11 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                         description: _model.emailAddressController2.text,
                       );
                       await currentUserReference!.update(userUpdateData1);
-                      if (_model.isDataUploading) {
-                        final userUpdateData2 = createUserRecordData(
-                          photoUrl: _model.uploadedFileUrl,
-                        );
-                        await currentUserReference!.update(userUpdateData2);
-                      }
+
+                      final userUpdateData2 = createUserRecordData(
+                        photoUrl: _model.uploadedFileUrl,
+                      );
+                      await currentUserReference!.update(userUpdateData2);
 
                       context.pushNamed('settings');
                     },

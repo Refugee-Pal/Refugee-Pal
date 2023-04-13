@@ -69,17 +69,51 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    width: 60.0,
-                    height: 60.0,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+                  StreamBuilder<List<UserRecord>>(
+                    stream: queryUserRecord(
+                      queryBuilder: (userRecord) => userRecord.whereIn(
+                          'name', widget.chat!.users!.toList()),
+                      singleRecord: true,
                     ),
-                    child: Image.network(
-                      'https://picsum.photos/seed/282/600',
-                      fit: BoxFit.cover,
-                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              color: FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                        );
+                      }
+                      List<UserRecord> circleImageUserRecordList =
+                          snapshot.data!;
+                      // Return an empty Container when the item does not exist.
+                      if (snapshot.data!.isEmpty) {
+                        return Container();
+                      }
+                      final circleImageUserRecord =
+                          circleImageUserRecordList.isNotEmpty
+                              ? circleImageUserRecordList.first
+                              : null;
+                      return Container(
+                        width: 60.0,
+                        height: 60.0,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.network(
+                          valueOrDefault<String>(
+                            circleImageUserRecord!.photoUrl,
+                            'https://picsum.photos/seed/486/600',
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
                   ),
                   Padding(
                     padding:
@@ -445,17 +479,58 @@ class _ChatInterfaceWidgetState extends State<ChatInterfaceWidget> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Container(
-                                      width: 40.0,
-                                      height: 40.0,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
+                                    StreamBuilder<List<UserRecord>>(
+                                      stream: queryUserRecord(
+                                        queryBuilder: (userRecord) =>
+                                            userRecord.where('name',
+                                                isEqualTo:
+                                                    listViewMessagesRecord
+                                                        .user),
+                                        singleRecord: true,
                                       ),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/486/600',
-                                        fit: BoxFit.cover,
-                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<UserRecord>
+                                            circleImageUserRecordList =
+                                            snapshot.data!;
+                                        // Return an empty Container when the item does not exist.
+                                        if (snapshot.data!.isEmpty) {
+                                          return Container();
+                                        }
+                                        final circleImageUserRecord =
+                                            circleImageUserRecordList.isNotEmpty
+                                                ? circleImageUserRecordList
+                                                    .first
+                                                : null;
+                                        return Container(
+                                          width: 40.0,
+                                          height: 40.0,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            valueOrDefault<String>(
+                                              circleImageUserRecord!.photoUrl,
+                                              'https://picsum.photos/seed/486/600',
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
+                                      },
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(

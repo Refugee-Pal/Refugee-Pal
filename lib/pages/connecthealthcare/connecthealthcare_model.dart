@@ -4,10 +4,12 @@ import '/components/chat_box/chat_box_widget.dart';
 import '/components/chat_interface/chat_interface_widget.dart';
 import '/components/input/input_widget.dart';
 import '/components/new_sheet/new_sheet_widget.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -90,8 +92,26 @@ class ConnecthealthcareModel extends FlutterFlowModel {
   // Model for chatBox component.
   late ChatBoxModel chatBoxModel;
   // State field(s) for emailAddress widget.
-  TextEditingController? emailAddressController;
-  String? Function(BuildContext, String?)? emailAddressControllerValidator;
+  TextEditingController? emailAddressController1;
+  String? Function(BuildContext, String?)? emailAddressController1Validator;
+  // State field(s) for emailAddress widget.
+  TextEditingController? emailAddressController2;
+  String? Function(BuildContext, String?)? emailAddressController2Validator;
+  // State field(s) for emailAddress widget.
+  TextEditingController? emailAddressController3;
+  String? Function(BuildContext, String?)? emailAddressController3Validator;
+  // State field(s) for emailAddress widget.
+  TextEditingController? emailAddressController4;
+  String? Function(BuildContext, String?)? emailAddressController4Validator;
+  // State field(s) for emailAddress widget.
+  TextEditingController? emailAddressController5;
+  String? Function(BuildContext, String?)? emailAddressController5Validator;
+  // State field(s) for DropDown widget.
+  String? dropDownValue1;
+  FormFieldController<String>? dropDownController1;
+  // State field(s) for DropDown widget.
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownController2;
 
   /// Initialization and disposal methods.
 
@@ -107,7 +127,11 @@ class ConnecthealthcareModel extends FlutterFlowModel {
     inputModel2.dispose();
     chatInterfaceModel.dispose();
     chatBoxModel.dispose();
-    emailAddressController?.dispose();
+    emailAddressController1?.dispose();
+    emailAddressController2?.dispose();
+    emailAddressController3?.dispose();
+    emailAddressController4?.dispose();
+    emailAddressController5?.dispose();
   }
 
   /// Additional helper methods are added here.
