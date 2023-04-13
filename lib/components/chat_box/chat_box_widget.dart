@@ -75,7 +75,7 @@ class _ChatBoxWidgetState extends State<ChatBoxWidget> {
                 color: FlutterFlowTheme.of(context).primaryBackground,
                 borderRadius: BorderRadius.circular(28.0),
                 border: Border.all(
-                  color: FlutterFlowTheme.of(context).primary,
+                  color: FlutterFlowTheme.of(context).secondary,
                   width: 2.0,
                 ),
               ),
@@ -85,7 +85,7 @@ class _ChatBoxWidgetState extends State<ChatBoxWidget> {
                   Expanded(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 0.0),
                       child: TextFormField(
                         controller: _model.textController,
                         autofocus: true,
@@ -139,133 +139,130 @@ class _ChatBoxWidgetState extends State<ChatBoxWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               color: FlutterFlowTheme.of(context).secondaryText,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
                             ),
                         validator:
                             _model.textControllerValidator.asValidator(context),
                       ),
                     ),
                   ),
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30.0,
-                    borderWidth: 1.0,
-                    buttonSize: 56.0,
-                    fillColor: FlutterFlowTheme.of(context).primary,
-                    icon: FaIcon(
-                      FontAwesomeIcons.solidPaperPlane,
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      size: 35.0,
-                    ),
-                    onPressed: () async {
-                      if (widget.chat!.lastmessageuser ==
-                          valueOrDefault(currentUserDocument?.name, '')) {
-                        if (dateTimeFormat(
-                              'M/d H:mm',
-                              widget.chat!.lastmessagetime,
-                              locale: FFLocalizations.of(context).languageCode,
-                            ) ==
-                            dateTimeFormat(
-                              'M/d H:mm',
-                              getCurrentTimestamp,
-                              locale: FFLocalizations.of(context).languageCode,
-                            )) {
-                          final messagesCreateData1 = {
-                            ...createMessagesRecordData(
-                              text: _model.textController.text,
-                              user:
-                                  valueOrDefault(currentUserDocument?.name, ''),
-                              showTime: false,
-                              showName: false,
-                            ),
-                            'time': FieldValue.serverTimestamp(),
-                          };
-                          await MessagesRecord.createDoc(widget.chat!.reference)
-                              .set(messagesCreateData1);
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                    child: FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 56.0,
+                      icon: FaIcon(
+                        FontAwesomeIcons.solidPaperPlane,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 35.0,
+                      ),
+                      onPressed: () async {
+                        if (widget.chat!.lastmessageuser ==
+                            valueOrDefault(currentUserDocument?.name, '')) {
+                          if (dateTimeFormat(
+                                'M/d H:mm',
+                                widget.chat!.lastmessagetime,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              ) ==
+                              dateTimeFormat(
+                                'M/d H:mm',
+                                getCurrentTimestamp,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              )) {
+                            final messagesCreateData1 = {
+                              ...createMessagesRecordData(
+                                text: _model.textController.text,
+                                user: valueOrDefault(
+                                    currentUserDocument?.name, ''),
+                                showTime: false,
+                                showName: false,
+                              ),
+                              'time': FieldValue.serverTimestamp(),
+                            };
+                            await MessagesRecord.createDoc(
+                                    widget.chat!.reference)
+                                .set(messagesCreateData1);
+                          } else {
+                            final messagesCreateData2 = {
+                              ...createMessagesRecordData(
+                                text: _model.textController.text,
+                                user: valueOrDefault(
+                                    currentUserDocument?.name, ''),
+                                showName: false,
+                                showTime: true,
+                              ),
+                              'time': FieldValue.serverTimestamp(),
+                            };
+                            await MessagesRecord.createDoc(
+                                    widget.chat!.reference)
+                                .set(messagesCreateData2);
+                          }
                         } else {
-                          final messagesCreateData2 = {
-                            ...createMessagesRecordData(
-                              text: _model.textController.text,
-                              user:
-                                  valueOrDefault(currentUserDocument?.name, ''),
-                              showName: false,
-                              showTime: true,
-                            ),
-                            'time': FieldValue.serverTimestamp(),
-                          };
-                          await MessagesRecord.createDoc(widget.chat!.reference)
-                              .set(messagesCreateData2);
+                          if (dateTimeFormat(
+                                'M/d H:mm',
+                                widget.chat!.lastmessagetime,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              ) ==
+                              dateTimeFormat(
+                                'M/d H:mm',
+                                getCurrentTimestamp,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              )) {
+                            final messagesCreateData3 = {
+                              ...createMessagesRecordData(
+                                text: _model.textController.text,
+                                user: valueOrDefault(
+                                    currentUserDocument?.name, ''),
+                                showName: true,
+                                showTime: false,
+                              ),
+                              'time': FieldValue.serverTimestamp(),
+                            };
+                            await MessagesRecord.createDoc(
+                                    widget.chat!.reference)
+                                .set(messagesCreateData3);
+                          } else {
+                            final messagesCreateData4 = {
+                              ...createMessagesRecordData(
+                                text: _model.textController.text,
+                                user: valueOrDefault(
+                                    currentUserDocument?.name, ''),
+                                showName: true,
+                                showTime: true,
+                              ),
+                              'time': FieldValue.serverTimestamp(),
+                            };
+                            await MessagesRecord.createDoc(
+                                    widget.chat!.reference)
+                                .set(messagesCreateData4);
+                          }
                         }
-                      } else {
-                        if (dateTimeFormat(
-                              'M/d H:mm',
-                              widget.chat!.lastmessagetime,
-                              locale: FFLocalizations.of(context).languageCode,
-                            ) ==
-                            dateTimeFormat(
-                              'M/d H:mm',
-                              getCurrentTimestamp,
-                              locale: FFLocalizations.of(context).languageCode,
-                            )) {
-                          final messagesCreateData3 = {
-                            ...createMessagesRecordData(
-                              text: _model.textController.text,
-                              user:
-                                  valueOrDefault(currentUserDocument?.name, ''),
-                              showName: true,
-                              showTime: false,
-                            ),
-                            'time': FieldValue.serverTimestamp(),
-                          };
-                          await MessagesRecord.createDoc(widget.chat!.reference)
-                              .set(messagesCreateData3);
-                        } else {
-                          final messagesCreateData4 = {
-                            ...createMessagesRecordData(
-                              text: _model.textController.text,
-                              user:
-                                  valueOrDefault(currentUserDocument?.name, ''),
-                              showName: true,
-                              showTime: true,
-                            ),
-                            'time': FieldValue.serverTimestamp(),
-                          };
-                          await MessagesRecord.createDoc(widget.chat!.reference)
-                              .set(messagesCreateData4);
-                        }
-                      }
 
-                      final chatsUpdateData = {
-                        ...createChatsRecordData(
-                          lastmessage: _model.textController.text,
-                          lastmessageuser:
-                              valueOrDefault(currentUserDocument?.name, ''),
-                        ),
-                        'lastmessagetime': FieldValue.serverTimestamp(),
-                      };
-                      await widget.chat!.reference.update(chatsUpdateData);
-                      setState(() {
-                        _model.textController?.clear();
-                      });
-                    },
+                        final chatsUpdateData = {
+                          ...createChatsRecordData(
+                            lastmessage: _model.textController.text,
+                            lastmessageuser:
+                                valueOrDefault(currentUserDocument?.name, ''),
+                          ),
+                          'lastmessagetime': FieldValue.serverTimestamp(),
+                        };
+                        await widget.chat!.reference.update(chatsUpdateData);
+                        setState(() {
+                          _model.textController?.clear();
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-          FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 15.0,
-            borderWidth: 1.0,
-            buttonSize: 65.0,
-            fillColor: FlutterFlowTheme.of(context).primary,
-            icon: FaIcon(
-              FontAwesomeIcons.phone,
-              color: FlutterFlowTheme.of(context).primaryBtnText,
-              size: 35.0,
-            ),
-            onPressed: () {
-              print('IconButton pressed ...');
-            },
           ),
         ],
       ),

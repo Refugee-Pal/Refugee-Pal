@@ -110,33 +110,12 @@ class _SubcategoryWidgetState extends State<SubcategoryWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  5.0, 5.0, 5.0, 5.0),
-                              child: Text(
-                                FFLocalizations.of(context).getText(
-                                  '2svqgjx9' /* Note, by clicking on any of th... */,
-                                ),
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                              ),
-                            ),
-                          ),
                           if (subcategorySubcategoryRecord.information != '')
                             Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 10.0, 15.0, 10.0),
+                                    20.0, 10.0, 20.0, 10.0),
                                 child: Text(
                                   subcategorySubcategoryRecord.information!,
                                   textAlign: TextAlign.center,
@@ -144,8 +123,8 @@ class _SubcategoryWidgetState extends State<SubcategoryWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Inter',
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w300,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
                                       ),
                                 ),
                               ),
@@ -210,9 +189,10 @@ class _SubcategoryWidgetState extends State<SubcategoryWidget> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 5.0, 5.0, 5.0),
+                                            10.0, 10.0, 10.0, 5.0),
                                         child: Text(
                                           columnResourceproviderRecord.name!,
+                                          textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -237,6 +217,33 @@ class _SubcategoryWidgetState extends State<SubcategoryWidget> {
                                                         .secondaryText,
                                                 fontSize: 14.0,
                                               ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 10.0, 10.0, 10.0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await launchURL(
+                                                columnResourceproviderRecord
+                                                    .link!);
+                                          },
+                                          child: Text(
+                                            FFLocalizations.of(context).getText(
+                                              'jt06tog3' /* Learn more */,
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  fontWeight: FontWeight.w500,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                          ),
                                         ),
                                       ),
                                     ],

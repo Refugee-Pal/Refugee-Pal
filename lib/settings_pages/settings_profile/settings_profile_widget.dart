@@ -124,7 +124,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                           child: Image.network(
                             valueOrDefault<String>(
                               _model.uploadedFileUrl,
-                              'https://stock.adobe.com/ca/images/default-profile-picture/64676383',
+                              'https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -224,28 +224,28 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                           color: Color(0xFFDBE2E7),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       filled: true,
                       fillColor: Colors.white,
@@ -287,28 +287,28 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                             color: Color(0xFFDBE2E7),
                             width: 2.0,
                           ),
-                          borderRadius: BorderRadius.circular(40.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 2.0,
                           ),
-                          borderRadius: BorderRadius.circular(40.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 2.0,
                           ),
-                          borderRadius: BorderRadius.circular(40.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 2.0,
                           ),
-                          borderRadius: BorderRadius.circular(40.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         filled: true,
                         fillColor: Colors.white,

@@ -1,5 +1,6 @@
 import '/auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_language_selector.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -112,13 +113,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0xFFE0E3E7),
-                      textStyle: FlutterFlowTheme.of(context)
-                          .titleLarge
-                          .override(
-                            fontFamily: 'Inter',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                          ),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleLarge.override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
@@ -144,13 +144,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).lineColor,
-                      textStyle: FlutterFlowTheme.of(context)
-                          .titleLarge
-                          .override(
-                            fontFamily: 'Inter',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                          ),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleLarge.override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
@@ -176,13 +175,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).lineColor,
-                      textStyle: FlutterFlowTheme.of(context)
-                          .titleLarge
-                          .override(
-                            fontFamily: 'Inter',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                          ),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleLarge.override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
@@ -208,13 +206,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).lineColor,
-                      textStyle: FlutterFlowTheme.of(context)
-                          .titleLarge
-                          .override(
-                            fontFamily: 'Inter',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                          ),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleLarge.override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
@@ -222,6 +219,30 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                  child: FlutterFlowLanguageSelector(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 60.0,
+                    backgroundColor:
+                        FlutterFlowTheme.of(context).secondaryBackground,
+                    borderColor: Colors.transparent,
+                    dropdownIconColor: Colors.white,
+                    borderRadius: 20.0,
+                    textStyle: GoogleFonts.getFont(
+                      'Inter',
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 22.0,
+                    ),
+                    hideFlags: false,
+                    flagSize: 24.0,
+                    flagTextGap: 8.0,
+                    currentLanguage: FFLocalizations.of(context).languageCode,
+                    languages: FFLocalizations.languages(),
+                    onChanged: (lang) => setAppLanguage(context, lang),
                   ),
                 ),
                 Padding(

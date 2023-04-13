@@ -2,7 +2,6 @@ import '/auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_language_selector.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -210,31 +209,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                         hidesUnderline: true,
                         isSearchable: false,
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
-                    child: FlutterFlowLanguageSelector(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: 50.0,
-                      backgroundColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      borderColor: Colors.transparent,
-                      dropdownIconColor: Colors.white,
-                      borderRadius: 0.0,
-                      textStyle: GoogleFonts.getFont(
-                        'Inter',
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18.0,
-                      ),
-                      hideFlags: false,
-                      flagSize: 24.0,
-                      flagTextGap: 8.0,
-                      currentLanguage: FFLocalizations.of(context).languageCode,
-                      languages: FFLocalizations.languages(),
-                      onChanged: (lang) => setAppLanguage(context, lang),
                     ),
                   ),
                   Padding(

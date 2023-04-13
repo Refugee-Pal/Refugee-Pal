@@ -94,6 +94,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
                       FFLocalizations.of(context).getText(
                         'ot6m1qkl' /* We will send you an email with... */,
                       ),
+                      textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium,
                     ),
                   ),
@@ -139,33 +140,33 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
                       color: Color(0x00000000),
                       width: 0.0,
                     ),
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0x00000000),
                       width: 0.0,
                     ),
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   errorBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0x00000000),
                       width: 0.0,
                     ),
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0x00000000),
                       width: 0.0,
                     ),
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   filled: true,
                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                   contentPadding:
-                      EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 20.0, 24.0),
+                      EdgeInsetsDirectional.fromSTEB(30.0, 24.0, 20.0, 24.0),
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium,
                 maxLines: null,
@@ -211,6 +212,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
                   color: Colors.transparent,
                   width: 1.0,
                 ),
+                borderRadius: BorderRadius.circular(20.0),
               ),
             ),
           ),

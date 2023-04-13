@@ -120,7 +120,7 @@ class _InteractivemapWidgetState extends State<InteractivemapWidget> {
             elevation: 8.0,
             child: Text(
               FFLocalizations.of(context).getText(
-                'g7gjd33y' /* X */,
+                'dzpdz508' /* X */,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'fa',

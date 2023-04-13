@@ -121,9 +121,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                       ),
                     ),
                     Text(
-                      FFLocalizations.of(context).getText(
-                        'e7fb91mz' /* Hello World */,
-                      ),
+                      categoryCategoryRecord.title!,
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
@@ -131,11 +129,16 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                             fontWeight: FontWeight.w600,
                           ),
                     ),
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        's2f28xx4' /* Hello World */,
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          10.0, 15.0, 10.0, 10.0),
+                      child: Text(
+                        categoryCategoryRecord.description!,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              fontSize: 20.0,
+                            ),
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium,
                     ),
                     StreamBuilder<List<SubcategoryRecord>>(
                       stream: querySubcategoryRecord(
