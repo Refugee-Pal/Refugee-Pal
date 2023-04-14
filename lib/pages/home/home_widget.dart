@@ -937,6 +937,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Align(
                                                         alignment:
@@ -959,79 +962,89 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                      StreamBuilder<
-                                                          List<CategoryRecord>>(
-                                                        stream:
-                                                            queryCategoryRecord(
-                                                          queryBuilder: (categoryRecord) =>
-                                                              categoryRecord.whereIn(
-                                                                  'title',
-                                                                  rowLocationsRecord
-                                                                      .category!
-                                                                      .toList()),
-                                                        ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: StreamBuilder<
+                                                            List<
+                                                                CategoryRecord>>(
+                                                          stream:
+                                                              queryCategoryRecord(
+                                                            queryBuilder: (categoryRecord) =>
+                                                                categoryRecord.whereIn(
+                                                                    'title',
+                                                                    rowLocationsRecord
+                                                                        .category!
+                                                                        .toList()),
+                                                          ),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 50.0,
+                                                                  height: 50.0,
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                  ),
                                                                 ),
+                                                              );
+                                                            }
+                                                            List<CategoryRecord>
+                                                                rowCategoryRecordList =
+                                                                snapshot.data!;
+                                                            return SingleChildScrollView(
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: List.generate(
+                                                                    rowCategoryRecordList
+                                                                        .length,
+                                                                    (rowIndex) {
+                                                                  final rowCategoryRecord =
+                                                                      rowCategoryRecordList[
+                                                                          rowIndex];
+                                                                  return Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      rowCategoryRecord
+                                                                          .icon!,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'fa',
+                                                                            fontSize:
+                                                                                25.0,
+                                                                            useGoogleFonts:
+                                                                                false,
+                                                                          ),
+                                                                    ),
+                                                                  );
+                                                                }),
                                                               ),
                                                             );
-                                                          }
-                                                          List<CategoryRecord>
-                                                              rowCategoryRecordList =
-                                                              snapshot.data!;
-                                                          return SingleChildScrollView(
-                                                            scrollDirection:
-                                                                Axis.horizontal,
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: List.generate(
-                                                                  rowCategoryRecordList
-                                                                      .length,
-                                                                  (rowIndex) {
-                                                                final rowCategoryRecord =
-                                                                    rowCategoryRecordList[
-                                                                        rowIndex];
-                                                                return Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    rowCategoryRecord
-                                                                        .icon!,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'fa',
-                                                                          fontSize:
-                                                                              25.0,
-                                                                          useGoogleFonts:
-                                                                              false,
-                                                                        ),
-                                                                  ),
-                                                                );
-                                                              }),
-                                                            ),
-                                                          );
-                                                        },
+                                                          },
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -1295,109 +1308,129 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               .of(context)
                                                           .secondaryBackground,
                                                     ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Align(
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  -1.0, 0.0),
-                                                          child: Padding(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  5.0,
+                                                                  0.0,
+                                                                  5.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    -1.0, 0.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          5.0,
+                                                                          5.0,
+                                                                          5.0),
+                                                              child: Text(
+                                                                rowChatsRecord
+                                                                    .name!,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         5.0,
-                                                                        5.0,
-                                                                        5.0,
-                                                                        5.0),
-                                                            child: Text(
-                                                              rowChatsRecord
-                                                                  .name!,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        StreamBuilder<
-                                                            List<
-                                                                CategoryRecord>>(
-                                                          stream:
-                                                              queryCategoryRecord(
-                                                            queryBuilder: (categoryRecord) =>
-                                                                categoryRecord.whereIn(
-                                                                    'title',
-                                                                    rowChatsRecord
-                                                                        .categories!
-                                                                        .toList()),
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 50.0,
-                                                                  height: 50.0,
-                                                                  child:
-                                                                      CircularProgressIndicator(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            List<CategoryRecord>
-                                                                rowCategoryRecordList =
-                                                                snapshot.data!;
-                                                            return Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: List.generate(
-                                                                  rowCategoryRecordList
-                                                                      .length,
-                                                                  (rowIndex) {
-                                                                final rowCategoryRecord =
-                                                                    rowCategoryRecordList[
-                                                                        rowIndex];
-                                                                return Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: StreamBuilder<
+                                                                List<
+                                                                    CategoryRecord>>(
+                                                              stream:
+                                                                  queryCategoryRecord(
+                                                                queryBuilder: (categoryRecord) =>
+                                                                    categoryRecord.whereIn(
+                                                                        'title',
+                                                                        rowChatsRecord
+                                                                            .categories!
+                                                                            .toList()),
+                                                              ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                List<CategoryRecord>
+                                                                    rowCategoryRecordList =
+                                                                    snapshot
+                                                                        .data!;
+                                                                return Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: List.generate(
+                                                                      rowCategoryRecordList
+                                                                          .length,
+                                                                      (rowIndex) {
+                                                                    final rowCategoryRecord =
+                                                                        rowCategoryRecordList[
+                                                                            rowIndex];
+                                                                    return Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           5.0,
                                                                           0.0),
-                                                                  child: Text(
-                                                                    rowCategoryRecord
-                                                                        .icon!,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'fa',
-                                                                          fontSize:
-                                                                              25.0,
-                                                                          useGoogleFonts:
-                                                                              false,
-                                                                        ),
-                                                                  ),
+                                                                      child:
+                                                                          Text(
+                                                                        rowCategoryRecord
+                                                                            .icon!,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'fa',
+                                                                              fontSize: 25.0,
+                                                                              useGoogleFonts: false,
+                                                                            ),
+                                                                      ),
+                                                                    );
+                                                                  }),
                                                                 );
-                                                              }),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ],
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),

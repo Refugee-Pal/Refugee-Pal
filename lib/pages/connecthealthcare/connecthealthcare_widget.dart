@@ -1072,7 +1072,7 @@ class _ConnecthealthcareWidgetState extends State<ConnecthealthcareWidget> {
                                                     ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .headlineLarge
+                                                        .headlineSmall
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           fontWeight:
