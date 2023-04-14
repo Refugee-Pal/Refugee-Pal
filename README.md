@@ -25,19 +25,15 @@ Refugee Pal is designed to be easy to use and navigate, with numerous accessibil
 
 ## 💬 Connect: A Set of Communication Based Features
 The connect dashboard of our app brings refugees a set of communication based features. It also consists of the healthcare professionals directory feature, where they can find doctors, psychologists, and therapists that speak their language. 
-### 📞 Connect with Settlement Workers 
+### 📞 Connect with Helpers
 
-This feature allows refugees to connect with settlement workers through chat, call, and video call. Settlement workers can view information on a refugee's profile, including their refugee status, date of arrival to Canada, and country of origin, to save time when helping refugees.
-
-### 👥 Connect with Community 
-
-This feature enables refugees to chat with community groups separated by country of origin, ethnicity, and religion. This feature will help refugees connect with others who share similar experiences and promote integration into British Columbia and Canada.
+This feature allows refugees to connect with settlement workers, case managers, mentors and other helpers through chat, group chat and video call. Settlement workers can view information on a refugee's profile, including their refugee status, date of arrival to Canada, and country of origin, to save time when helping refugees.
 
 ### 💬 Q&A Chat Threads
 
 The Q&A feature that allows refugees to post questions within different forums separated in the same categories as the digital resource hub and map feature. Settlement workers or other qualified professionals can reply to their questions, providing refugees with answers to their questions.
 
-### 🧪 Links for Science Fair
+## 🧪 Links for Science Fair
 
 ProjectBoard projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees
 
