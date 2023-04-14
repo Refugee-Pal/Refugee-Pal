@@ -197,11 +197,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'settingsAccInfoCopy',
           path: '/settingsProfileCopy2',
           builder: (context, params) => SettingsAccInfoCopyWidget(),
-        ),
-        FFRoute(
-          name: 'misc',
-          path: '/misc',
-          builder: (context, params) => MiscWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
