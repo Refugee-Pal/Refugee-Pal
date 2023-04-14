@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -120,12 +121,13 @@ class _InteractivemapWidgetState extends State<InteractivemapWidget> {
             elevation: 8.0,
             child: Text(
               FFLocalizations.of(context).getText(
-                'dzpdz508' /* X */,
+                'dzpdz508' /* x */,
               ),
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
+              style: FlutterFlowTheme.of(context).titleMedium.override(
                     fontFamily: 'fa',
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    fontSize: 25.0,
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.normal,
                     useGoogleFonts: false,
                   ),
             ),
@@ -518,13 +520,17 @@ class _InteractivemapWidgetState extends State<InteractivemapWidget> {
                                                               ),
                                                         ),
                                                       ),
-                                                      Text(
+                                                      AutoSizeText(
                                                         columnCategoryRecord
                                                             .title!,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleLarge,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .titleLarge
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              fontSize: 19.0,
+                                                            ),
                                                       ),
                                                     ],
                                                   ),
