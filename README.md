@@ -9,11 +9,11 @@ Furthermore, Refugee Pal's backend infrastructure is built on Firebase, a secure
 
 [Logbook for SFRSF Judges](https://github.com/AliSoufi42/refugeepal/blob/main/logbook.md)
 
-[ProjectBoard](projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees)
+[ProjectBoard](https://projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees)
 
-[Web app version](github.com/chubbiloo/Refugee-Pal)
+[Repository for web app version](https://github.com/chubbiloo/Refugee-Pal)
 
-[Video](youtube.com/watch?v=Vx1OtWmFCNI)
+[Video](https://youtube.com/watch?v=Vx1OtWmFCNI)
 
 # 🖥️ Our Features
 
