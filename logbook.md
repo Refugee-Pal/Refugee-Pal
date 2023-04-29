@@ -1,4 +1,69 @@
-# 🗓️ 2023-03-07: Week 1
+# 💻 Resources and Software Utilized
+Because this project was completely digital, our materials solely consisted of software
+
+🛠️ FlutterFlow No Code and FlutterFlow Documentation
+
+### 🔨 FlutterFlow
+![image](https://user-images.githubusercontent.com/123277428/235285465-d9183e8c-845a-4baf-9659-5dc79e68a06b.png)
+
+FlutterFlow's visual drag-and-drop interface and library of components helped us accelerate the development process of Refugee Pal by automatically generating Flutter/Dart code, which we could easily export. We chose FlutterFlow for its unique features, including source code exporting, Github integration, easy Firebase backend setup, compatibility with multiple operating systems, and extensive library of components. Additionally, the platform's comprehensive documentation, with step-by-step tutorials and video guides, made it easy to build out our app's features.
+
+### 🚀 Firebase and Firebase Documentation
+![image](https://user-images.githubusercontent.com/123277428/235285477-0ac5b4d7-aac1-44fc-ac97-0333e7edbc29.png)
+
+Firebase is a backend and database platform by Google that provides a comprehensive set of tools to help build and manage apps. We used it to implement user authentication, cloud messaging, and our firestore realtime database. Firebase alllowed us to manage complex database infastructure without having to worry about backend maintenance and other drawbacks.
+
+### 🎨 Figma
+![image](https://user-images.githubusercontent.com/123277428/235285588-d3965ffc-035c-4874-9f19-96e2f295e111.png)
+
+Figma is a design platform which we used for many purposes. We used Figma to brainstorm features, structuring the database, and much more. Additionally, we created wireframe sketches which is an essential mockup of the app design and UI before going into the actual app development.
+
+### 📱Flutter Framework
+![image](https://user-images.githubusercontent.com/123277428/235285502-9925d383-0396-4df5-bcc9-4f7cc8c7a6a2.png)
+
+Despite the power and flexibility of the no code builder FlutterFlow, we encountered certain complexities during the development of Refugee Pal that required custom code widgets and functions. To address these challenges, we leveraged the versatile Flutter framework, which enabled us to integrate these custom elements seamlessly into the app's architecture.
+
+### 🛠️ Xcode
+![image](https://user-images.githubusercontent.com/123277428/235285568-1abfa306-df18-4fbb-b4fb-41f301d9941b.png)
+
+We utilized the Flutter framework to test Refugee Pal on Xcode, Apple's integrated development environment (IDE) for iOS. This enabled us to ensure that the app functioned seamlessly on iOS devices and delivered the best possible user experience to our target audience. With Flutter, we were able to take advantage of Xcode's advanced debugging and testing tools to ensure that the app was free of any issues that could compromise its functionality.
+
+### 🤖 Android Studio
+![image](https://user-images.githubusercontent.com/123277428/235285543-bd4e91da-deba-445c-8c87-8415198b7af4.png)
+
+We also used the Flutter framework to test Refugee Pal on Android Studio, Google's integrated development environment (IDE) for Android. This allowed us to ensure that the app worked flawlessly on a wide range of Android devices, providing an exceptional user experience across different screen sizes, resolutions, and performance levels. Flutter's integration with Android Studio enabled us to leverage its powerful testing and debugging tools to detect and resolve any issues that could affect the app's functionality.
+
+# 👨‍💻 Mobile App Development with FlutterFlow and Firebase
+
+### Firestore
+
+We stored a majority of our data in a NoSQL database, which refers to a non-relational database, organized into different collections with schemas and documents, such as locations for the interactive map, the information for all of our categories in the digital resource hub, healthcare professionals and their information, as well as user information which can be used to personalize the app.
+
+![image](https://user-images.githubusercontent.com/123277428/235285672-aafe6180-60a3-4191-82b0-105f8f40d411.png)
+
+### Firebase User Authentication
+
+We used the user authentication service provided by firebase which allows users to sign in and signup with their email or use social accounts, with email verification and forgot password availability.
+
+![image](https://user-images.githubusercontent.com/123277428/235285684-6f606f97-2f49-4a52-ac4f-ffa4ec78fbf1.png)
+
+### FlutterFlow Drag and Drop UI/UX and component library
+
+To create the visuals and pages of the actual app, we utilized the component library available in FlutterFlow, which are sorted into layout, base, page, and form elements. To the right side of the scren, you can edit the properties of different elements on the page, connect to the database through a backend query and add actions.
+
+![image](https://user-images.githubusercontent.com/123277428/235285691-bc885789-6559-4276-9b55-01f3912b1a97.png)
+
+### Actions and complex functions on FlutterFlow
+
+FlutterFlow lets you add a variety of different complex functions and actions which we used include navigation, backend/database connection, and UI interactions all of which we utilized to implement the functions of our features.
+
+### Backend Query and Query Collections on Firestore
+
+In order to display data from our database, whether it be search or firestore, we use backend queries. Query collections let us display specific data from the database by applying filters and sorting options. These queries can be used to search for documents from collections based on specific conditions. This was utilized across all parts of the app.
+
+![image](https://user-images.githubusercontent.com/123277428/235285708-f00fcd26-7e3f-4277-aaff-bc66aa105032.png)
+
+# 🗓️ 2023-03-07: Week 1
 
 ### Researching No Code and Backend
 
