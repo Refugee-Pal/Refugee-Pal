@@ -5,7 +5,15 @@ The app is developed using the Dart programming language and the Flutter framewo
 
 Furthermore, Refugee Pal's backend infrastructure is built on Firebase, a secure and reliable cloud-based platform that allows us to manage and store data with ease. With its cutting-edge technology and robust features, Firebase ensures that the app functions smoothly and efficiently, providing a seamless experience for our users.
 
-### [Logbook for SFRSF Judges](https://github.com/AliSoufi42/refugeepal/blob/main/logbook.md)
+# 🧪 Links for Science Fair
+
+[Logbook for SFRSF Judges](https://github.com/AliSoufi42/refugeepal/blob/main/logbook.md)
+
+[ProjectBoard](https://projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees)
+
+[Repository for web app version](https://github.com/chubbiloo/Refugee-Pal)
+
+[Video](https://youtube.com/watch?v=Vx1OtWmFCNI)
 
 # 🖥️ Our Features
 
@@ -33,11 +41,4 @@ This feature allows refugees to connect with settlement workers, case managers, 
 
 The Q&A feature that allows refugees to post questions within different forums separated in the same categories as the digital resource hub and map feature. Settlement workers or other qualified professionals can reply to their questions, providing refugees with answers to their questions.
 
-## 🧪 Links for Science Fair
-
-ProjectBoard projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees
-
-Old repository (web app) github.com/chubbiloo/Refugee-Pal
-
-Video youtube.com/watch?v=Vx1OtWmFCNI
 
