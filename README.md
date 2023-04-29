@@ -7,13 +7,13 @@ Furthermore, Refugee Pal's backend infrastructure is built on Firebase, a secure
 
 # 🧪 Links for Science Fair
 
-[Logbook for SFRSF Judges](https://github.com/AliSoufi42/refugeepal/blob/main/logbook.md)
+### [Logbook for CWSF Judges and Viewers](https://github.com/AliSoufi42/refugeepal/blob/main/logbook.md)
 
-[ProjectBoard](https://projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees)
+### [ProjectBoard](https://projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees)
 
-[Repository for web app version](https://github.com/chubbiloo/Refugee-Pal)
+### [Repository for web app version](https://github.com/chubbiloo/Refugee-Pal)
 
-[Video](https://youtube.com/watch?v=Vx1OtWmFCNI)
+### [Video](https://youtube.com/watch?v=Vx1OtWmFCNI)
 
 # 🖥️ Our Features
 
