@@ -115,7 +115,7 @@ After reading the FlutterFlow documents and watching a couple tutorials, i reali
 
 ### Figuring out how to Filter Displayed Information from Database in Digital Resource Hub Pages
 
-The other issue was how I would filter the subcategories and resourceproviders being displayed in the page. All the subcategories of every category are in one document, and when making a backend query i only wanted to display data which was specific to its category. I got some help from Antony to set up a dedicated sub-page which would pass the category and subcategory into the page which displayed subcategories and resource providers. By the end of today, however, I had finally completed the digital resource hub.
+Ali: The other issue was how I would filter the subcategories and resourceproviders being displayed in the page. All the subcategories of every category are in one document, and when making a backend query i only wanted to display data which was specific to its category. I got some help from Antony to set up a dedicated sub-page which would pass the category and subcategory into the page which displayed subcategories and resource providers. By the end of today, however, I had finally completed the digital resource hub.
 
 ### Antony Finished App Mockup Wireframe
 
@@ -173,11 +173,11 @@ Ali: We were able to run the app on test mode using Flutterflow. However, we had
 
 ### Installing Flutter and Encountering Issues with Pod Installation and Outdated Ruby
 
-Ali: Once i had installed flutter, i had to figure out how to run the app. So through the terminal, I tried going to our refugee pal folder, and running the command “Flutter run”. However, i encountered a bug which was saying that pods needed to be installed. Since our app is using firestore which is like a plugin, we have to install something called cocoapods. However, when i was trying to install cocoapods i realized it wasnt working because the ruby version on my mac laptop was out of date. I had to install homebrew and then install the most up to date version of ruby through the command line, which was 3.2.2 when my laptop had 2.6.
+Ali: Once i had installed flutter, i had to figure out how to run the app. So through the terminal, I tried going to our refugee pal folder, and running the command “Flutter run”. However, I encountered a bug which was saying that pods needed to be installed. Since our app is using firestore which is like a plugin, we have to install something called CocoaPods. However, when I was trying to install CocoaPods I realized it wasnt working because the Ruby version on my Macbook was out of date. I had to install homebrew and then install the most up to date version of Ruby through the command line, which was 3.2.2 when my laptop had 2.6.
 
 ### Successfully Running the App on iOS Simulator and iPhone!
 
-Ali: Finally, i was able to successfully run the app on an iOS simulator using Xcode and also on the web. Now i had to figure out how to run it on my phone. I connected my phone with a cable and tried running. I just had to select which device i wanted to run it on through the command line and change some settings on my phone,and then BAM! It had refugee pal on my iphone. I also changed some things in the pubspec file so that we also had an app icon.
+Ali: Finally, I was able to successfully run the app on an iOS simulator using Xcode and also on the web. Now I had to figure out how to run it on my phone. I connected my phone with a cable and tried running. I just had to select which device i wanted to run it on through the command line and change some settings on my phone,and then BAM! It had refugee pal on my iphone. I also changed some things in the pubspec file so that we also had an app icon.
 
 ### Preparing for Regionals
 
