@@ -38,6 +38,8 @@ class _SettingsNotifsWidgetState extends State<SettingsNotifsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -74,12 +76,6 @@ class _SettingsNotifsWidgetState extends State<SettingsNotifsWidget> {
           actions: [],
           centerTitle: false,
           elevation: 2.0,
-        ),
-        body: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [],
-          ),
         ),
       ),
     );

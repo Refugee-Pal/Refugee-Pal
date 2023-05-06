@@ -35,6 +35,14 @@ class _$ProfessionsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.translated;
+    if (value != null) {
+      result
+        ..add('translated')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -66,6 +74,12 @@ class _$ProfessionsRecordSerializer
           result.icon = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'translated':
+          result.translated.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -85,13 +99,16 @@ class _$ProfessionsRecord extends ProfessionsRecord {
   @override
   final String? icon;
   @override
+  final BuiltList<String>? translated;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ProfessionsRecord(
           [void Function(ProfessionsRecordBuilder)? updates]) =>
       (new ProfessionsRecordBuilder()..update(updates))._build();
 
-  _$ProfessionsRecord._({this.name, this.icon, this.ffRef}) : super._();
+  _$ProfessionsRecord._({this.name, this.icon, this.translated, this.ffRef})
+      : super._();
 
   @override
   ProfessionsRecord rebuild(void Function(ProfessionsRecordBuilder) updates) =>
@@ -107,6 +124,7 @@ class _$ProfessionsRecord extends ProfessionsRecord {
     return other is ProfessionsRecord &&
         name == other.name &&
         icon == other.icon &&
+        translated == other.translated &&
         ffRef == other.ffRef;
   }
 
@@ -115,6 +133,7 @@ class _$ProfessionsRecord extends ProfessionsRecord {
     var _$hash = 0;
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, icon.hashCode);
+    _$hash = $jc(_$hash, translated.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -125,6 +144,7 @@ class _$ProfessionsRecord extends ProfessionsRecord {
     return (newBuiltValueToStringHelper(r'ProfessionsRecord')
           ..add('name', name)
           ..add('icon', icon)
+          ..add('translated', translated)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -142,6 +162,12 @@ class ProfessionsRecordBuilder
   String? get icon => _$this._icon;
   set icon(String? icon) => _$this._icon = icon;
 
+  ListBuilder<String>? _translated;
+  ListBuilder<String> get translated =>
+      _$this._translated ??= new ListBuilder<String>();
+  set translated(ListBuilder<String>? translated) =>
+      _$this._translated = translated;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -155,6 +181,7 @@ class ProfessionsRecordBuilder
     if ($v != null) {
       _name = $v.name;
       _icon = $v.icon;
+      _translated = $v.translated?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -176,8 +203,25 @@ class ProfessionsRecordBuilder
   ProfessionsRecord build() => _build();
 
   _$ProfessionsRecord _build() {
-    final _$result =
-        _$v ?? new _$ProfessionsRecord._(name: name, icon: icon, ffRef: ffRef);
+    _$ProfessionsRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$ProfessionsRecord._(
+              name: name,
+              icon: icon,
+              translated: _translated?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'translated';
+        _translated?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'ProfessionsRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

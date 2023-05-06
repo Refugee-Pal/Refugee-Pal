@@ -40,9 +40,11 @@ class _NewSheetWidgetState extends State<NewSheetWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
-      height: 270.0,
+      height: 290.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         boxShadow: [
@@ -55,14 +57,15 @@ class _NewSheetWidgetState extends State<NewSheetWidget> {
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
+          topLeft: Radius.circular(40.0),
+          topRight: Radius.circular(40.0),
         ),
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FFButtonWidget(
               onPressed: () async {
@@ -85,7 +88,7 @@ class _NewSheetWidgetState extends State<NewSheetWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
                   Navigator.pop(context, [false, true]);
@@ -109,7 +112,7 @@ class _NewSheetWidgetState extends State<NewSheetWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
                   Navigator.pop(context, [false, false]);

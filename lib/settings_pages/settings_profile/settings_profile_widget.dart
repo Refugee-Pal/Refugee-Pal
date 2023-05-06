@@ -51,6 +51,8 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -95,7 +97,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 50.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 60.0),
                   child: Text(
                     FFLocalizations.of(context).getText(
                       'kpuybiho' /* Profile */,
@@ -107,7 +109,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -115,8 +117,8 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                         child: Container(
-                          width: 120.0,
-                          height: 120.0,
+                          width: 130.0,
+                          height: 130.0,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -135,9 +137,13 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                             EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 0.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderColor: Colors.transparent,
-                          borderRadius: 60.0,
+                          borderRadius: 65.0,
                           borderWidth: 1.0,
-                          buttonSize: 120.0,
+                          buttonSize: 130.0,
+                          fillColor:
+                              FlutterFlowTheme.of(context).primaryBackground,
+                          hoverColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           icon: Icon(
                             Icons.edit_rounded,
                             color: FlutterFlowTheme.of(context).primaryText,
@@ -163,6 +169,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                                           bytes: m.bytes,
                                           height: m.dimensions?.height,
                                           width: m.dimensions?.width,
+                                          blurHash: m.blurHash,
                                         ))
                                     .toList();
 
@@ -224,28 +231,28 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                           color: Color(0xFFDBE2E7),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(25.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(25.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(25.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(25.0),
                       ),
                       filled: true,
                       fillColor: Colors.white,
@@ -259,7 +266,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: AuthUserStreamWidget(
                     builder: (context) => TextFormField(
                       controller: _model.emailAddressController2,
@@ -287,28 +294,28 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                             color: Color(0xFFDBE2E7),
                             width: 2.0,
                           ),
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(25.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 2.0,
                           ),
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(25.0),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 2.0,
                           ),
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(25.0),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 2.0,
                           ),
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(25.0),
                         ),
                         filled: true,
                         fillColor: Colors.white,
@@ -323,7 +330,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       final userUpdateData1 = createUserRecordData(
@@ -343,7 +350,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                       '5hzuxhex' /* Save Changes */,
                     ),
                     options: FFButtonOptions(
-                      width: 225.0,
+                      width: 235.0,
                       height: 60.0,
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
@@ -356,6 +363,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                               ),
+                      elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,

@@ -42,6 +42,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -122,7 +124,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -153,7 +154,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -184,7 +184,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -215,7 +214,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -260,7 +258,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ),
                     icon: Icon(
                       Icons.logout,
-                      size: 15.0,
+                      size: 30.0,
                     ),
                     options: FFButtonOptions(
                       width: 200.0,

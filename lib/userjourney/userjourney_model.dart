@@ -1,9 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,6 +20,9 @@ class UserjourneyModel extends FlutterFlowModel {
 
   // State field(s) for PageView widget.
   PageController? pageViewController;
+  // State field(s) for DropDown widget.
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
   // State field(s) for SwitchListTile widget.
   bool? switchListTileValue;
   // State field(s) for CheckboxListTile widget.

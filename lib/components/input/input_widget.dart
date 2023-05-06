@@ -1,12 +1,8 @@
-import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:text_search/text_search.dart';
 import 'input_model.dart';
 export 'input_model.dart';
 
@@ -51,6 +47,8 @@ class _InputWidgetState extends State<InputWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Stack(
@@ -110,47 +108,6 @@ class _InputWidgetState extends State<InputWidget> {
             validator:
                 _model.emailAddressControllerValidator.asValidator(context),
           ),
-          if (widget.inputname == 'Search...')
-            Align(
-              alignment: AlignmentDirectional(1.0, 0.0),
-              child: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30.0,
-                borderWidth: 1.0,
-                buttonSize: 60.0,
-                icon: FaIcon(
-                  FontAwesomeIcons.search,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 30.0,
-                ),
-                onPressed: () async {
-                  await queryLocationsRecordOnce()
-                      .then(
-                        (records) => _model.simpleSearchResults = TextSearch(
-                          records
-                              .map(
-                                (record) =>
-                                    TextSearchItem(record, [record.name!]),
-                              )
-                              .toList(),
-                        )
-                            .search(_model.emailAddressController.text)
-                            .map((r) => r.object)
-                            .toList(),
-                      )
-                      .onError((_, __) => _model.simpleSearchResults = [])
-                      .whenComplete(() => setState(() {}));
-
-                  setState(() {
-                    _model.searchResults = _model.simpleSearchResults
-                        .map((e) => e.name)
-                        .withoutNulls
-                        .toList();
-                  });
-                  await widget.callBack?.call();
-                },
-              ),
-            ),
         ],
       ),
     );

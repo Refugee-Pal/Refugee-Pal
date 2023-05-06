@@ -24,9 +24,36 @@
 		<string>fr</string>
 		<string>zh_Hans</string>
 		<string>tr</string>
-		<string>my</string>
 		<string>ps</string>
 		<string>es</string>
+		<string>ti</string>
+		<string>zh_Hant</string>
+		<string>sw</string>
+		<string>am</string>
+		<string>ru</string>
+		<string>ur</string>
+		<string>om</string>
+		<string>ln</string>
+		<string>uz</string>
+		<string>bn</string>
+		<string>hi</string>
+		<string>pa</string>
+		<string>tl</string>
+		<string>ta</string>
+		<string>si</string>
+		<string>pt</string>
+		<string>ko</string>
+		<string>id</string>
+		<string>my</string>
+		<string>qu</string>
+		<string>ja</string>
+		<string>it</string>
+		<string>pl</string>
+		<string>be</string>
+		<string>ro</string>
+		<string>vi</string>
+		<string>gu</string>
+		<string>he</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>RefugeePal</string>
@@ -66,6 +93,8 @@
 
 	<key>NSCameraUsageDescription</key>
     <string>In order to take a picture or video, this app requires permission to access the camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>In order to record audio for video, this app requires permission to access the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>In order to upload data, this app requires permission to access the photo library.</string>
 

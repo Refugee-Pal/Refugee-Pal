@@ -68,5 +68,31 @@ service cloud.firestore {
       allow read: if true;
     }
 
+
+    match /languages/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /organizations/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /locations/{parent}/programs/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/programs/{document} {
+      allow read: if true;
+    }
+
   }
 }

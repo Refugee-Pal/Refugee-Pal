@@ -44,6 +44,8 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -82,290 +84,431 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
           elevation: 2.0,
         ),
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 50.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        '62c6fehh' /* Personal Info */,
-                      ),
-                      style:
-                          FlutterFlowTheme.of(context).headlineLarge.override(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 60.0, 0.0, 50.0),
+                        child: Text(
+                          FFLocalizations.of(context).getText(
+                            '62c6fehh' /* Personal Info */,
+                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .override(
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w600,
                               ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
-                    child: AuthUserStreamWidget(
-                      builder: (context) => FlutterFlowDropDown<String>(
-                        controller: _model.dropDownValueController1 ??=
-                            FormFieldController<String>(
-                          _model.dropDownValue1 ??= valueOrDefault(
-                              currentUserDocument?.refugeeStatus, ''),
                         ),
-                        options: [
-                          FFLocalizations.of(context).getText(
-                            'hiinjdvx' /* Government Assisted (GAR) */,
-                          ),
-                          FFLocalizations.of(context).getText(
-                            '2wxov0vd' /* Private Sponsored (PSR) */,
-                          ),
-                          FFLocalizations.of(context).getText(
-                            '4vtiyluh' /* Blended Visa (BVOR) */,
-                          ),
-                          FFLocalizations.of(context).getText(
-                            '5fj02fub' /* Refugee Claimant */,
-                          )
-                        ],
-                        onChanged: (val) =>
-                            setState(() => _model.dropDownValue1 = val),
-                        width: double.infinity,
-                        height: 50.0,
-                        searchHintTextStyle:
-                            FlutterFlowTheme.of(context).labelLarge,
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Inter',
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                        hintText: FFLocalizations.of(context).getText(
-                          'hf6zfi4z' /* Refugee Status */,
-                        ),
-                        searchHintText: '',
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        elevation: 2.0,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0.0,
-                        borderRadius: 0.0,
-                        margin: EdgeInsetsDirectional.fromSTEB(
-                            12.0, 4.0, 12.0, 4.0),
-                        hidesUnderline: true,
-                        isSearchable: false,
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
-                    child: AuthUserStreamWidget(
-                      builder: (context) => FlutterFlowDropDown<String>(
-                        controller: _model.dropDownValueController2 ??=
-                            FormFieldController<String>(
-                          _model.dropDownValue2 ??=
-                              valueOrDefault(currentUserDocument?.language, ''),
-                        ),
-                        options: [
-                          FFLocalizations.of(context).getText(
-                            'hpnw8yu4' /* English */,
-                          ),
-                          FFLocalizations.of(context).getText(
-                            'd04pzwmc' /* Farsi */,
-                          ),
-                          FFLocalizations.of(context).getText(
-                            'b6jpewfb' /* Pashto */,
-                          ),
-                          FFLocalizations.of(context).getText(
-                            'qp75pzrn' /* Arabic */,
-                          ),
-                          FFLocalizations.of(context).getText(
-                            'm0n2i0eo' /* Ukrainian */,
-                          )
-                        ],
-                        onChanged: (val) =>
-                            setState(() => _model.dropDownValue2 = val),
-                        width: double.infinity,
-                        height: 50.0,
-                        searchHintTextStyle:
-                            FlutterFlowTheme.of(context).labelLarge,
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Inter',
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                        hintText: FFLocalizations.of(context).getText(
-                          '4vawf6sw' /* Language */,
-                        ),
-                        searchHintText: '',
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        elevation: 2.0,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0.0,
-                        borderRadius: 0.0,
-                        margin: EdgeInsetsDirectional.fromSTEB(
-                            12.0, 4.0, 12.0, 4.0),
-                        hidesUnderline: true,
-                        isSearchable: false,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
-                    child: SwitchListTile.adaptive(
-                      value: _model.switchListTileValue ??= true,
-                      onChanged: (newValue) async {
-                        setState(() => _model.switchListTileValue = newValue!);
-                      },
-                      title: Text(
-                        FFLocalizations.of(context).getText(
-                          'fes6rmrc' /* Translate the app for me */,
-                        ),
-                        style: FlutterFlowTheme.of(context).titleLarge.override(
-                              fontFamily: 'Inter',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 18.0,
-                            ),
-                      ),
-                      tileColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      dense: false,
-                      controlAffinity: ListTileControlAffinity.trailing,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 10.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'ppkdvsq2' /* Main Challenges */,
-                      ),
-                      style: FlutterFlowTheme.of(context).titleMedium,
-                    ),
-                  ),
-                  FutureBuilder<List<CategoryRecord>>(
-                    future: queryCategoryRecordOnce(),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        );
-                      }
-                      List<CategoryRecord> listViewCategoryRecordList =
-                          snapshot.data!;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewCategoryRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewCategoryRecord =
-                              listViewCategoryRecordList[listViewIndex];
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
+                      if (valueOrDefault<bool>(
+                          currentUserDocument?.isRefugee, false))
+                        Align(
+                          alignment: AlignmentDirectional(-0.95, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 5.0),
                             child: AuthUserStreamWidget(
-                              builder: (context) => Theme(
-                                data: ThemeData(
-                                  checkboxTheme: CheckboxThemeData(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                  ),
-                                  unselectedWidgetColor:
-                                      FlutterFlowTheme.of(context).accent2,
+                              builder: (context) => Text(
+                                FFLocalizations.of(context).getText(
+                                  '1qcbh8zd' /* Refugee status */,
                                 ),
-                                child: CheckboxListTile(
-                                  value: _model.checkboxListTileValueMap[
-                                          listViewCategoryRecord] ??=
-                                      (currentUserDocument?.areasOfInterest
-                                                  ?.toList() ??
-                                              [])
-                                          .contains(
-                                              listViewCategoryRecord.title),
-                                  onChanged: (newValue) async {
-                                    setState(() => _model
-                                            .checkboxListTileValueMap[
-                                        listViewCategoryRecord] = newValue!);
-                                  },
-                                  title: Text(
-                                    listViewCategoryRecord.title!,
-                                    style:
-                                        FlutterFlowTheme.of(context).titleLarge,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  activeColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  dense: false,
-                                  controlAffinity:
-                                      ListTileControlAffinity.trailing,
-                                ),
+                                style: FlutterFlowTheme.of(context).bodySmall,
                               ),
                             ),
+                          ),
+                        ),
+                      if (valueOrDefault<bool>(
+                          currentUserDocument?.isRefugee, false))
+                        AuthUserStreamWidget(
+                          builder: (context) => FlutterFlowDropDown<String>(
+                            controller: _model.dropDownValueController1 ??=
+                                FormFieldController<String>(
+                              _model.dropDownValue1 ??= valueOrDefault(
+                                  currentUserDocument?.refugeeStatus, ''),
+                            ),
+                            options: [
+                              FFLocalizations.of(context).getText(
+                                'hiinjdvx' /* Government Assisted (GAR) */,
+                              ),
+                              FFLocalizations.of(context).getText(
+                                '2wxov0vd' /* Private Sponsored (PSR) */,
+                              ),
+                              FFLocalizations.of(context).getText(
+                                '4vtiyluh' /* Blended Visa (BVOR) */,
+                              ),
+                              FFLocalizations.of(context).getText(
+                                '5fj02fub' /* Refugee Claimant */,
+                              )
+                            ],
+                            onChanged: (val) =>
+                                setState(() => _model.dropDownValue1 = val),
+                            width: double.infinity,
+                            height: 50.0,
+                            searchHintTextStyle:
+                                FlutterFlowTheme.of(context).labelLarge,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                            hintText: FFLocalizations.of(context).getText(
+                              'hf6zfi4z' /* Refugee Status */,
+                            ),
+                            searchHintText: '',
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            elevation: 2.0,
+                            borderColor: Colors.transparent,
+                            borderWidth: 0.0,
+                            borderRadius: 0.0,
+                            margin: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 4.0, 12.0, 4.0),
+                            hidesUnderline: true,
+                            isSearchable: false,
+                          ),
+                        ),
+                      if (!valueOrDefault<bool>(
+                          currentUserDocument?.isRefugee, false))
+                        Align(
+                          alignment: AlignmentDirectional(-0.95, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
+                            child: AuthUserStreamWidget(
+                              builder: (context) => Text(
+                                FFLocalizations.of(context).getText(
+                                  'qx5mmau9' /* Area of expertise */,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodySmall,
+                              ),
+                            ),
+                          ),
+                        ),
+                      if (!valueOrDefault<bool>(
+                          currentUserDocument?.isRefugee, false))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 5.0, 0.0, 0.0),
+                          child: AuthUserStreamWidget(
+                            builder: (context) => FlutterFlowDropDown<String>(
+                              controller: _model.dropDownValueController2 ??=
+                                  FormFieldController<String>(
+                                _model.dropDownValue2 ??=
+                                    currentUserDisplayName,
+                              ),
+                              options: [
+                                FFLocalizations.of(context).getText(
+                                  'zjkaov6a' /* Government Assisted (GAR) */,
+                                ),
+                                FFLocalizations.of(context).getText(
+                                  '62oc4av1' /* Private Sponsored (PSR) */,
+                                ),
+                                FFLocalizations.of(context).getText(
+                                  'ql1ldg46' /* Blended Visa (BVOR) */,
+                                ),
+                                FFLocalizations.of(context).getText(
+                                  'jvjbwde3' /* Refugee Claimant */,
+                                )
+                              ],
+                              onChanged: (val) =>
+                                  setState(() => _model.dropDownValue2 = val),
+                              width: double.infinity,
+                              height: 50.0,
+                              searchHintTextStyle:
+                                  FlutterFlowTheme.of(context).labelLarge,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                              hintText: FFLocalizations.of(context).getText(
+                                'djm1uvc7' /* Area of expertise */,
+                              ),
+                              searchHintText: '',
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              elevation: 2.0,
+                              borderColor: Colors.transparent,
+                              borderWidth: 0.0,
+                              borderRadius: 0.0,
+                              margin: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 4.0, 12.0, 4.0),
+                              hidesUnderline: true,
+                              isSearchable: false,
+                            ),
+                          ),
+                        ),
+                      if (valueOrDefault<bool>(
+                          currentUserDocument?.isRefugee, false))
+                        Align(
+                          alignment: AlignmentDirectional(-0.95, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
+                            child: AuthUserStreamWidget(
+                              builder: (context) => Text(
+                                FFLocalizations.of(context).getText(
+                                  'yhkpimsd' /* Language */,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodySmall,
+                              ),
+                            ),
+                          ),
+                        ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                        child: AuthUserStreamWidget(
+                          builder: (context) => FlutterFlowDropDown<String>(
+                            controller: _model.dropDownValueController3 ??=
+                                FormFieldController<String>(
+                              _model.dropDownValue3 ??= valueOrDefault(
+                                  currentUserDocument?.language, ''),
+                            ),
+                            options: [
+                              FFLocalizations.of(context).getText(
+                                'hpnw8yu4' /* English */,
+                              ),
+                              FFLocalizations.of(context).getText(
+                                'd04pzwmc' /* Farsi */,
+                              ),
+                              FFLocalizations.of(context).getText(
+                                'b6jpewfb' /* Pashto */,
+                              ),
+                              FFLocalizations.of(context).getText(
+                                'qp75pzrn' /* Arabic */,
+                              ),
+                              FFLocalizations.of(context).getText(
+                                'm0n2i0eo' /* Ukrainian */,
+                              )
+                            ],
+                            onChanged: (val) =>
+                                setState(() => _model.dropDownValue3 = val),
+                            width: double.infinity,
+                            height: 50.0,
+                            searchHintTextStyle:
+                                FlutterFlowTheme.of(context).labelLarge,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                            hintText: FFLocalizations.of(context).getText(
+                              '4vawf6sw' /* Language */,
+                            ),
+                            searchHintText: '',
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            elevation: 2.0,
+                            borderColor: Colors.transparent,
+                            borderWidth: 0.0,
+                            borderRadius: 0.0,
+                            margin: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 4.0, 12.0, 4.0),
+                            hidesUnderline: true,
+                            isSearchable: false,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                        child: SwitchListTile.adaptive(
+                          value: _model.switchListTileValue ??= true,
+                          onChanged: (newValue) async {
+                            setState(
+                                () => _model.switchListTileValue = newValue!);
+                          },
+                          title: Text(
+                            FFLocalizations.of(context).getText(
+                              'fes6rmrc' /* Translate the app for me */,
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .titleLarge
+                                .override(
+                                  fontFamily: 'Inter',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  fontSize: 18.0,
+                                ),
+                          ),
+                          tileColor:
+                              FlutterFlowTheme.of(context).primaryBackground,
+                          dense: false,
+                          controlAffinity: ListTileControlAffinity.trailing,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 25.0, 0.0, 10.0),
+                        child: Text(
+                          FFLocalizations.of(context).getText(
+                            'ppkdvsq2' /* Main Challenges */,
+                          ),
+                          style: FlutterFlowTheme.of(context).titleMedium,
+                        ),
+                      ),
+                      FutureBuilder<List<CategoryRecord>>(
+                        future: queryCategoryRecordOnce(),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
+                              ),
+                            );
+                          }
+                          List<CategoryRecord> listViewCategoryRecordList =
+                              snapshot.data!;
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewCategoryRecordList.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewCategoryRecord =
+                                  listViewCategoryRecordList[listViewIndex];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: AuthUserStreamWidget(
+                                  builder: (context) => Theme(
+                                    data: ThemeData(
+                                      checkboxTheme: CheckboxThemeData(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                      ),
+                                      unselectedWidgetColor:
+                                          FlutterFlowTheme.of(context).accent2,
+                                    ),
+                                    child: CheckboxListTile(
+                                      value: _model.checkboxListTileValueMap[
+                                              listViewCategoryRecord] ??=
+                                          (currentUserDocument?.areasOfInterest
+                                                      ?.toList() ??
+                                                  [])
+                                              .contains(
+                                                  listViewCategoryRecord.title),
+                                      onChanged: (newValue) async {
+                                        setState(() =>
+                                            _model.checkboxListTileValueMap[
+                                                    listViewCategoryRecord] =
+                                                newValue!);
+                                      },
+                                      title: Text(
+                                        listViewCategoryRecord.title!,
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleLarge,
+                                      ),
+                                      tileColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      activeColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      dense: false,
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 25.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        final userUpdateData = {
-                          ...createUserRecordData(
-                            language: _model.dropDownValue2,
-                            translateApp: _model.switchListTileValue,
-                            refugeeStatus: _model.dropDownValue1,
-                          ),
-                          'areasOfInterest': _model.checkboxListTileCheckedItems
-                              .map((e) => e.title)
-                              .withoutNulls
-                              .toList(),
-                        };
-                        await currentUserReference!.update(userUpdateData);
-
-                        context.pushNamed('settings');
-                      },
-                      text: FFLocalizations.of(context).getText(
-                        'iu08vel5' /* Save Changes */,
                       ),
-                      options: FFButtonOptions(
-                        width: 225.0,
-                        height: 60.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleLarge.override(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 40.0, 0.0, 40.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            if (valueOrDefault<bool>(
+                                currentUserDocument?.isRefugee, false)) {
+                              final userUpdateData1 = {
+                                ...createUserRecordData(
+                                  language: _model.dropDownValue3,
+                                  translateApp: _model.switchListTileValue,
+                                  refugeeStatus: _model.dropDownValue1,
+                                ),
+                                'areasOfInterest': _model
+                                    .checkboxListTileCheckedItems
+                                    .map((e) => e.title)
+                                    .withoutNulls
+                                    .toList(),
+                              };
+                              await currentUserReference!
+                                  .update(userUpdateData1);
+                            } else {
+                              final userUpdateData2 = {
+                                ...createUserRecordData(
+                                  language: _model.dropDownValue3,
+                                  translateApp: _model.switchListTileValue,
+                                  displayName: _model.dropDownValue2,
+                                ),
+                                'areasOfInterest': _model
+                                    .checkboxListTileCheckedItems
+                                    .map((e) => e.title)
+                                    .withoutNulls
+                                    .toList(),
+                              };
+                              await currentUserReference!
+                                  .update(userUpdateData2);
+                            }
+
+                            context.pushNamed('settings');
+                          },
+                          text: FFLocalizations.of(context).getText(
+                            'iu08vel5' /* Save Changes */,
+                          ),
+                          options: FFButtonOptions(
+                            width: 235.0,
+                            height: 60.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleLarge
+                                .override(
                                   fontFamily: 'Inter',
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                 ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                            elevation: 2.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(30.0),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

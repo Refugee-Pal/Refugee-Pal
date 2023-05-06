@@ -10,6 +10,9 @@ import 'subcategory_record.dart';
 import 'professions_record.dart';
 import 'chats_record.dart';
 import 'messages_record.dart';
+import 'languages_record.dart';
+import 'organizations_record.dart';
+import 'programs_record.dart';
 
 import 'index.dart';
 
@@ -30,6 +33,9 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   ProfessionsRecord,
   ChatsRecord,
   MessagesRecord,
+  LanguagesRecord,
+  OrganizationsRecord,
+  ProgramsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

@@ -63,6 +63,20 @@ class _$MessagesRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.imgPath;
+    if (value != null) {
+      result
+        ..add('imgPath')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.videoPath;
+    if (value != null) {
+      result
+        ..add('videoPath')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -110,6 +124,14 @@ class _$MessagesRecordSerializer
           result.isAnswer = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'imgPath':
+          result.imgPath = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'videoPath':
+          result.videoPath = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -137,6 +159,10 @@ class _$MessagesRecord extends MessagesRecord {
   @override
   final bool? isAnswer;
   @override
+  final String? imgPath;
+  @override
+  final String? videoPath;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$MessagesRecord([void Function(MessagesRecordBuilder)? updates]) =>
@@ -149,6 +175,8 @@ class _$MessagesRecord extends MessagesRecord {
       this.showName,
       this.showTime,
       this.isAnswer,
+      this.imgPath,
+      this.videoPath,
       this.ffRef})
       : super._();
 
@@ -170,6 +198,8 @@ class _$MessagesRecord extends MessagesRecord {
         showName == other.showName &&
         showTime == other.showTime &&
         isAnswer == other.isAnswer &&
+        imgPath == other.imgPath &&
+        videoPath == other.videoPath &&
         ffRef == other.ffRef;
   }
 
@@ -182,6 +212,8 @@ class _$MessagesRecord extends MessagesRecord {
     _$hash = $jc(_$hash, showName.hashCode);
     _$hash = $jc(_$hash, showTime.hashCode);
     _$hash = $jc(_$hash, isAnswer.hashCode);
+    _$hash = $jc(_$hash, imgPath.hashCode);
+    _$hash = $jc(_$hash, videoPath.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -196,6 +228,8 @@ class _$MessagesRecord extends MessagesRecord {
           ..add('showName', showName)
           ..add('showTime', showTime)
           ..add('isAnswer', isAnswer)
+          ..add('imgPath', imgPath)
+          ..add('videoPath', videoPath)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -229,6 +263,14 @@ class MessagesRecordBuilder
   bool? get isAnswer => _$this._isAnswer;
   set isAnswer(bool? isAnswer) => _$this._isAnswer = isAnswer;
 
+  String? _imgPath;
+  String? get imgPath => _$this._imgPath;
+  set imgPath(String? imgPath) => _$this._imgPath = imgPath;
+
+  String? _videoPath;
+  String? get videoPath => _$this._videoPath;
+  set videoPath(String? videoPath) => _$this._videoPath = videoPath;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -246,6 +288,8 @@ class MessagesRecordBuilder
       _showName = $v.showName;
       _showTime = $v.showTime;
       _isAnswer = $v.isAnswer;
+      _imgPath = $v.imgPath;
+      _videoPath = $v.videoPath;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -275,6 +319,8 @@ class MessagesRecordBuilder
             showName: showName,
             showTime: showTime,
             isAnswer: isAnswer,
+            imgPath: imgPath,
+            videoPath: videoPath,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

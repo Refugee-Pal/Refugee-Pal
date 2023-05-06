@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +11,6 @@ import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
@@ -23,7 +21,13 @@ void main() async {
   await FlutterFlowTheme.initialize();
   await FFLocalizations.initialize();
 
-  runApp(MyApp());
+  final appState = FFAppState(); // Initialize FFAppState
+  await appState.initializePersistedState();
+
+  runApp(ChangeNotifierProvider(
+    create: (context) => appState,
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -97,101 +101,42 @@ class _MyAppState extends State<MyApp> {
         Locale('fr'),
         Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
         Locale('tr'),
-        Locale('my'),
         Locale('ps'),
         Locale('es'),
+        Locale('ti'),
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+        Locale('sw'),
+        Locale('am'),
+        Locale('ru'),
+        Locale('ur'),
+        Locale('om'),
+        Locale('ln'),
+        Locale('uz'),
+        Locale('bn'),
+        Locale('hi'),
+        Locale('pa'),
+        Locale('tl'),
+        Locale('ta'),
+        Locale('si'),
+        Locale('pt'),
+        Locale('ko'),
+        Locale('id'),
+        Locale('my'),
+        Locale('qu'),
+        Locale('ja'),
+        Locale('it'),
+        Locale('pl'),
+        Locale('be'),
+        Locale('ro'),
+        Locale('vi'),
+        Locale('gu'),
+        Locale('he'),
       ],
       theme: ThemeData(brightness: Brightness.light),
       darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: _themeMode,
       routeInformationParser: _router.routeInformationParser,
       routerDelegate: _router.routerDelegate,
-    );
-  }
-}
-
-class NavBarPage extends StatefulWidget {
-  NavBarPage({Key? key, this.initialPage, this.page}) : super(key: key);
-
-  final String? initialPage;
-  final Widget? page;
-
-  @override
-  _NavBarPageState createState() => _NavBarPageState();
-}
-
-/// This is the private State class that goes with NavBarPage.
-class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'home';
-  late Widget? _currentPage;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentPageName = widget.initialPage ?? _currentPageName;
-    _currentPage = widget.page;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final tabs = {
-      'home': HomeWidget(),
-      'categoriesgallery': CategoriesgalleryWidget(),
-      'interactivemap': InteractivemapWidget(),
-      'connecthealthcare': ConnecthealthcareWidget(),
-    };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
-    return Scaffold(
-      body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: GNav(
-        selectedIndex: currentIndex,
-        onTabChange: (i) => setState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
-        backgroundColor: Color(0xFF4CA4BF),
-        color: Color(0x8AFFFFFF),
-        activeColor: Colors.white,
-        tabBackgroundColor: Color(0x00000000),
-        tabBorderRadius: 20.0,
-        tabMargin: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
-        gap: 10.0,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        duration: Duration(milliseconds: 500),
-        haptic: true,
-        tabs: [
-          GButton(
-            icon: FontAwesomeIcons.solidCompass,
-            text: FFLocalizations.of(context).getText(
-              'dis6alpz' /* Explore */,
-            ),
-            iconSize: 35.0,
-          ),
-          GButton(
-            icon: FontAwesomeIcons.book,
-            text: FFLocalizations.of(context).getText(
-              'u0rslaeu' /* Content */,
-            ),
-            iconSize: 30.0,
-            backgroundColor: Color(0xC74CA4BF),
-          ),
-          GButton(
-            icon: FontAwesomeIcons.mapMarkedAlt,
-            text: FFLocalizations.of(context).getText(
-              'g0sds11o' /* Map */,
-            ),
-            iconSize: 30.0,
-          ),
-          GButton(
-            icon: FontAwesomeIcons.userTie,
-            text: FFLocalizations.of(context).getText(
-              's471wtha' /* Connect */,
-            ),
-            iconSize: 30.0,
-          )
-        ],
-      ),
     );
   }
 }

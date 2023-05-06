@@ -52,6 +52,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -218,50 +220,54 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                             initialIndex: 0,
                                             child: Column(
                                               children: [
-                                                TabBar(
-                                                  isScrollable: true,
-                                                  labelColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  unselectedLabelColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryText,
-                                                  labelPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(24.0, 0.0,
-                                                              24.0, 0.0),
-                                                  labelStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                  indicatorColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                  indicatorWeight: 2.0,
-                                                  tabs: [
-                                                    Tab(
-                                                      text: FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'b25z0lnb' /* Sign In */,
+                                                Align(
+                                                  alignment: Alignment(0.0, 0),
+                                                  child: TabBar(
+                                                    isScrollable: true,
+                                                    labelColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    unselectedLabelColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondaryText,
+                                                    labelPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(24.0, 0.0,
+                                                                24.0, 0.0),
+                                                    labelStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                    indicatorColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondary,
+                                                    indicatorWeight: 2.0,
+                                                    tabs: [
+                                                      Tab(
+                                                        text:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                          'b25z0lnb' /* Sign In */,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Tab(
-                                                      text: FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'anpe57kt' /* Sign Up */,
+                                                      Tab(
+                                                        text:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                          'anpe57kt' /* Sign Up */,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                                 Expanded(
                                                   child: TabBarView(
