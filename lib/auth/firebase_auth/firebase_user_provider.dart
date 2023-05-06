@@ -29,10 +29,12 @@ class RefugeePalFirebaseUser extends BaseAuthUser {
   bool get emailVerified {
     // Reloads the user when checking in order to get the most up to date
     // email verified status.
-    if (loggedIn && user!.emailVerified) {
-      user!.reload().then((_) => user = FirebaseAuth.instance.currentUser);
+    if (loggedIn && !user!.emailVerified) {
+      FirebaseAuth.instance.currentUser
+          ?.reload()
+          .then((_) => user = FirebaseAuth.instance.currentUser);
     }
-    return currentUser?.emailVerified ?? false;
+    return user?.emailVerified ?? false;
   }
 
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>

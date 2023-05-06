@@ -19,6 +19,8 @@ abstract class SubcategoryRecord
 
   String? get name;
 
+  int? get views;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -26,7 +28,8 @@ abstract class SubcategoryRecord
   static void _initializeBuilder(SubcategoryRecordBuilder builder) => builder
     ..category = ''
     ..information = ''
-    ..name = '';
+    ..name = ''
+    ..views = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('subcategory');
@@ -45,14 +48,17 @@ abstract class SubcategoryRecord
           ..category = snapshot.data['category']
           ..information = snapshot.data['information']
           ..name = snapshot.data['name']
+          ..views = snapshot.data['views']?.round()
           ..ffRef = SubcategoryRecord.collection.doc(snapshot.objectID),
       );
 
-  static Future<List<SubcategoryRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
+  static Future<List<SubcategoryRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
       FFAlgoliaManager.instance
           .algoliaQuery(
             index: 'subcategory',
@@ -60,6 +66,7 @@ abstract class SubcategoryRecord
             maxResults: maxResults,
             location: location,
             searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
           )
           .then((r) => r.map(fromAlgolia).toList());
 
@@ -77,6 +84,7 @@ Map<String, dynamic> createSubcategoryRecordData({
   String? category,
   String? information,
   String? name,
+  int? views,
 }) {
   final firestoreData = serializers.toFirestore(
     SubcategoryRecord.serializer,
@@ -84,7 +92,8 @@ Map<String, dynamic> createSubcategoryRecordData({
       (s) => s
         ..category = category
         ..information = information
-        ..name = name,
+        ..name = name
+        ..views = views,
     ),
   );
 

@@ -42,6 +42,12 @@ class _$SubcategoryRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.views;
+    if (value != null) {
+      result
+        ..add('views')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -77,6 +83,10 @@ class _$SubcategoryRecordSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'views':
+          result.views = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -98,6 +108,8 @@ class _$SubcategoryRecord extends SubcategoryRecord {
   @override
   final String? name;
   @override
+  final int? views;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$SubcategoryRecord(
@@ -105,7 +117,7 @@ class _$SubcategoryRecord extends SubcategoryRecord {
       (new SubcategoryRecordBuilder()..update(updates))._build();
 
   _$SubcategoryRecord._(
-      {this.category, this.information, this.name, this.ffRef})
+      {this.category, this.information, this.name, this.views, this.ffRef})
       : super._();
 
   @override
@@ -123,6 +135,7 @@ class _$SubcategoryRecord extends SubcategoryRecord {
         category == other.category &&
         information == other.information &&
         name == other.name &&
+        views == other.views &&
         ffRef == other.ffRef;
   }
 
@@ -132,6 +145,7 @@ class _$SubcategoryRecord extends SubcategoryRecord {
     _$hash = $jc(_$hash, category.hashCode);
     _$hash = $jc(_$hash, information.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, views.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -143,6 +157,7 @@ class _$SubcategoryRecord extends SubcategoryRecord {
           ..add('category', category)
           ..add('information', information)
           ..add('name', name)
+          ..add('views', views)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -164,6 +179,10 @@ class SubcategoryRecordBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
+  int? _views;
+  int? get views => _$this._views;
+  set views(int? views) => _$this._views = views;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -178,6 +197,7 @@ class SubcategoryRecordBuilder
       _category = $v.category;
       _information = $v.information;
       _name = $v.name;
+      _views = $v.views;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -204,6 +224,7 @@ class SubcategoryRecordBuilder
             category: category,
             information: information,
             name: name,
+            views: views,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

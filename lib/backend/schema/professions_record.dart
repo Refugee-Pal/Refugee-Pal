@@ -17,13 +17,16 @@ abstract class ProfessionsRecord
 
   String? get icon;
 
+  BuiltList<String>? get translated;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(ProfessionsRecordBuilder builder) => builder
     ..name = ''
-    ..icon = '';
+    ..icon = ''
+    ..translated = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('professions');
@@ -41,14 +44,17 @@ abstract class ProfessionsRecord
         (c) => c
           ..name = snapshot.data['name']
           ..icon = snapshot.data['icon']
+          ..translated = safeGet(() => ListBuilder(snapshot.data['translated']))
           ..ffRef = ProfessionsRecord.collection.doc(snapshot.objectID),
       );
 
-  static Future<List<ProfessionsRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
+  static Future<List<ProfessionsRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
       FFAlgoliaManager.instance
           .algoliaQuery(
             index: 'professions',
@@ -56,6 +62,7 @@ abstract class ProfessionsRecord
             maxResults: maxResults,
             location: location,
             searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
           )
           .then((r) => r.map(fromAlgolia).toList());
 
@@ -78,7 +85,8 @@ Map<String, dynamic> createProfessionsRecordData({
     ProfessionsRecord(
       (p) => p
         ..name = name
-        ..icon = icon,
+        ..icon = icon
+        ..translated = null,
     ),
   );
 

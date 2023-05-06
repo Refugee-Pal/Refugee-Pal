@@ -53,6 +53,12 @@ class _$ResourceproviderRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.views;
+    if (value != null) {
+      result
+        ..add('views')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -92,6 +98,10 @@ class _$ResourceproviderRecordSerializer
           result.link = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'views':
+          result.views = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -115,6 +125,8 @@ class _$ResourceproviderRecord extends ResourceproviderRecord {
   @override
   final String? link;
   @override
+  final int? views;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ResourceproviderRecord(
@@ -122,7 +134,12 @@ class _$ResourceproviderRecord extends ResourceproviderRecord {
       (new ResourceproviderRecordBuilder()..update(updates))._build();
 
   _$ResourceproviderRecord._(
-      {this.name, this.subcategory, this.information, this.link, this.ffRef})
+      {this.name,
+      this.subcategory,
+      this.information,
+      this.link,
+      this.views,
+      this.ffRef})
       : super._();
 
   @override
@@ -142,6 +159,7 @@ class _$ResourceproviderRecord extends ResourceproviderRecord {
         subcategory == other.subcategory &&
         information == other.information &&
         link == other.link &&
+        views == other.views &&
         ffRef == other.ffRef;
   }
 
@@ -152,6 +170,7 @@ class _$ResourceproviderRecord extends ResourceproviderRecord {
     _$hash = $jc(_$hash, subcategory.hashCode);
     _$hash = $jc(_$hash, information.hashCode);
     _$hash = $jc(_$hash, link.hashCode);
+    _$hash = $jc(_$hash, views.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -164,6 +183,7 @@ class _$ResourceproviderRecord extends ResourceproviderRecord {
           ..add('subcategory', subcategory)
           ..add('information', information)
           ..add('link', link)
+          ..add('views', views)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -189,6 +209,10 @@ class ResourceproviderRecordBuilder
   String? get link => _$this._link;
   set link(String? link) => _$this._link = link;
 
+  int? _views;
+  int? get views => _$this._views;
+  set views(int? views) => _$this._views = views;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -204,6 +228,7 @@ class ResourceproviderRecordBuilder
       _subcategory = $v.subcategory;
       _information = $v.information;
       _link = $v.link;
+      _views = $v.views;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -231,6 +256,7 @@ class ResourceproviderRecordBuilder
             subcategory: subcategory,
             information: information,
             link: link,
+            views: views,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

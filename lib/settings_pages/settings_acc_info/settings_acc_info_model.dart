@@ -20,6 +20,9 @@ class SettingsAccInfoModel extends FlutterFlowModel {
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
+  // State field(s) for DropDown widget.
+  String? dropDownValue3;
+  FormFieldController<String>? dropDownValueController3;
   // State field(s) for SwitchListTile widget.
   bool? switchListTileValue;
   // State field(s) for CheckboxListTile widget.

@@ -9,10 +9,13 @@ part of 'serializers.dart';
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CategoryRecord.serializer)
       ..add(ChatsRecord.serializer)
+      ..add(LanguagesRecord.serializer)
       ..add(LocationsRecord.serializer)
       ..add(MessagesRecord.serializer)
+      ..add(OrganizationsRecord.serializer)
       ..add(ProfessionalsRecord.serializer)
       ..add(ProfessionsRecord.serializer)
+      ..add(ProgramsRecord.serializer)
       ..add(ResourceproviderRecord.serializer)
       ..add(SubcategoryRecord.serializer)
       ..add(UserRecord.serializer)
@@ -22,6 +25,24 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(DateTime)]),
+          () => new ListBuilder<DateTime>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

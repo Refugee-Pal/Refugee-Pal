@@ -35,6 +35,14 @@ abstract class LocationsRecord
 
   BuiltList<String>? get category;
 
+  String? get imgPath;
+
+  String? get organization;
+
+  BuiltList<String>? get people;
+
+  int? get views;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -49,7 +57,11 @@ abstract class LocationsRecord
     ..mail = ''
     ..phone = 0
     ..bullet = ListBuilder()
-    ..category = ListBuilder();
+    ..category = ListBuilder()
+    ..imgPath = ''
+    ..organization = ''
+    ..people = ListBuilder()
+    ..views = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('locations');
@@ -79,14 +91,20 @@ abstract class LocationsRecord
               ))
           ..bullet = safeGet(() => ListBuilder(snapshot.data['bullet']))
           ..category = safeGet(() => ListBuilder(snapshot.data['category']))
+          ..imgPath = snapshot.data['imgPath']
+          ..organization = snapshot.data['organization']
+          ..people = safeGet(() => ListBuilder(snapshot.data['people']))
+          ..views = snapshot.data['views']?.round()
           ..ffRef = LocationsRecord.collection.doc(snapshot.objectID),
       );
 
-  static Future<List<LocationsRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
+  static Future<List<LocationsRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
       FFAlgoliaManager.instance
           .algoliaQuery(
             index: 'locations',
@@ -94,6 +112,7 @@ abstract class LocationsRecord
             maxResults: maxResults,
             location: location,
             searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
           )
           .then((r) => r.map(fromAlgolia).toList());
 
@@ -117,6 +136,9 @@ Map<String, dynamic> createLocationsRecordData({
   String? mail,
   int? phone,
   LatLng? coordinates,
+  String? imgPath,
+  String? organization,
+  int? views,
 }) {
   final firestoreData = serializers.toFirestore(
     LocationsRecord.serializer,
@@ -132,7 +154,11 @@ Map<String, dynamic> createLocationsRecordData({
         ..phone = phone
         ..coordinates = coordinates
         ..bullet = null
-        ..category = null,
+        ..category = null
+        ..imgPath = imgPath
+        ..organization = organization
+        ..people = null
+        ..views = views,
     ),
   );
 
