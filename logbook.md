@@ -213,18 +213,18 @@ Antony: Around this time, I also managed to get my hands on a Macbook, which hel
 
 # 🗓️  2023-5-4: Week 9
 
-### Plans for Final Preparation
+### Plans for Testing
 
-Ali and Antony: By this time, we had begun to realize that many things that we planned for the app were not going to get done. We wanted to test our app
+Ali and Antony: By this time, we had begun to realize that many things that we planned for the app were not going to get done. We wanted to reach out to refugee uspport organizations and test our app, because the last test we had run was with the webapp version of Refugee Pal. Surveying a larger and more diverse sample size, as well as people who actively work to support refugees would allow us to better understand how eell our app was working and how we could develop our ideas beyond the Canada-Wide Science Fair, possibly even with external support. We started off by sending emails, but made a few phone calls as well. Unfortuantely, this took longer than expected and by next week we still had not recieved a formal invitation to test the app.
 
 ### Improvements to Connect and Explore
 
 Antony: Before the deadline which I had set myself on Sunday, I decided to make some final improvements to Connect and Explore. In Connect and Chats, I enabled uploading images and videos to chat, made minor changes to the user interface and added a new Bottom Sheet element for editing and deleting chat messages. To provide refugees with a personalized experience, we created pins, where the user can pin any location, resource or Q&A chat and come back to it later.
 
-Antony: This came with changes to the Explore page. Instead of having a standard view below the searchbar, now we have the old view with all services on one page, and new views showcasing pinned and recently visited items. I also used redirections back to Explore from the interactive map to enable viewing a list of locations rather than them being on the map only. With this, we had finally finished developing the app.
+Antony: This came with changes to the Explore page. Instead of having a standard view below the searchbar, now we have the old view with all services on one page, and new views showcasing pinned and recently visited items. I also used redirections back to Explore from the interactive map to enable viewing a list of locations rather than them being on the map only. I did the same, with Q&A chat threads allowing refugees to search for them and sort by category. With this, we had finally finished developing the app.
 
 ### Running Refugee Pal on Android Studio
 
 Antony: While I was working on the app, I also set up Android Studio on my PC. It took me an entire morning to set up Android Studio, because I had to enable virtualization and because my antivirus was stopping things from working. After fixing these problems, I was able to run Refugee Pal on the android emulator.
 
-# 🗓️ 2023-5-10: Last two days
+# 🗓️ 2023-5-10: Week 10
