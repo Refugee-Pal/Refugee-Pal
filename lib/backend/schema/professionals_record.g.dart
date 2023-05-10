@@ -46,13 +46,6 @@ class _$ProfessionalsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.practicetype;
-    if (value != null) {
-      result
-        ..add('practicetype')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.profession;
     if (value != null) {
       result
@@ -156,10 +149,6 @@ class _$ProfessionalsRecordSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'practicetype':
-          result.practicetype = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'profession':
           result.profession = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -221,8 +210,6 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
   @override
   final String? name;
   @override
-  final String? practicetype;
-  @override
   final String? profession;
   @override
   final String? registrationstatus;
@@ -253,7 +240,6 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
       {this.address,
       this.language,
       this.name,
-      this.practicetype,
       this.profession,
       this.registrationstatus,
       this.mail,
@@ -283,7 +269,6 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
         address == other.address &&
         language == other.language &&
         name == other.name &&
-        practicetype == other.practicetype &&
         profession == other.profession &&
         registrationstatus == other.registrationstatus &&
         mail == other.mail &&
@@ -303,7 +288,6 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
     _$hash = $jc(_$hash, address.hashCode);
     _$hash = $jc(_$hash, language.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, practicetype.hashCode);
     _$hash = $jc(_$hash, profession.hashCode);
     _$hash = $jc(_$hash, registrationstatus.hashCode);
     _$hash = $jc(_$hash, mail.hashCode);
@@ -325,7 +309,6 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
           ..add('address', address)
           ..add('language', language)
           ..add('name', name)
-          ..add('practicetype', practicetype)
           ..add('profession', profession)
           ..add('registrationstatus', registrationstatus)
           ..add('mail', mail)
@@ -356,10 +339,6 @@ class ProfessionalsRecordBuilder
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
-
-  String? _practicetype;
-  String? get practicetype => _$this._practicetype;
-  set practicetype(String? practicetype) => _$this._practicetype = practicetype;
 
   String? _profession;
   String? get profession => _$this._profession;
@@ -416,7 +395,6 @@ class ProfessionalsRecordBuilder
       _address = $v.address;
       _language = $v.language;
       _name = $v.name;
-      _practicetype = $v.practicetype;
       _profession = $v.profession;
       _registrationstatus = $v.registrationstatus;
       _mail = $v.mail;
@@ -453,7 +431,6 @@ class ProfessionalsRecordBuilder
             address: address,
             language: language,
             name: name,
-            practicetype: practicetype,
             profession: profession,
             registrationstatus: registrationstatus,
             mail: mail,

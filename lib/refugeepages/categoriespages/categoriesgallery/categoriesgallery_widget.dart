@@ -2,7 +2,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/navbars/refugee_nav_bar/refugee_nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -127,7 +126,7 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                15.0, 15.0, 15.0, 15.0),
+                                20.0, 20.0, 20.0, 20.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -145,7 +144,6 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                 );
                               },
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.8,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .primaryBackground,
@@ -220,14 +218,6 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                     ),
                   );
                 },
-              ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.refugeeNavBarModel,
-                  updateCallback: () => setState(() {}),
-                  child: RefugeeNavBarWidget(),
-                ),
               ),
             ],
           ),

@@ -125,6 +125,22 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.recents;
+    if (value != null) {
+      result
+        ..add('recents')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.pinned;
+    if (value != null) {
+      result
+        ..add('pinned')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -209,6 +225,18 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'recents':
+          result.recents.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'pinned':
+          result.pinned.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -254,6 +282,10 @@ class _$UserRecord extends UserRecord {
   @override
   final String? description;
   @override
+  final BuiltList<String>? recents;
+  @override
+  final BuiltList<String>? pinned;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserRecord([void Function(UserRecordBuilder)? updates]) =>
@@ -275,6 +307,8 @@ class _$UserRecord extends UserRecord {
       this.areasOfInterest,
       this.phoneNumber,
       this.description,
+      this.recents,
+      this.pinned,
       this.ffRef})
       : super._();
 
@@ -304,6 +338,8 @@ class _$UserRecord extends UserRecord {
         areasOfInterest == other.areasOfInterest &&
         phoneNumber == other.phoneNumber &&
         description == other.description &&
+        recents == other.recents &&
+        pinned == other.pinned &&
         ffRef == other.ffRef;
   }
 
@@ -325,6 +361,8 @@ class _$UserRecord extends UserRecord {
     _$hash = $jc(_$hash, areasOfInterest.hashCode);
     _$hash = $jc(_$hash, phoneNumber.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, recents.hashCode);
+    _$hash = $jc(_$hash, pinned.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -348,6 +386,8 @@ class _$UserRecord extends UserRecord {
           ..add('areasOfInterest', areasOfInterest)
           ..add('phoneNumber', phoneNumber)
           ..add('description', description)
+          ..add('recents', recents)
+          ..add('pinned', pinned)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -421,6 +461,16 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
+  ListBuilder<String>? _recents;
+  ListBuilder<String> get recents =>
+      _$this._recents ??= new ListBuilder<String>();
+  set recents(ListBuilder<String>? recents) => _$this._recents = recents;
+
+  ListBuilder<String>? _pinned;
+  ListBuilder<String> get pinned =>
+      _$this._pinned ??= new ListBuilder<String>();
+  set pinned(ListBuilder<String>? pinned) => _$this._pinned = pinned;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -447,6 +497,8 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _areasOfInterest = $v.areasOfInterest?.toBuilder();
       _phoneNumber = $v.phoneNumber;
       _description = $v.description;
+      _recents = $v.recents?.toBuilder();
+      _pinned = $v.pinned?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -487,12 +539,19 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
               areasOfInterest: _areasOfInterest?.build(),
               phoneNumber: phoneNumber,
               description: description,
+              recents: _recents?.build(),
+              pinned: _pinned?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'areasOfInterest';
         _areasOfInterest?.build();
+
+        _$failedField = 'recents';
+        _recents?.build();
+        _$failedField = 'pinned';
+        _pinned?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UserRecord', _$failedField, e.toString());

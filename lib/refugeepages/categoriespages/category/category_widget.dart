@@ -1,8 +1,9 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/navbars/refugee_nav_bar/refugee_nav_bar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -141,7 +142,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
-                                  fontSize: 35.0,
+                                  fontSize: 30.0,
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -151,11 +152,13 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                               10.0, 15.0, 10.0, 10.0),
                           child: Text(
                             categoryCategoryRecord.description!,
+                            textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
-                                  fontSize: 20.0,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ),
@@ -189,7 +192,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                     columnSubcategoryRecordList[columnIndex];
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 10.0, 10.0, 10.0),
+                                      20.0, 10.0, 20.0, 10.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -205,6 +208,13 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                           ),
                                         }.withoutNulls,
                                       );
+
+                                      final userUpdateData = {
+                                        'recents': FieldValue.arrayUnion(
+                                            [columnSubcategoryRecord.name]),
+                                      };
+                                      await currentUserReference!
+                                          .update(userUpdateData);
                                     },
                                     child: Container(
                                       width: MediaQuery.of(context).size.width *
@@ -223,20 +233,118 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 10.0, 10.0, 10.0),
-                                        child: Text(
-                                          columnSubcategoryRecord.name!,
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.w500,
+                                      child: Stack(
+                                        alignment:
+                                            AlignmentDirectional(0.0, -1.0),
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.75,
+                                            decoration: BoxDecoration(),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 10.0, 0.0, 10.0),
+                                              child: Text(
+                                                columnSubcategoryRecord.name!,
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 18.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                               ),
-                                        ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(1.0, -1.0),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      20.0, 0.0, 0.0, 0.0),
+                                              child: StreamBuilder<UserRecord>(
+                                                stream: UserRecord.getDocument(
+                                                    currentUserReference!),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  final toggleIconUserRecord =
+                                                      snapshot.data!;
+                                                  return ToggleIcon(
+                                                    onPressed: () async {
+                                                      final pinnedElement =
+                                                          columnSubcategoryRecord
+                                                              .name;
+                                                      final pinnedUpdate =
+                                                          toggleIconUserRecord
+                                                                  .pinned!
+                                                                  .toList()
+                                                                  .contains(
+                                                                      pinnedElement)
+                                                              ? FieldValue
+                                                                  .arrayRemove([
+                                                                  pinnedElement
+                                                                ])
+                                                              : FieldValue
+                                                                  .arrayUnion([
+                                                                  pinnedElement
+                                                                ]);
+                                                      final userUpdateData = {
+                                                        'pinned': pinnedUpdate,
+                                                      };
+                                                      await toggleIconUserRecord
+                                                          .reference
+                                                          .update(
+                                                              userUpdateData);
+                                                    },
+                                                    value: toggleIconUserRecord
+                                                        .pinned!
+                                                        .toList()
+                                                        .contains(
+                                                            columnSubcategoryRecord
+                                                                .name),
+                                                    onIcon: FaIcon(
+                                                      FontAwesomeIcons.mapPin,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 25.0,
+                                                    ),
+                                                    offIcon: FaIcon(
+                                                      FontAwesomeIcons.mapPin,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 20.0,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -246,14 +354,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                           },
                         ),
                       ],
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
-                    child: wrapWithModel(
-                      model: _model.refugeeNavBarModel,
-                      updateCallback: () => setState(() {}),
-                      child: RefugeeNavBarWidget(),
                     ),
                   ),
                 ],

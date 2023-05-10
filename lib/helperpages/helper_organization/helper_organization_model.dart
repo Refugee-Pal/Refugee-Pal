@@ -49,6 +49,10 @@ class HelperOrganizationModel extends FlutterFlowModel {
 
   LocationsRecord? parentLocation;
 
+  String? organizationSelected = 'none';
+
+  bool? isJoin = false;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey1 = GlobalKey<FormState>();
@@ -74,6 +78,8 @@ class HelperOrganizationModel extends FlutterFlowModel {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl1 = '';
 
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  OrganizationsRecord? newDocument;
   // State field(s) for emailAddress widget.
   TextEditingController? emailAddressController2;
   String? Function(BuildContext, String?)? emailAddressController2Validator;

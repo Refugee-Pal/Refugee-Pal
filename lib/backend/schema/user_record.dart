@@ -48,6 +48,10 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
 
   String? get description;
 
+  BuiltList<String>? get recents;
+
+  BuiltList<String>? get pinned;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -66,7 +70,9 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
     ..translateApp = false
     ..areasOfInterest = ListBuilder()
     ..phoneNumber = ''
-    ..description = '';
+    ..description = ''
+    ..recents = ListBuilder()
+    ..pinned = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
@@ -98,6 +104,8 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
               safeGet(() => ListBuilder(snapshot.data['areasOfInterest']))
           ..phoneNumber = snapshot.data['phone_number']
           ..description = snapshot.data['description']
+          ..recents = safeGet(() => ListBuilder(snapshot.data['recents']))
+          ..pinned = safeGet(() => ListBuilder(snapshot.data['pinned']))
           ..ffRef = UserRecord.collection.doc(snapshot.objectID),
       );
 
@@ -162,7 +170,9 @@ Map<String, dynamic> createUserRecordData({
         ..translateApp = translateApp
         ..areasOfInterest = null
         ..phoneNumber = phoneNumber
-        ..description = description,
+        ..description = description
+        ..recents = null
+        ..pinned = null,
     ),
   );
 

@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/mapsheet/mapsheet_widget.dart';
 import '/components/user_profile/user_profile_widget.dart';
@@ -6,8 +7,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/navbars/refugee_nav_bar/refugee_nav_bar_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,9 +21,12 @@ class MapWidget extends StatefulWidget {
   const MapWidget({
     Key? key,
     this.locationtoLoad,
-  }) : super(key: key);
+    bool? isLoadPrograms,
+  })  : this.isLoadPrograms = isLoadPrograms ?? false,
+        super(key: key);
 
   final LocationsRecord? locationtoLoad;
+  final bool isLoadPrograms;
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -41,11 +45,40 @@ class _MapWidgetState extends State<MapWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        _model.isLocation = !widget.isLoadPrograms;
+      });
       if (widget.locationtoLoad != null) {
         setState(() {
-          _model.showMapSheet = true;
           _model.locationSelected = widget.locationtoLoad;
         });
+        await showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          barrierColor: Colors.transparent,
+          context: context,
+          builder: (bottomSheetContext) {
+            return GestureDetector(
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+              child: Padding(
+                padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                child: Container(
+                  height: 650.0,
+                  child: MapsheetWidget(
+                    doc: _model.locationSelected,
+                    isLocation: _model.isLocation!,
+                    categorySelected: 'none',
+                  ),
+                ),
+              ),
+            );
+          },
+        ).then((value) => setState(() {}));
+
+        final userUpdateData = {
+          'recents': FieldValue.arrayUnion([_model.locationSelected!.name]),
+        };
+        await currentUserReference!.update(userUpdateData);
       }
     });
 
@@ -70,23 +103,6 @@ class _MapWidgetState extends State<MapWidget> {
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        floatingActionButton: Visibility(
-          visible: _model.showMapSheet ?? true,
-          child: FloatingActionButton(
-            onPressed: () async {
-              setState(() {
-                _model.showMapSheet = false;
-              });
-            },
-            backgroundColor: FlutterFlowTheme.of(context).primaryText,
-            elevation: 8.0,
-            child: Icon(
-              Icons.close_rounded,
-              color: FlutterFlowTheme.of(context).primaryBackground,
-              size: 40.0,
-            ),
-          ),
-        ),
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -177,6 +193,13 @@ class _MapWidgetState extends State<MapWidget> {
                                       _model.locationSelected =
                                           googleMapLocationsRecord;
                                     });
+
+                                    final userUpdateData = {
+                                      'recents': FieldValue.arrayUnion(
+                                          [googleMapLocationsRecord.name]),
+                                    };
+                                    await currentUserReference!
+                                        .update(userUpdateData);
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,
@@ -226,12 +249,14 @@ class _MapWidgetState extends State<MapWidget> {
                       alignment: AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 15.0, 15.0, 15.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -274,6 +299,7 @@ class _MapWidgetState extends State<MapWidget> {
                                                                   context)
                                                               .primaryBtnText,
                                                     ),
+                                            elevation: 2.0,
                                             borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
@@ -308,31 +334,143 @@ class _MapWidgetState extends State<MapWidget> {
                                               });
                                             },
                                           ),
-                                        if (_model.isLocation ?? true)
-                                          FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 30.0,
-                                            borderWidth: 1.0,
-                                            buttonSize: 60.0,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            icon: Icon(
-                                              Icons.location_on,
+                                        Material(
+                                          color: Colors.transparent,
+                                          elevation: 2.0,
+                                          shape: const CircleBorder(),
+                                          child: Container(
+                                            decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
-                                              size: 30.0,
+                                              shape: BoxShape.circle,
                                             ),
-                                            onPressed: () async {
-                                              setState(() {
-                                                _model.isLocation = false;
-                                              });
-                                            },
+                                            child: Visibility(
+                                              visible:
+                                                  _model.isLocation ?? true,
+                                              child: FlutterFlowIconButton(
+                                                borderColor: Colors.transparent,
+                                                borderRadius: 30.0,
+                                                borderWidth: 1.0,
+                                                buttonSize: 60.0,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                icon: Icon(
+                                                  Icons.location_on,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  size: 30.0,
+                                                ),
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    _model.isLocation = false;
+                                                  });
+                                                },
+                                              ),
+                                            ),
                                           ),
+                                        ),
                                       ],
                                     ),
                                   ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                15.0, 0.0, 15.0, 95.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 10.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      context.pushNamed(
+                                        'home',
+                                        queryParams: {
+                                          'startingCategory': serializeParam(
+                                            _model.categorySelected == 'none'
+                                                ? 'All'
+                                                : _model.categorySelected,
+                                            ParamType.String,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+                                    },
+                                    text: FFLocalizations.of(context).getText(
+                                      't4pn4bv2' /* More  */,
+                                    ),
+                                    options: FFButtonOptions(
+                                      width: 80.0,
+                                      height: 60.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBtnText,
+                                          ),
+                                      elevation: 2.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                      ),
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                ),
+                                Material(
+                                  color: Colors.transparent,
+                                  elevation: 2.0,
+                                  shape: const CircleBorder(),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 60.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.listUl,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        size: 30.0,
+                                      ),
+                                      onPressed: () async {
+                                        context.pushNamed(
+                                          'home',
+                                          queryParams: {
+                                            'startingChip': serializeParam(
+                                              'Locations',
+                                              ParamType.String,
+                                            ),
+                                            'startingCategory': serializeParam(
+                                              _model.categorySelected == 'none'
+                                                  ? 'All'
+                                                  : _model.categorySelected,
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -588,18 +726,6 @@ class _MapWidgetState extends State<MapWidget> {
                           ),
                         ),
                       ),
-                    if (_model.showBlocker ?? true)
-                      Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: 80.0,
-                          decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                          ),
-                        ),
-                      ),
                   ],
                 ),
               if (FFAppState().isViewingProfile)
@@ -608,14 +734,6 @@ class _MapWidgetState extends State<MapWidget> {
                   updateCallback: () => setState(() {}),
                   child: UserProfileWidget(),
                 ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.refugeeNavBarModel,
-                  updateCallback: () => setState(() {}),
-                  child: RefugeeNavBarWidget(),
-                ),
-              ),
             ],
           ),
         ),

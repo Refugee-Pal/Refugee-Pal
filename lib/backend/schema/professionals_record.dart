@@ -19,8 +19,6 @@ abstract class ProfessionalsRecord
 
   String? get name;
 
-  String? get practicetype;
-
   String? get profession;
 
   String? get registrationstatus;
@@ -49,7 +47,6 @@ abstract class ProfessionalsRecord
     ..address = ''
     ..language = ''
     ..name = ''
-    ..practicetype = ''
     ..profession = ''
     ..registrationstatus = ''
     ..mail = ''
@@ -78,7 +75,6 @@ abstract class ProfessionalsRecord
           ..address = snapshot.data['address']
           ..language = snapshot.data['language']
           ..name = snapshot.data['name']
-          ..practicetype = snapshot.data['practicetype']
           ..profession = snapshot.data['profession']
           ..registrationstatus = snapshot.data['registrationstatus']
           ..mail = snapshot.data['mail']
@@ -125,7 +121,6 @@ Map<String, dynamic> createProfessionalsRecordData({
   String? address,
   String? language,
   String? name,
-  String? practicetype,
   String? profession,
   String? registrationstatus,
   String? mail,
@@ -144,7 +139,6 @@ Map<String, dynamic> createProfessionalsRecordData({
         ..address = address
         ..language = language
         ..name = name
-        ..practicetype = practicetype
         ..profession = profession
         ..registrationstatus = registrationstatus
         ..mail = mail

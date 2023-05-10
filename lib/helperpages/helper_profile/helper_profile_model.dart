@@ -77,24 +77,6 @@ class HelperProfileModel extends FlutterFlowModel {
   String? _emailAddressController3Validator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
-        'hoevt6f6' /* Field is required */,
-      );
-    }
-
-    if (!RegExp(kTextValidatorWebsiteRegex).hasMatch(val)) {
-      return FFLocalizations.of(context).getText(
-        'd422gttj' /* Invalid URL */,
-      );
-    }
-    return null;
-  }
-
-  // State field(s) for emailAddress widget.
-  TextEditingController? emailAddressController4;
-  String? Function(BuildContext, String?)? emailAddressController4Validator;
-  String? _emailAddressController4Validator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return FFLocalizations.of(context).getText(
         'hphttipv' /* Field is required */,
       );
     }
@@ -108,9 +90,9 @@ class HelperProfileModel extends FlutterFlowModel {
   }
 
   // State field(s) for emailAddress widget.
-  TextEditingController? emailAddressController5;
-  String? Function(BuildContext, String?)? emailAddressController5Validator;
-  String? _emailAddressController5Validator(BuildContext context, String? val) {
+  TextEditingController? emailAddressController4;
+  String? Function(BuildContext, String?)? emailAddressController4Validator;
+  String? _emailAddressController4Validator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
         'jkk86h86' /* Field is required */,
@@ -121,9 +103,9 @@ class HelperProfileModel extends FlutterFlowModel {
   }
 
   // State field(s) for emailAddress widget.
-  TextEditingController? emailAddressController6;
-  String? Function(BuildContext, String?)? emailAddressController6Validator;
-  String? _emailAddressController6Validator(BuildContext context, String? val) {
+  TextEditingController? emailAddressController5;
+  String? Function(BuildContext, String?)? emailAddressController5Validator;
+  String? _emailAddressController5Validator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
         '0t2f0wr4' /* Field is required */,
@@ -150,7 +132,6 @@ class HelperProfileModel extends FlutterFlowModel {
     emailAddressController3Validator = _emailAddressController3Validator;
     emailAddressController4Validator = _emailAddressController4Validator;
     emailAddressController5Validator = _emailAddressController5Validator;
-    emailAddressController6Validator = _emailAddressController6Validator;
     helperNavBarModel = createModel(context, () => HelperNavBarModel());
   }
 
@@ -160,7 +141,6 @@ class HelperProfileModel extends FlutterFlowModel {
     emailAddressController3?.dispose();
     emailAddressController4?.dispose();
     emailAddressController5?.dispose();
-    emailAddressController6?.dispose();
     helperNavBarModel.dispose();
   }
 

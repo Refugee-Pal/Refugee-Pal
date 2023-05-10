@@ -697,7 +697,7 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                             _model.emailAddressController3 ??=
                                                                                 TextEditingController(
                                                                           text:
-                                                                              helperProfileProfessionalsRecord!.profile,
+                                                                              helperProfileProfessionalsRecord!.website,
                                                                         ),
                                                                         obscureText:
                                                                             false,
@@ -705,7 +705,7 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                             InputDecoration(
                                                                           labelText:
                                                                               FFLocalizations.of(context).getText(
-                                                                            'lxcuxh4m' /* Digital profile URL */,
+                                                                            '0tror5z3' /* Digital Profile URL */,
                                                                           ),
                                                                           labelStyle: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
@@ -785,103 +785,6 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                     Padding(
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
                                                                           20.0,
-                                                                          20.0,
-                                                                          20.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          TextFormField(
-                                                                        controller:
-                                                                            _model.emailAddressController4 ??=
-                                                                                TextEditingController(
-                                                                          text:
-                                                                              helperProfileProfessionalsRecord!.website,
-                                                                        ),
-                                                                        obscureText:
-                                                                            false,
-                                                                        decoration:
-                                                                            InputDecoration(
-                                                                          labelText:
-                                                                              FFLocalizations.of(context).getText(
-                                                                            '0tror5z3' /* Website URL */,
-                                                                          ),
-                                                                          labelStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Inter',
-                                                                                color: Color(0xFF57636C),
-                                                                                fontSize: 14.0,
-                                                                                fontWeight: FontWeight.normal,
-                                                                              ),
-                                                                          hintStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Inter',
-                                                                                color: Color(0xFF57636C),
-                                                                                fontSize: 14.0,
-                                                                                fontWeight: FontWeight.normal,
-                                                                              ),
-                                                                          enabledBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: Color(0xFFDBE2E7),
-                                                                              width: 2.0,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(40.0),
-                                                                          ),
-                                                                          focusedBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: Color(0x00000000),
-                                                                              width: 2.0,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(40.0),
-                                                                          ),
-                                                                          errorBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).error,
-                                                                              width: 2.0,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(40.0),
-                                                                          ),
-                                                                          focusedErrorBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).error,
-                                                                              width: 2.0,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(40.0),
-                                                                          ),
-                                                                          filled:
-                                                                              true,
-                                                                          fillColor:
-                                                                              Colors.white,
-                                                                          contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                              24.0,
-                                                                              24.0,
-                                                                              20.0,
-                                                                              24.0),
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium,
-                                                                        maxLines:
-                                                                            null,
-                                                                        validator: _model
-                                                                            .emailAddressController4Validator
-                                                                            .asValidator(context),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          20.0,
                                                                           40.0,
                                                                           20.0,
                                                                           50.0),
@@ -904,8 +807,6 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                             mail:
                                                                                 _model.emailAddressController2.text,
                                                                             website:
-                                                                                _model.emailAddressController4.text,
-                                                                            profile:
                                                                                 _model.emailAddressController3.text,
                                                                             contact:
                                                                                 int.parse(_model.emailAddressController1.text),
@@ -1007,7 +908,7 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                       child:
                                                                           TextFormField(
                                                                         controller:
-                                                                            _model.emailAddressController5 ??=
+                                                                            _model.emailAddressController4 ??=
                                                                                 TextEditingController(
                                                                           text:
                                                                               helperProfileProfessionalsRecord!.practicename,
@@ -1091,7 +992,7 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                         maxLines:
                                                                             null,
                                                                         validator: _model
-                                                                            .emailAddressController5Validator
+                                                                            .emailAddressController4Validator
                                                                             .asValidator(context),
                                                                       ),
                                                                     ),
@@ -1104,7 +1005,7 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                       child:
                                                                           TextFormField(
                                                                         controller:
-                                                                            _model.emailAddressController6 ??=
+                                                                            _model.emailAddressController5 ??=
                                                                                 TextEditingController(
                                                                           text:
                                                                               helperProfileProfessionalsRecord!.address,
@@ -1188,7 +1089,7 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                         maxLines:
                                                                             null,
                                                                         validator: _model
-                                                                            .emailAddressController6Validator
+                                                                            .emailAddressController5Validator
                                                                             .asValidator(context),
                                                                       ),
                                                                     ),
@@ -1215,9 +1116,9 @@ class _HelperProfileWidgetState extends State<HelperProfileWidget> {
                                                                           final professionalsUpdateData =
                                                                               createProfessionalsRecordData(
                                                                             address:
-                                                                                _model.emailAddressController6.text,
-                                                                            practicename:
                                                                                 _model.emailAddressController5.text,
+                                                                            practicename:
+                                                                                _model.emailAddressController4.text,
                                                                           );
                                                                           await helperProfileProfessionalsRecord!
                                                                               .reference

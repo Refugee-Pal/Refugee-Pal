@@ -81,7 +81,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'home',
           path: '/home',
           builder: (context, params) => HomeWidget(
-            test: params.getParam<String>('test', ParamType.String, true),
+            startingChip: params.getParam('startingChip', ParamType.String),
+            startingCategory:
+                params.getParam('startingCategory', ParamType.String),
           ),
         ),
         FFRoute(
@@ -103,6 +105,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => MapWidget(
             locationtoLoad:
                 params.getParam('locationtoLoad', ParamType.Document),
+            isLoadPrograms: params.getParam('isLoadPrograms', ParamType.bool),
           ),
         ),
         FFRoute(
@@ -225,7 +228,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'helperChat',
           path: '/helperChat',
-          builder: (context, params) => HelperChatWidget(),
+          asyncParams: {
+            'chatToLoad': getDoc(['chats'], ChatsRecord.serializer),
+          },
+          builder: (context, params) => HelperChatWidget(
+            chatToLoad: params.getParam('chatToLoad', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
