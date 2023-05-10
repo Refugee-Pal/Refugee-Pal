@@ -173,7 +173,7 @@ Ali: We were able to run the app on test mode using Flutterflow. However, we had
 
 ### Installing Flutter and Encountering Issues with Pod Installation and Outdated Ruby
 
-Ali: Once i had installed flutter, i had to figure out how to run the app. So through the terminal, I tried going to our refugee pal folder, and running the command “Flutter run”. However, I encountered a bug which was saying that pods needed to be installed. Since our app is using firestore which is like a plugin, we have to install something called CocoaPods. However, when I was trying to install CocoaPods I realized it wasnt working because the Ruby version on my Macbook was out of date. I had to install homebrew and then install the most up to date version of Ruby through the command line, which was 3.2.2 when my laptop had 2.6.
+Ali: Once i had installed Flutter, i had to figure out how to run the app. So through the terminal, I tried going to our refugee pal folder, and running the command “Flutter run”. However, I encountered a bug which was saying that pods needed to be installed. Since our app is using firestore which is like a plugin, we have to install something called CocoaPods. However, when I was trying to install CocoaPods I realized it wasnt working because the Ruby version on my Macbook was out of date. I had to install homebrew and then install the most up to date version of Ruby through the command line, which was 3.2.2 when my laptop had 2.6.
 
 ### Successfully Running the App on iOS Simulator and iPhone!
 
@@ -183,4 +183,18 @@ Ali: Finally, I was able to successfully run the app on an iOS simulator using X
 
 Ali: I spent this week mainly doing some final touches to the app, like changing the aesthetics, border radius, and other aspects of the app, making the design consistent. The app definitely needs some improvement in its user interface. I also ran different tests for every single feature makign sure it was fully functional. 
 
-Ali and Antony: We began preparing for the judge presentation. We wrote a detailed script, ran through the presentation a couple times, made a slideshow, and more. Our main goal is to be more organized in our presentation to the judges unlike last time. We also prepared all the peripherals and things we were bringing, like my phone, laptop, posterboard, logbook and binder, etc.
+# 🗓️  2023-04-13: Week 6
+
+### Planning for CWSF
+
+Ali and Antony: After qualifying for the Canada-Wide Science Fair, we were very excited and we decided to start planning for the next few weeks immediately. We first laid out a list of tasks separated into improvements to the app, additional research and testing as well as improvements to our presentation. Then, we wrote a timeline for the next four weeks, using the tasks we had laid out.
+
+### Minor App Improvements
+
+Antony: This week, I started working on minor improvements and bug fixes that I did not have time to make before regionals. For CWSF, we wanted Refugee Pal's user accounts to be closely integrated with the interactive map and the find professionals feature, so that refugees are able to click directly on a location or program, view the settlement workers, case managers and organizers involved and chat with them within the app. I made a user profile page which would show up whenever someone's profile picture is clicked on. I also found a solution to a bug we had with stationary widgets by wrapping both elements in a stack instead of in a column, and making one scrollable.
+
+# 🗓️  2023-04-20: Week 7
+
+Antony: After last week, we had one more issue with the app. We only got translations to work partially, through Flutterflow's built in Google Translate integration. Unfortunately, it only translated the data hard-coded in the app itself, such as constant page titles that did not change. The firestore data was not translated. To fix this, I researched alternative ways to translate the app. I decided to use the Translate Text in Firestore extension for Firebase.
+
+Antony: I spent the entire weekend working on translations. When I started using the Firestore extension, I found out it was not as easy as I expected it to be. Firstly, the extension outputted data in a map format, which is similar to an array (list) but each value has an index. Flutterflow does not support map format, and I had to write a custom cloud function which would convert the map value to a subcollection. I had no previous experience with Firebase functions or async programming, and it took me two days to write a function which actually worked. Just as I had almost finished, I looked at my Firebase usage and realized that it was over 20 times the free limit. Luckily, I didn't get billed. Out of caution, I downgraded the Firebase plan. Upon inspection, the bug was probably caused by my function triggering itself over and over again recursively.
