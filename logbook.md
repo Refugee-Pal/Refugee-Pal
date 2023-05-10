@@ -95,7 +95,7 @@ Antony: Currently trying to finalize wireframe sketches of the app. I outlined f
 
 ### Starting to Work on Digital Resource Hub and Structuring Firestore NoSQL Database
 
-Ali: The first feature i want to complete is the digital resource hub, so i began planning a roadmap for implementation. At first, i thought of having individual pages for every category and subcategory, but then realized it would be very tedious, ineffective, and slow. The better way was to use the firestore database. At this point, i encountered many roadblocks when trying to structure the database. The digital resource hub was very complex because there is first a category gallery page, then a detailed category page with subcategories, and then another subcategory detailed page. One thing inside of the other.
+Ali: The first feature I want to complete is the digital resource hub, so i began planning a roadmap for implementation. At first, i thought of having individual pages for every category and subcategory, but then realized it would be very tedious, ineffective, and slow. The better way was to use the firestore database. At this point, i encountered many roadblocks when trying to structure the database. The digital resource hub was very complex because there is first a category gallery page, then a detailed category page with subcategories, and then another subcategory detailed page. One thing inside of the other.
 
 ### Challenges when Working on Firestore database for Categories, Subcategories, and Resourceproviders
 
@@ -195,6 +195,36 @@ Antony: This week, I started working on minor improvements and bug fixes that I 
 
 # 🗓️  2023-04-20: Week 7
 
-Antony: After last week, we had one more issue with the app. We only got translations to work partially, through Flutterflow's built in Google Translate integration. Unfortunately, it only translated the data hard-coded in the app itself, such as constant page titles that did not change. The firestore data was not translated. To fix this, I researched alternative ways to translate the app. I decided to use the Translate Text in Firestore extension for Firebase.
 
-Antony: I spent the entire weekend working on translations. When I started using the Firestore extension, I found out it was not as easy as I expected it to be. Firstly, the extension outputted data in a map format, which is similar to an array (list) but each value has an index. Flutterflow does not support map format, and I had to write a custom cloud function which would convert the map value to a subcollection. I had no previous experience with Firebase functions or async programming, and it took me two days to write a function which actually worked. Just as I had almost finished, I looked at my Firebase usage and realized that it was over 20 times the free limit. Luckily, I didn't get billed. Out of caution, I downgraded the Firebase plan. Upon inspection, the bug was probably caused by my function triggering itself over and over again recursively.
+### Translating Firestore Data
+
+Antony: After last week, we had one more issue with the app. We only got translations to work partially, through Flutterflow's built in Google Translate integration. Unfortunately, it only translated the data hard-coded in the app itself, such as constant page titles that did not change. The firestore data was not translated. To fix this, I researched alternative ways to translate the app. I decided to use the Translate Text in Firestore extension for Firebase. Meanwhile, I made some minor changes to the ProjectBoard.
+
+Antony: I spent the entire weekend working on translations. When I started using the Firestore extension, I found out it was not as easy as I expected it to be. Firstly, the extension outputted data in a map format, which is similar to an array (list) but each value has an index. Flutterflow does not support this format, and I had to write a custom cloud function which would convert the map value to a subcollection. I had no previous experience with Firebase functions or async programming, and it took me two days to write a function which actually worked. Just as I had almost finished, I looked at my Firebase usage and realized that it was over 20 times the free limit. Luckily, I didn't get billed. Out of caution, I downgraded the Firebase plan. Upon inspection, the bug was probably caused by my function triggering itself over and over again recursively.
+
+# 🗓️  2023-04-27: Week 8
+
+### Overhauling Refugee Pal for Helpers
+
+Ali and Antony: This week, we decided to overhaul Refugee Pal for helpers. The version of Refugee Pal for helpers we developed for the regional science fair was very basic; it only allowed helpers to update some data, would not fill in input fields with the existing data. We also wanted to extend the functionality of user accounts and improve our data structure for the interactive map by adding programs, so that refugees can accurately determine thesolutions to their challenges. Antony created a whole new navbar and set of pages. We created organizations, which would allow refugee support organizations to manage and protect their services from editing.
+
+Antony: Around this time, I also managed to get my hands on a Macbook, which helped to speed up development greatly, since the Flutterflow native MacOS app runs much more smoothly than the webapp. I used this extra time to improve the app's design, ensuring that it was as consistent as possible.
+
+
+# 🗓️  2023-5-4: Week 9
+
+### Plans for Final Preparation
+
+Ali and Antony: By this time, we had begun to realize that many things that we planned for the app were not going to get done. We wanted to test our app
+
+### Improvements to Connect and Explore
+
+Antony: Before the deadline which I had set myself on Sunday, I decided to make some final improvements to Connect and Explore. In Connect and Chats, I enabled uploading images and videos to chat, made minor changes to the user interface and added a new Bottom Sheet element for editing and deleting chat messages. To provide refugees with a personalized experience, we created pins, where the user can pin any location, resource or Q&A chat and come back to it later.
+
+Antony: This came with changes to the Explore page. Instead of having a standard view below the searchbar, now we have the old view with all services on one page, and new views showcasing pinned and recently visited items. I also used redirections back to Explore from the interactive map to enable viewing a list of locations rather than them being on the map only. With this, we had finally finished developing the app.
+
+### Running Refugee Pal on Android Studio
+
+Antony: While I was working on the app, I also set up Android Studio on my PC. It took me an entire morning to set up Android Studio, because I had to enable virtualization and because my antivirus was stopping things from working. After fixing these problems, I was able to run Refugee Pal on the android emulator.
+
+# 🗓️ 2023-5-10: Last two days
