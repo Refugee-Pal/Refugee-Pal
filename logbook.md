@@ -95,7 +95,7 @@ Antony: Currently trying to finalize wireframe sketches of the app. I outlined f
 
 ### Starting to Work on Digital Resource Hub and Structuring Firestore NoSQL Database
 
-Ali: The first feature i want to complete is the digital resource hub, so i began planning a roadmap for implementation. At first, i thought of having individual pages for every category and subcategory, but then realized it would be very tedious, ineffective, and slow. The better way was to use the firestore database. At this point, i encountered many roadblocks when trying to structure the database. The digital resource hub was very complex because there is first a category gallery page, then a detailed category page with subcategories, and then another subcategory detailed page. One thing inside of the other.
+Ali: The first feature I want to complete is the digital resource hub, so i began planning a roadmap for implementation. At first, i thought of having individual pages for every category and subcategory, but then realized it would be very tedious, ineffective, and slow. The better way was to use the firestore database. At this point, i encountered many roadblocks when trying to structure the database. The digital resource hub was very complex because there is first a category gallery page, then a detailed category page with subcategories, and then another subcategory detailed page. One thing inside of the other.
 
 ### Challenges when Working on Firestore database for Categories, Subcategories, and Resourceproviders
 
@@ -173,7 +173,7 @@ Ali: We were able to run the app on test mode using Flutterflow. However, we had
 
 ### Installing Flutter and Encountering Issues with Pod Installation and Outdated Ruby
 
-Ali: Once i had installed flutter, i had to figure out how to run the app. So through the terminal, I tried going to our refugee pal folder, and running the command “Flutter run”. However, I encountered a bug which was saying that pods needed to be installed. Since our app is using firestore which is like a plugin, we have to install something called CocoaPods. However, when I was trying to install CocoaPods I realized it wasnt working because the Ruby version on my Macbook was out of date. I had to install homebrew and then install the most up to date version of Ruby through the command line, which was 3.2.2 when my laptop had 2.6.
+Ali: Once i had installed Flutter, i had to figure out how to run the app. So through the terminal, I tried going to our refugee pal folder, and running the command “Flutter run”. However, I encountered a bug which was saying that pods needed to be installed. Since our app is using firestore which is like a plugin, we have to install something called CocoaPods. However, when I was trying to install CocoaPods I realized it wasnt working because the Ruby version on my Macbook was out of date. I had to install homebrew and then install the most up to date version of Ruby through the command line, which was 3.2.2 when my laptop had 2.6.
 
 ### Successfully Running the App on iOS Simulator and iPhone!
 
@@ -183,4 +183,48 @@ Ali: Finally, I was able to successfully run the app on an iOS simulator using X
 
 Ali: I spent this week mainly doing some final touches to the app, like changing the aesthetics, border radius, and other aspects of the app, making the design consistent. The app definitely needs some improvement in its user interface. I also ran different tests for every single feature makign sure it was fully functional. 
 
-Ali and Antony: We began preparing for the judge presentation. We wrote a detailed script, ran through the presentation a couple times, made a slideshow, and more. Our main goal is to be more organized in our presentation to the judges unlike last time. We also prepared all the peripherals and things we were bringing, like my phone, laptop, posterboard, logbook and binder, etc.
+# 🗓️  2023-04-13: Week 6
+
+### Planning for CWSF
+
+Ali and Antony: After qualifying for the Canada-Wide Science Fair, we were very excited and we decided to start planning for the next few weeks immediately. We first laid out a list of tasks separated into improvements to the app, additional research and testing as well as improvements to our presentation. Then, we wrote a timeline for the next four weeks, using the tasks we had laid out.
+
+### Minor App Improvements
+
+Antony: This week, I started working on minor improvements and bug fixes that I did not have time to make before regionals. For CWSF, we wanted Refugee Pal's user accounts to be closely integrated with the interactive map and the find professionals feature, so that refugees are able to click directly on a location or program, view the settlement workers, case managers and organizers involved and chat with them within the app. I made a user profile page which would show up whenever someone's profile picture is clicked on. I also found a solution to a bug we had with stationary widgets by wrapping both elements in a stack instead of in a column, and making one scrollable.
+
+# 🗓️  2023-04-20: Week 7
+
+
+### Translating Firestore Data
+
+Antony: After last week, we had one more issue with the app. We only got translations to work partially, through Flutterflow's built in Google Translate integration. Unfortunately, it only translated the data hard-coded in the app itself, such as constant page titles that did not change. The firestore data was not translated. To fix this, I researched alternative ways to translate the app. I decided to use the Translate Text in Firestore extension for Firebase. Meanwhile, I made some minor changes to the ProjectBoard.
+
+Antony: I spent the entire weekend working on translations. When I started using the Firestore extension, I found out it was not as easy as I expected it to be. Firstly, the extension outputted data in a map format, which is similar to an array (list) but each value has an index. Flutterflow does not support this format, and I had to write a custom cloud function which would convert the map value to a subcollection. I had no previous experience with Firebase functions or async programming, and it took me two days to write a function which actually worked. Just as I had almost finished, I looked at my Firebase usage and realized that it was over 20 times the free limit. Luckily, I didn't get billed. Out of caution, I downgraded the Firebase plan. Upon inspection, the bug was probably caused by my function triggering itself over and over again recursively.
+
+# 🗓️  2023-04-27: Week 8
+
+### Overhauling Refugee Pal for Helpers
+
+Ali and Antony: This week, we decided to overhaul Refugee Pal for helpers. The version of Refugee Pal for helpers we developed for the regional science fair was very basic; it only allowed helpers to update some data, would not fill in input fields with the existing data. We also wanted to extend the functionality of user accounts and improve our data structure for the interactive map by adding programs, so that refugees can accurately determine thesolutions to their challenges. Antony created a whole new navbar and set of pages. We created organizations, which would allow refugee support organizations to manage and protect their services from editing.
+
+Antony: Around this time, I also managed to get my hands on a Macbook, which helped to speed up development greatly, since the Flutterflow native MacOS app runs much more smoothly than the webapp. I used this extra time to improve the app's design, ensuring that it was as consistent as possible.
+
+
+# 🗓️  2023-5-4: Week 9
+
+### Plans for Testing
+
+Ali and Antony: By this time, we had begun to realize that many things that we planned for the app were not going to get done. We wanted to reach out to refugee uspport organizations and test our app, because the last test we had run was with the webapp version of Refugee Pal. Surveying a larger and more diverse sample size, as well as people who actively work to support refugees would allow us to better understand how eell our app was working and how we could develop our ideas beyond the Canada-Wide Science Fair, possibly even with external support. We started off by sending emails, but made a few phone calls as well. Unfortuantely, this took longer than expected and by next week we still had not recieved a formal invitation to test the app.
+
+### Improvements to Connect and Explore
+
+Antony: Before the deadline which I had set myself on Sunday, I decided to make some final improvements to Connect and Explore. In Connect and Chats, I enabled uploading images and videos to chat, made minor changes to the user interface and added a new Bottom Sheet element for editing and deleting chat messages. To provide refugees with a personalized experience, we created pins, where the user can pin any location, resource or Q&A chat and come back to it later.
+
+Antony: This came with changes to the Explore page. Instead of having a standard view below the searchbar, now we have the old view with all services on one page, and new views showcasing pinned and recently visited items. I also used redirections back to Explore from the interactive map to enable viewing a list of locations rather than them being on the map only. I did the same, with Q&A chat threads allowing refugees to search for them and sort by category. With this, we had finally finished developing the app.
+
+### Running Refugee Pal on Android Studio
+
+Antony: While I was working on the app, I also set up Android Studio on my PC. It took me an entire morning to set up Android Studio, because I had to enable virtualization and because my antivirus was stopping things from working. After fixing these problems, I was able to run Refugee Pal on the android emulator.
+
+# 🗓️ 2023-5-10: Week 10
