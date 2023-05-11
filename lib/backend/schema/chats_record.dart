@@ -23,6 +23,8 @@ abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
 
   BuiltList<String>? get categories;
 
+  BuiltList<String>? get preexistingTimestamps;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -33,7 +35,8 @@ abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
     ..users = ListBuilder()
     ..lastmessageuser = ''
     ..type = ''
-    ..categories = ListBuilder();
+    ..categories = ListBuilder()
+    ..preexistingTimestamps = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('chats');
@@ -73,7 +76,8 @@ Map<String, dynamic> createChatsRecordData({
         ..users = null
         ..lastmessageuser = lastmessageuser
         ..type = type
-        ..categories = null,
+        ..categories = null
+        ..preexistingTimestamps = null,
     ),
   );
 

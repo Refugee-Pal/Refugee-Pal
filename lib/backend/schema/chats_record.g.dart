@@ -70,6 +70,14 @@ class _$ChatsRecordSerializer implements StructuredSerializer<ChatsRecord> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
+    value = object.preexistingTimestamps;
+    if (value != null) {
+      result
+        ..add('preexistingTimestamps')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -124,6 +132,12 @@ class _$ChatsRecordSerializer implements StructuredSerializer<ChatsRecord> {
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
+        case 'preexistingTimestamps':
+          result.preexistingTimestamps.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -153,6 +167,8 @@ class _$ChatsRecord extends ChatsRecord {
   @override
   final BuiltList<String>? categories;
   @override
+  final BuiltList<String>? preexistingTimestamps;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ChatsRecord([void Function(ChatsRecordBuilder)? updates]) =>
@@ -166,6 +182,7 @@ class _$ChatsRecord extends ChatsRecord {
       this.lastmessageuser,
       this.type,
       this.categories,
+      this.preexistingTimestamps,
       this.ffRef})
       : super._();
 
@@ -187,6 +204,7 @@ class _$ChatsRecord extends ChatsRecord {
         lastmessageuser == other.lastmessageuser &&
         type == other.type &&
         categories == other.categories &&
+        preexistingTimestamps == other.preexistingTimestamps &&
         ffRef == other.ffRef;
   }
 
@@ -200,6 +218,7 @@ class _$ChatsRecord extends ChatsRecord {
     _$hash = $jc(_$hash, lastmessageuser.hashCode);
     _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jc(_$hash, categories.hashCode);
+    _$hash = $jc(_$hash, preexistingTimestamps.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -215,6 +234,7 @@ class _$ChatsRecord extends ChatsRecord {
           ..add('lastmessageuser', lastmessageuser)
           ..add('type', type)
           ..add('categories', categories)
+          ..add('preexistingTimestamps', preexistingTimestamps)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -255,6 +275,12 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
   set categories(ListBuilder<String>? categories) =>
       _$this._categories = categories;
 
+  ListBuilder<String>? _preexistingTimestamps;
+  ListBuilder<String> get preexistingTimestamps =>
+      _$this._preexistingTimestamps ??= new ListBuilder<String>();
+  set preexistingTimestamps(ListBuilder<String>? preexistingTimestamps) =>
+      _$this._preexistingTimestamps = preexistingTimestamps;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -273,6 +299,7 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
       _lastmessageuser = $v.lastmessageuser;
       _type = $v.type;
       _categories = $v.categories?.toBuilder();
+      _preexistingTimestamps = $v.preexistingTimestamps?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -305,6 +332,7 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
               lastmessageuser: lastmessageuser,
               type: type,
               categories: _categories?.build(),
+              preexistingTimestamps: _preexistingTimestamps?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -314,6 +342,8 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
 
         _$failedField = 'categories';
         _categories?.build();
+        _$failedField = 'preexistingTimestamps';
+        _preexistingTimestamps?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ChatsRecord', _$failedField, e.toString());

@@ -68,7 +68,7 @@ class _DeleteConfirmationWidgetState extends State<DeleteConfirmationWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(20.0, 40.0, 20.0, 40.0),
+        padding: EdgeInsetsDirectional.fromSTEB(20.0, 35.0, 20.0, 30.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
