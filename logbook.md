@@ -1,9 +1,8 @@
 # 💻 Resources and Software Utilized
 Because this project was completely digital, our materials solely consisted of software
 
-🛠️ FlutterFlow No Code and FlutterFlow Documentation
 
-### 🔨 FlutterFlow
+### 🛠️ FlutterFlow No Code and FlutterFlow Documentation
 ![image](https://user-images.githubusercontent.com/123277428/235285465-d9183e8c-845a-4baf-9659-5dc79e68a06b.png)
 
 FlutterFlow's visual drag-and-drop interface and library of components helped us accelerate the development process of Refugee Pal by automatically generating Flutter/Dart code, which we could easily export. We chose FlutterFlow for its unique features, including source code exporting, Github integration, easy Firebase backend setup, compatibility with multiple operating systems, and extensive library of components. Additionally, the platform's comprehensive documentation, with step-by-step tutorials and video guides, made it easy to build out our app's features.
