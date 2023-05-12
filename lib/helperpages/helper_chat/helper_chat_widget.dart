@@ -14,11 +14,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/navbars/helper_nav_bar/helper_nav_bar_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -94,8 +96,9 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: CircularProgressIndicator(
+              child: SpinKitPulse(
                 color: FlutterFlowTheme.of(context).primary,
+                size: 50.0,
               ),
             ),
           );
@@ -211,11 +214,11 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                               child: SizedBox(
                                                 width: 50.0,
                                                 height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
+                                                child: SpinKitPulse(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
+                                                  size: 50.0,
                                                 ),
                                               ),
                                             );
@@ -507,11 +510,11 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                         child: SizedBox(
                                                           width: 50.0,
                                                           height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
+                                                          child: SpinKitPulse(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
                                                                 .primary,
+                                                            size: 50.0,
                                                           ),
                                                         ),
                                                       );
@@ -1476,10 +1479,11 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                                 width: 50.0,
                                                                 height: 50.0,
                                                                 child:
-                                                                    CircularProgressIndicator(
+                                                                    SpinKitPulse(
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primary,
+                                                                  size: 50.0,
                                                                 ),
                                                               ),
                                                             );
@@ -1612,8 +1616,9 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                                                           child: SizedBox(
                                                                                             width: 50.0,
                                                                                             height: 50.0,
-                                                                                            child: CircularProgressIndicator(
+                                                                                            child: SpinKitPulse(
                                                                                               color: FlutterFlowTheme.of(context).primary,
+                                                                                              size: 50.0,
                                                                                             ),
                                                                                           ),
                                                                                         );
@@ -1865,8 +1870,9 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                                                 child: SizedBox(
                                                                                   width: 50.0,
                                                                                   height: 50.0,
-                                                                                  child: CircularProgressIndicator(
+                                                                                  child: SpinKitPulse(
                                                                                     color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 50.0,
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -1964,11 +1970,11 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                           child: SizedBox(
                                                             width: 50.0,
                                                             height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
+                                                            child: SpinKitPulse(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .primary,
+                                                              size: 50.0,
                                                             ),
                                                           ),
                                                         );
@@ -2394,9 +2400,11 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                                         height:
                                                                             50.0,
                                                                         child:
-                                                                            CircularProgressIndicator(
+                                                                            SpinKitPulse(
                                                                           color:
                                                                               FlutterFlowTheme.of(context).primary,
+                                                                          size:
+                                                                              50.0,
                                                                         ),
                                                                       ),
                                                                     );
@@ -2483,8 +2491,9 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                                                                 child: SizedBox(
                                                                                                   width: 50.0,
                                                                                                   height: 50.0,
-                                                                                                  child: CircularProgressIndicator(
+                                                                                                  child: SpinKitPulse(
                                                                                                     color: FlutterFlowTheme.of(context).primary,
+                                                                                                    size: 50.0,
                                                                                                   ),
                                                                                                 ),
                                                                                               );
@@ -3770,9 +3779,10 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                       child: SizedBox(
                                         width: 50.0,
                                         height: 50.0,
-                                        child: CircularProgressIndicator(
+                                        child: SpinKitPulse(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
+                                          size: 50.0,
                                         ),
                                       ),
                                     );
@@ -3873,10 +3883,11 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                               width: 50.0,
                                                               height: 50.0,
                                                               child:
-                                                                  CircularProgressIndicator(
+                                                                  SpinKitPulse(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
+                                                                size: 50.0,
                                                               ),
                                                             ),
                                                           );
@@ -4132,6 +4143,14 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                           ),
                         ),
                     ],
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(0.0, 1.0),
+                    child: wrapWithModel(
+                      model: _model.helperNavBarModel,
+                      updateCallback: () => setState(() {}),
+                      child: HelperNavBarWidget(),
+                    ),
                   ),
                 ],
               ),

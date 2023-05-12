@@ -7,6 +7,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'refugeepalwelcomescreen_model.dart';
@@ -202,7 +203,7 @@ class _RefugeepalwelcomescreenWidgetState
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 24.0, 0.0, 0.0),
+                                      0.0, 40.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
                                       'a636luf0' /* Welcome to Refugee Pal */,
@@ -212,8 +213,8 @@ class _RefugeepalwelcomescreenWidgetState
                                         .override(
                                           fontFamily: 'Inter',
                                           color: Colors.white,
-                                          fontSize: 28.0,
-                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30.0,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                   ).animateOnPageLoad(animationsMap[
                                       'textOnPageLoadAnimation1']!),

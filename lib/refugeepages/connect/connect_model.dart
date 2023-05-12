@@ -16,12 +16,15 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/navbars/refugee_nav_bar/refugee_nav_bar_widget.dart';
+import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -155,6 +158,8 @@ class ConnectModel extends FlutterFlowModel {
   ScrollController? columnController4;
   // State field(s) for Column widget.
   ScrollController? columnController5;
+  // Model for refugeeNavBar component.
+  late RefugeeNavBarModel refugeeNavBarModel;
 
   /// Initialization and disposal methods.
 
@@ -171,6 +176,7 @@ class ConnectModel extends FlutterFlowModel {
     userProfileModel = createModel(context, () => UserProfileModel());
     columnController4 = ScrollController();
     columnController5 = ScrollController();
+    refugeeNavBarModel = createModel(context, () => RefugeeNavBarModel());
   }
 
   void dispose() {
@@ -190,6 +196,7 @@ class ConnectModel extends FlutterFlowModel {
     userProfileModel.dispose();
     columnController4?.dispose();
     columnController5?.dispose();
+    refugeeNavBarModel.dispose();
   }
 
   /// Additional helper methods are added here.

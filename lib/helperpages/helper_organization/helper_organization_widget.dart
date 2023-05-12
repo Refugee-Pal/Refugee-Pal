@@ -21,6 +21,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -119,8 +120,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: CircularProgressIndicator(
+              child: SpinKitPulse(
                 color: FlutterFlowTheme.of(context).primary,
+                size: 50.0,
               ),
             ),
           );
@@ -189,8 +191,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                       child: SizedBox(
                         width: 50.0,
                         height: 50.0,
-                        child: CircularProgressIndicator(
+                        child: SpinKitPulse(
                           color: FlutterFlowTheme.of(context).primary,
+                          size: 50.0,
                         ),
                       ),
                     );
@@ -1135,11 +1138,11 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                       child: SizedBox(
                                                         width: 50.0,
                                                         height: 50.0,
-                                                        child:
-                                                            CircularProgressIndicator(
+                                                        child: SpinKitPulse(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
+                                                          size: 50.0,
                                                         ),
                                                       ),
                                                     );
@@ -1789,8 +1792,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                     child: SizedBox(
                                                                                       width: 50.0,
                                                                                       height: 50.0,
-                                                                                      child: CircularProgressIndicator(
+                                                                                      child: SpinKitPulse(
                                                                                         color: FlutterFlowTheme.of(context).primary,
+                                                                                        size: 50.0,
                                                                                       ),
                                                                                     ),
                                                                                   );
@@ -2291,8 +2295,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                 SizedBox(
                                                                               width: 50.0,
                                                                               height: 50.0,
-                                                                              child: CircularProgressIndicator(
+                                                                              child: SpinKitPulse(
                                                                                 color: FlutterFlowTheme.of(context).primary,
+                                                                                size: 50.0,
                                                                               ),
                                                                             ),
                                                                           );
@@ -2524,10 +2529,11 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                   width: 50.0,
                                                                   height: 50.0,
                                                                   child:
-                                                                      CircularProgressIndicator(
+                                                                      SpinKitPulse(
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primary,
+                                                                    size: 50.0,
                                                                   ),
                                                                 ),
                                                               );
@@ -3304,8 +3310,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                                               child: SizedBox(
                                                                                                                                 width: 50.0,
                                                                                                                                 height: 50.0,
-                                                                                                                                child: CircularProgressIndicator(
+                                                                                                                                child: SpinKitPulse(
                                                                                                                                   color: FlutterFlowTheme.of(context).primary,
+                                                                                                                                  size: 50.0,
                                                                                                                                 ),
                                                                                                                               ),
                                                                                                                             );
@@ -3552,8 +3559,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                           child: SizedBox(
                                                                                                             width: 50.0,
                                                                                                             height: 50.0,
-                                                                                                            child: CircularProgressIndicator(
+                                                                                                            child: SpinKitPulse(
                                                                                                               color: FlutterFlowTheme.of(context).primary,
+                                                                                                              size: 50.0,
                                                                                                             ),
                                                                                                           ),
                                                                                                         );
@@ -3919,8 +3927,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                                                   child: SizedBox(
                                                                                                                                     width: 50.0,
                                                                                                                                     height: 50.0,
-                                                                                                                                    child: CircularProgressIndicator(
+                                                                                                                                    child: SpinKitPulse(
                                                                                                                                       color: FlutterFlowTheme.of(context).primary,
+                                                                                                                                      size: 50.0,
                                                                                                                                     ),
                                                                                                                                   ),
                                                                                                                                 );
@@ -4074,8 +4083,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                 child: SizedBox(
                                                                                   width: 50.0,
                                                                                   height: 50.0,
-                                                                                  child: CircularProgressIndicator(
+                                                                                  child: SpinKitPulse(
                                                                                     color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 50.0,
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -4100,8 +4110,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                           child: SizedBox(
                                                                                             width: 50.0,
                                                                                             height: 50.0,
-                                                                                            child: CircularProgressIndicator(
+                                                                                            child: SpinKitPulse(
                                                                                               color: FlutterFlowTheme.of(context).primary,
+                                                                                              size: 50.0,
                                                                                             ),
                                                                                           ),
                                                                                         );
@@ -4130,8 +4141,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                           child: SizedBox(
                                                                                                             width: 50.0,
                                                                                                             height: 50.0,
-                                                                                                            child: CircularProgressIndicator(
+                                                                                                            child: SpinKitPulse(
                                                                                                               color: FlutterFlowTheme.of(context).primary,
+                                                                                                              size: 50.0,
                                                                                                             ),
                                                                                                           ),
                                                                                                         );
@@ -4334,39 +4346,43 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                       MainAxisSize
                                                                           .max,
                                                                   children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
+                                                                    Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
                                                                       child:
-                                                                          FlutterFlowIconButton(
-                                                                        borderColor:
-                                                                            Colors.transparent,
-                                                                        borderRadius:
-                                                                            30.0,
-                                                                        borderWidth:
-                                                                            1.0,
-                                                                        buttonSize:
-                                                                            60.0,
-                                                                        icon:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .arrow_back_rounded,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          size:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            FlutterFlowIconButton(
+                                                                          borderColor:
+                                                                              Colors.transparent,
+                                                                          borderRadius:
                                                                               30.0,
+                                                                          borderWidth:
+                                                                              1.0,
+                                                                          buttonSize:
+                                                                              50.0,
+                                                                          icon:
+                                                                              Icon(
+                                                                            Icons.arrow_back_rounded,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            size:
+                                                                                30.0,
+                                                                          ),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _model.organizationSelected = 'none';
+                                                                            });
+                                                                          },
                                                                         ),
-                                                                        onPressed:
-                                                                            () async {
-                                                                          setState(
-                                                                              () {
-                                                                            _model.organizationSelected =
-                                                                                'none';
-                                                                          });
-                                                                        },
                                                                       ),
                                                                     ),
                                                                     StreamBuilder<
@@ -4392,8 +4408,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                 SizedBox(
                                                                               width: 50.0,
                                                                               height: 50.0,
-                                                                              child: CircularProgressIndicator(
+                                                                              child: SpinKitPulse(
                                                                                 color: FlutterFlowTheme.of(context).primary,
+                                                                                size: 50.0,
                                                                               ),
                                                                             ),
                                                                           );
@@ -4692,8 +4709,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                 child: SizedBox(
                                                                                                   width: 50.0,
                                                                                                   height: 50.0,
-                                                                                                  child: CircularProgressIndicator(
+                                                                                                  child: SpinKitPulse(
                                                                                                     color: FlutterFlowTheme.of(context).primary,
+                                                                                                    size: 50.0,
                                                                                                   ),
                                                                                                 ),
                                                                                               );
@@ -4779,8 +4797,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                   child: SizedBox(
                                                                                                     width: 50.0,
                                                                                                     height: 50.0,
-                                                                                                    child: CircularProgressIndicator(
+                                                                                                    child: SpinKitPulse(
                                                                                                       color: FlutterFlowTheme.of(context).primary,
+                                                                                                      size: 50.0,
                                                                                                     ),
                                                                                                   ),
                                                                                                 );
@@ -4950,8 +4969,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                     child: SizedBox(
                                                                                                       width: 50.0,
                                                                                                       height: 50.0,
-                                                                                                      child: CircularProgressIndicator(
+                                                                                                      child: SpinKitPulse(
                                                                                                         color: FlutterFlowTheme.of(context).primary,
+                                                                                                        size: 50.0,
                                                                                                       ),
                                                                                                     ),
                                                                                                   );
@@ -5008,8 +5028,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                               child: SizedBox(
                                                                                                 width: 50.0,
                                                                                                 height: 50.0,
-                                                                                                child: CircularProgressIndicator(
+                                                                                                child: SpinKitPulse(
                                                                                                   color: FlutterFlowTheme.of(context).primary,
+                                                                                                  size: 50.0,
                                                                                                 ),
                                                                                               ),
                                                                                             );
@@ -5228,8 +5249,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                 child: SizedBox(
                                                                                                   width: 50.0,
                                                                                                   height: 50.0,
-                                                                                                  child: CircularProgressIndicator(
+                                                                                                  child: SpinKitPulse(
                                                                                                     color: FlutterFlowTheme.of(context).primary,
+                                                                                                    size: 50.0,
                                                                                                   ),
                                                                                                 ),
                                                                                               );
@@ -5402,8 +5424,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                               child: SizedBox(
                                                                                                 width: 50.0,
                                                                                                 height: 50.0,
-                                                                                                child: CircularProgressIndicator(
+                                                                                                child: SpinKitPulse(
                                                                                                   color: FlutterFlowTheme.of(context).primary,
+                                                                                                  size: 50.0,
                                                                                                 ),
                                                                                               ),
                                                                                             );
@@ -5549,8 +5572,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                   child: SizedBox(
                                                                                                     width: 50.0,
                                                                                                     height: 50.0,
-                                                                                                    child: CircularProgressIndicator(
+                                                                                                    child: SpinKitPulse(
                                                                                                       color: FlutterFlowTheme.of(context).primary,
+                                                                                                      size: 50.0,
                                                                                                     ),
                                                                                                   ),
                                                                                                 );
@@ -5720,8 +5744,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                     child: SizedBox(
                                                                                                       width: 50.0,
                                                                                                       height: 50.0,
-                                                                                                      child: CircularProgressIndicator(
+                                                                                                      child: SpinKitPulse(
                                                                                                         color: FlutterFlowTheme.of(context).primary,
+                                                                                                        size: 50.0,
                                                                                                       ),
                                                                                                     ),
                                                                                                   );
@@ -5778,8 +5803,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                               child: SizedBox(
                                                                                                 width: 50.0,
                                                                                                 height: 50.0,
-                                                                                                child: CircularProgressIndicator(
+                                                                                                child: SpinKitPulse(
                                                                                                   color: FlutterFlowTheme.of(context).primary,
+                                                                                                  size: 50.0,
                                                                                                 ),
                                                                                               ),
                                                                                             );
@@ -5858,8 +5884,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                               child: SizedBox(
                                                                                                 width: 50.0,
                                                                                                 height: 50.0,
-                                                                                                child: CircularProgressIndicator(
+                                                                                                child: SpinKitPulse(
                                                                                                   color: FlutterFlowTheme.of(context).primary,
+                                                                                                  size: 50.0,
                                                                                                 ),
                                                                                               ),
                                                                                             );
@@ -5941,8 +5968,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                   child: SizedBox(
                                                                                                     width: 50.0,
                                                                                                     height: 50.0,
-                                                                                                    child: CircularProgressIndicator(
+                                                                                                    child: SpinKitPulse(
                                                                                                       color: FlutterFlowTheme.of(context).primary,
+                                                                                                      size: 50.0,
                                                                                                     ),
                                                                                                   ),
                                                                                                 );
@@ -6076,8 +6104,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                                 child: SizedBox(
                                                                                                   width: 50.0,
                                                                                                   height: 50.0,
-                                                                                                  child: CircularProgressIndicator(
+                                                                                                  child: SpinKitPulse(
                                                                                                     color: FlutterFlowTheme.of(context).primary,
+                                                                                                    size: 50.0,
                                                                                                   ),
                                                                                                 ),
                                                                                               );
@@ -6663,8 +6692,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                             height:
                                                                                 50.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
+                                                                                SpinKitPulse(
                                                                               color: FlutterFlowTheme.of(context).primary,
+                                                                              size: 50.0,
                                                                             ),
                                                                           ),
                                                                         );
