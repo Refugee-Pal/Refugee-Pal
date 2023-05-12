@@ -14,11 +14,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/navbars/helper_nav_bar/helper_nav_bar_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -138,6 +140,8 @@ class HelperChatModel extends FlutterFlowModel {
   late UserProfileModel userProfileModel;
   // Stores action output result for [Bottom Sheet - newSheet] action in IconButton widget.
   List<bool>? isQandA;
+  // Model for helperNavBar component.
+  late HelperNavBarModel helperNavBarModel;
 
   /// Initialization and disposal methods.
 
@@ -152,6 +156,7 @@ class HelperChatModel extends FlutterFlowModel {
     listViewController3 = ScrollController();
     listViewController4 = ScrollController();
     userProfileModel = createModel(context, () => UserProfileModel());
+    helperNavBarModel = createModel(context, () => HelperNavBarModel());
   }
 
   void dispose() {
@@ -169,6 +174,7 @@ class HelperChatModel extends FlutterFlowModel {
     chatFieldController?.dispose();
     listViewController4?.dispose();
     userProfileModel.dispose();
+    helperNavBarModel.dispose();
   }
 
   /// Additional helper methods are added here.

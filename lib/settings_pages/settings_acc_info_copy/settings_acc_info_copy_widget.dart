@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -173,7 +174,10 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 24.0, 20.0, 24.0),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                            ),
                         maxLines: null,
                         keyboardType: TextInputType.emailAddress,
                         validator: _model.emailAddressController1Validator
@@ -240,7 +244,11 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                             contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 24.0, 20.0, 24.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w500,
+                                  ),
                           maxLines: null,
                           keyboardType: TextInputType.phone,
                           validator: _model.emailAddressController2Validator
@@ -350,7 +358,7 @@ class _SettingsAccInfoCopyWidgetState extends State<SettingsAccInfoCopyWidget> {
                                   child: DeleteConfirmationWidget(
                                     thingToDelete:
                                         FFLocalizations.of(context).getText(
-                                      'fgizi796' /* your account */,
+                                      'fgizi796' /* account */,
                                     ),
                                   ),
                                 ),

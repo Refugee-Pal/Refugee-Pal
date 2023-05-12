@@ -39,8 +39,6 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
 
   bool? get isRefugee;
 
-  bool? get translateApp;
-
   BuiltList<String>? get areasOfInterest;
 
   @BuiltValueField(wireName: 'phone_number')
@@ -51,6 +49,8 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
   BuiltList<String>? get recents;
 
   BuiltList<String>? get pinned;
+
+  String? get translateApp;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -67,12 +67,12 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
     ..name = ''
     ..displayName = ''
     ..isRefugee = false
-    ..translateApp = false
     ..areasOfInterest = ListBuilder()
     ..phoneNumber = ''
     ..description = ''
     ..recents = ListBuilder()
-    ..pinned = ListBuilder();
+    ..pinned = ListBuilder()
+    ..translateApp = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
@@ -99,13 +99,13 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
           ..name = snapshot.data['name']
           ..displayName = snapshot.data['display_name']
           ..isRefugee = snapshot.data['isRefugee']
-          ..translateApp = snapshot.data['translateApp']
           ..areasOfInterest =
               safeGet(() => ListBuilder(snapshot.data['areasOfInterest']))
           ..phoneNumber = snapshot.data['phone_number']
           ..description = snapshot.data['description']
           ..recents = safeGet(() => ListBuilder(snapshot.data['recents']))
           ..pinned = safeGet(() => ListBuilder(snapshot.data['pinned']))
+          ..translateApp = snapshot.data['translateApp']
           ..ffRef = UserRecord.collection.doc(snapshot.objectID),
       );
 
@@ -148,9 +148,9 @@ Map<String, dynamic> createUserRecordData({
   String? name,
   String? displayName,
   bool? isRefugee,
-  bool? translateApp,
   String? phoneNumber,
   String? description,
+  String? translateApp,
 }) {
   final firestoreData = serializers.toFirestore(
     UserRecord.serializer,
@@ -167,12 +167,12 @@ Map<String, dynamic> createUserRecordData({
         ..name = name
         ..displayName = displayName
         ..isRefugee = isRefugee
-        ..translateApp = translateApp
         ..areasOfInterest = null
         ..phoneNumber = phoneNumber
         ..description = description
         ..recents = null
-        ..pinned = null,
+        ..pinned = null
+        ..translateApp = translateApp,
     ),
   );
 

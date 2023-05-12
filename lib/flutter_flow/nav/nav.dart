@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
@@ -69,13 +70,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) =>
-          appStateNotifier.loggedIn ? HomeWidget() : LoginPageWidget(),
+          appStateNotifier.loggedIn ? SwitchPageWidget() : LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomeWidget() : LoginPageWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? SwitchPageWidget()
+              : LoginPageWidget(),
         ),
         FFRoute(
           name: 'home',
@@ -84,6 +86,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             startingChip: params.getParam('startingChip', ParamType.String),
             startingCategory:
                 params.getParam('startingCategory', ParamType.String),
+            isNew: params.getParam('isNew', ParamType.bool),
           ),
         ),
         FFRoute(
@@ -234,6 +237,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => HelperChatWidget(
             chatToLoad: params.getParam('chatToLoad', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'switchPage',
+          path: '/switchPage',
+          builder: (context, params) => SwitchPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
@@ -415,13 +423,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      color: FlutterFlowTheme.of(context).primary,
-                    ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/Screenshot_2023-05-10_172514.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;
@@ -459,5 +465,9 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(
+        hasTransition: true,
+        transitionType: PageTransitionType.fade,
+        duration: Duration(milliseconds: 500),
+      );
 }

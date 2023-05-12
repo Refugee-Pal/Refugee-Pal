@@ -12,6 +12,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,8 +38,6 @@ class UserjourneyHelperModel extends FlutterFlowModel {
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
-  // State field(s) for SwitchListTile widget.
-  bool? switchListTileValue;
   // State field(s) for TextField widget.
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
@@ -57,9 +56,6 @@ class UserjourneyHelperModel extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController5;
   String? Function(BuildContext, String?)? textController5Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController6;
-  String? Function(BuildContext, String?)? textController6Validator;
   // State field(s) for emailAddress widget.
   TextEditingController? emailAddressController;
   String? Function(BuildContext, String?)? emailAddressControllerValidator;
@@ -83,7 +79,6 @@ class UserjourneyHelperModel extends FlutterFlowModel {
     textController3?.dispose();
     textController4?.dispose();
     textController5?.dispose();
-    textController6?.dispose();
     emailAddressController?.dispose();
   }
 

@@ -12,6 +12,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,7 +58,6 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
     _model.textController3 ??= TextEditingController();
     _model.textController4 ??= TextEditingController();
     _model.textController5 ??= TextEditingController();
-    _model.textController6 ??= TextEditingController();
     _model.emailAddressController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -83,8 +83,9 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: CircularProgressIndicator(
+              child: SpinKitPulse(
                 color: FlutterFlowTheme.of(context).primary,
+                size: 50.0,
               ),
             ),
           );
@@ -377,10 +378,11 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                             child: SizedBox(
                                               width: 50.0,
                                               height: 50.0,
-                                              child: CircularProgressIndicator(
+                                              child: SpinKitPulse(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
+                                                size: 50.0,
                                               ),
                                             ),
                                           );
@@ -422,16 +424,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                     searchHintTextStyle:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyLarge
-                                                            .override(
-                                                              fontFamily:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLargeFamily,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryText,
-                                                            ),
+                                                            .bodyMedium,
                                                     textStyle:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -461,58 +454,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                             .fromSTEB(12.0, 4.0,
                                                                 12.0, 4.0),
                                                     hidesUnderline: true,
-                                                    isSearchable: false,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          7.0, 50.0, 7.0, 0.0),
-                                                  child:
-                                                      SwitchListTile.adaptive(
-                                                    value: _model
-                                                            .switchListTileValue ??=
-                                                        false,
-                                                    onChanged:
-                                                        (newValue) async {
-                                                      setState(() => _model
-                                                              .switchListTileValue =
-                                                          newValue!);
-                                                      if (newValue!) {
-                                                        setAppLanguage(
-                                                            context,
-                                                            _model.dropDownValue ==
-                                                                    'Pashto'
-                                                                ? 'Pushto'
-                                                                : _model
-                                                                    .dropDownValue!);
-                                                      }
-                                                    },
-                                                    title: Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        '8i4uygg6' /* Translate the app for me */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                              ),
-                                                    ),
-                                                    tileColor: FlutterFlowTheme
-                                                            .of(context)
-                                                        .secondaryBackground,
-                                                    dense: false,
-                                                    controlAffinity:
-                                                        ListTileControlAffinity
-                                                            .trailing,
+                                                    isSearchable: true,
                                                   ),
                                                 ),
                                               ],
@@ -532,6 +474,14 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                 Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
+
+                                          final userUpdateData =
+                                              createUserRecordData(
+                                            language: _model.dropDownValue,
+                                            translateApp: 'false',
+                                          );
+                                          await currentUserReference!
+                                              .update(userUpdateData);
                                         },
                                         text:
                                             FFLocalizations.of(context).getText(
@@ -931,7 +881,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 75.0, 25.0, 25.0),
+                                            25.0, 75.0, 25.0, 50.0),
                                         child: Text(
                                           FFLocalizations.of(context).getText(
                                             'twcyjxwv' /* My area of practice is: */,
@@ -1058,53 +1008,6 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                           text: FFLocalizations.of(context)
                                               .getText(
                                             '9y771tm6' /* Dentistry */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 60.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLarge
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      fontSize: 24.0,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'keavqm9o' /* Pharmacy */,
                                           ),
                                           options: FFButtonOptions(
                                             width: double.infinity,
@@ -1619,84 +1522,6 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                         decoration: InputDecoration(
                                           labelText: FFLocalizations.of(context)
                                               .getText(
-                                            '043o8m9j' /* Digital profile URL */,
-                                          ),
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFDBE2E7),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 24.0, 20.0, 24.0),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        maxLines: null,
-                                        validator: _model
-                                            .textController5Validator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 25.0, 25.0, 0.0),
-                                      child: TextFormField(
-                                        controller: _model.textController6,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: FFLocalizations.of(context)
-                                              .getText(
                                             'vz161ayf' /* Website URL */,
                                           ),
                                           labelStyle:
@@ -1762,7 +1587,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                             .bodyMedium,
                                         maxLines: null,
                                         validator: _model
-                                            .textController6Validator
+                                            .textController5Validator
                                             .asValidator(context),
                                       ),
                                     ),
@@ -2137,10 +1962,10 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 50.0, 25.0, 0.0),
+                                            25.0, 50.0, 25.0, 25.0),
                                         child: FFButtonWidget(
-                                          onPressed: () {
-                                            print('Button pressed ...');
+                                          onPressed: () async {
+                                            context.pushNamed('helperChat');
                                           },
                                           text: FFLocalizations.of(context)
                                               .getText(

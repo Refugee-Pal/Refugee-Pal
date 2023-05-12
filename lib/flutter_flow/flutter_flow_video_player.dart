@@ -63,6 +63,17 @@ class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer> {
     super.dispose();
   }
 
+  @override
+  void didUpdateWidget(FlutterFlowVideoPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.path != widget.path) {
+      _videoPlayers.remove(_videoPlayerController);
+      _videoPlayerController?.dispose();
+      _chewieController?.dispose();
+      initializePlayer();
+    }
+  }
+
   double get width => widget.width == null || widget.width! >= double.infinity
       ? MediaQuery.of(context).size.width
       : widget.width!;
