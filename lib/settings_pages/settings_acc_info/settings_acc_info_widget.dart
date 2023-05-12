@@ -629,8 +629,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                     final userUpdateData1 = {
                                       ...createUserRecordData(
                                         language: _model.dropDownValue3,
-                                        translateApp: _model.switchListTileValue
-                                            ?.toString(),
                                         refugeeStatus: _model.dropDownValue1,
                                       ),
                                       'areasOfInterest': _model
@@ -645,8 +643,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                     final userUpdateData2 = {
                                       ...createUserRecordData(
                                         language: _model.dropDownValue3,
-                                        translateApp: _model.switchListTileValue
-                                            ?.toString(),
                                         displayName: _model.dropDownValue2,
                                       ),
                                       'areasOfInterest': _model
@@ -657,6 +653,27 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                     };
                                     await currentUserReference!
                                         .update(userUpdateData2);
+                                  }
+
+                                  if (_model.switchListTileValue!) {
+                                    setAppLanguage(
+                                        context, _model.dropDownValue3!);
+
+                                    final userUpdateData3 =
+                                        createUserRecordData(
+                                      translateApp: 'true',
+                                    );
+                                    await currentUserReference!
+                                        .update(userUpdateData3);
+                                  } else {
+                                    setAppLanguage(context, 'en');
+
+                                    final userUpdateData4 =
+                                        createUserRecordData(
+                                      translateApp: 'false',
+                                    );
+                                    await currentUserReference!
+                                        .update(userUpdateData4);
                                   }
 
                                   context.pushNamed('settings');
