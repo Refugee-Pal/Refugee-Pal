@@ -7,8 +7,6 @@ Furthermore, Refugee Pal's backend infrastructure is built on Firebase, a secure
 
 ## 📖 Repositories
 
-### [Newest version](https://github.com/Refugee-Pal/Refugee-Pal)
-
 ### [Alpha (webapp version)](https://github.com/Refugee-Pal/Refugee-Pal-alpha)
 
 ## 🧪 Links for CWSF Judges and Viewers
