@@ -13,14 +13,17 @@ Furthermore, Refugee Pal's backend infrastructure is built on Firebase, a secure
 
 ## 🧪 Links for CWSF Judges and Viewers
 
+### [Video](https://www.youtube.com/watch?v=aqFTNnF-Ooo&ab_channel=RefugeePal)
+
 ### [Logbook](https://github.com/AliSoufi42/refugeepal/blob/main/logbook.md)
 
 ### [ProjectBoard](https://projectboard.world/ysc/project/refugee-pal-a-novel-app-supporting-refugees)
 
-### [Video](https://www.youtube.com/watch?v=aqFTNnF-Ooo&ab_channel=RefugeePal)
-
-
 ### [Bibliography and References](https://github.com/AliSoufi42/refugeepal/blob/main/bibliography.md)
+
+### [App Mockups](https://www.figma.com/file/2WBSFoJQXayxE7muuKHveu/Refugee-Pal-App-UI%2FUX-(Copy)?type=design&node-id=0%3A1&t=YqJDNNTdv8DRQBvz-1)
+
+### [Feature Brainstorming](https://www.figma.com/file/s4xUomwbZlECxLERwvsmTI/Refugee-Pal-User-Journey?type=whiteboard&node-id=0%3A1&t=Fc51oIrWLOR4TEVB-1)
 
 # 🖥️ Our Features
 
