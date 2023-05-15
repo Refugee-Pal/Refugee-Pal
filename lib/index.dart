@@ -30,4 +30,3 @@ export '/helperpages/helper_edit/helper_edit_widget.dart' show HelperEditWidget;
 export '/helperpages/helper_organization/helper_organization_widget.dart'
     show HelperOrganizationWidget;
 export '/helperpages/helper_chat/helper_chat_widget.dart' show HelperChatWidget;
-export '/switch_page/switch_page_widget.dart' show SwitchPageWidget;

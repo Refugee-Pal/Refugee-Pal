@@ -142,8 +142,9 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                     ),
                               ),
                             ),
-                            if (valueOrDefault<bool>(
-                                currentUserDocument?.isRefugee, false))
+                            if (valueOrDefault(
+                                    currentUserDocument?.isRefugee, '') ==
+                                'true')
                               Align(
                                 alignment: AlignmentDirectional(-0.95, 0.0),
                                 child: Padding(
@@ -169,6 +170,7 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                               StreamBuilder<List<Translations11Record>>(
                                 stream: queryTranslations11Record(
                                   parent: currentUserReference,
+                                  limit: 1,
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -259,8 +261,9 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                   );
                                 },
                               ),
-                            if (!valueOrDefault<bool>(
-                                currentUserDocument?.isRefugee, false))
+                            if (valueOrDefault(
+                                    currentUserDocument?.isRefugee, '') ==
+                                'false')
                               Align(
                                 alignment: AlignmentDirectional(-0.95, 0.0),
                                 child: Padding(
@@ -284,6 +287,7 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                     StreamBuilder<List<Translations14Record>>(
                                   stream: queryTranslations14Record(
                                     parent: currentUserReference,
+                                    limit: 1,
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -373,22 +377,19 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                   },
                                 ),
                               ),
-                            if (valueOrDefault<bool>(
-                                currentUserDocument?.isRefugee, false))
-                              Align(
-                                alignment: AlignmentDirectional(-0.95, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'yhkpimsd' /* Language */,
-                                    ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodySmall,
+                            Align(
+                              alignment: AlignmentDirectional(-0.95, 0.0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 20.0, 0.0, 0.0),
+                                child: Text(
+                                  FFLocalizations.of(context).getText(
+                                    'yhkpimsd' /* Language */,
                                   ),
+                                  style: FlutterFlowTheme.of(context).bodySmall,
                                 ),
                               ),
+                            ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 0.0),
@@ -525,6 +526,7 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                         stream: queryTranslations7Record(
                                           parent:
                                               listViewCategoryRecord.reference,
+                                          limit: 1,
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -624,8 +626,9 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                   0.0, 40.0, 0.0, 40.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  if (valueOrDefault<bool>(
-                                      currentUserDocument?.isRefugee, false)) {
+                                  if (valueOrDefault(
+                                          currentUserDocument?.isRefugee, '') ==
+                                      'true') {
                                     final userUpdateData1 = {
                                       ...createUserRecordData(
                                         language: _model.dropDownValue3,

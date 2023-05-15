@@ -388,9 +388,7 @@ class _Material2ActionSheetSimpleWidgetState
                         ],
                       ),
                     ),
-                  if (valueOrDefault<bool>(
-                          currentUserDocument?.isRefugee, false) ==
-                      false)
+                  if (valueOrDefault(currentUserDocument?.isRefugee, '') == '')
                     AuthUserStreamWidget(
                       builder: (context) => InkWell(
                         splashColor: Colors.transparent,

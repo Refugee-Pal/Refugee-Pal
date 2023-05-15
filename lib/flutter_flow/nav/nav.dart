@@ -70,14 +70,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) =>
-          appStateNotifier.loggedIn ? SwitchPageWidget() : LoginPageWidget(),
+          appStateNotifier.loggedIn ? HomeWidget() : LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? SwitchPageWidget()
-              : LoginPageWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? HomeWidget() : LoginPageWidget(),
         ),
         FFRoute(
           name: 'home',
@@ -237,11 +236,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => HelperChatWidget(
             chatToLoad: params.getParam('chatToLoad', ParamType.Document),
           ),
-        ),
-        FFRoute(
-          name: 'switchPage',
-          path: '/switchPage',
-          builder: (context, params) => SwitchPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,

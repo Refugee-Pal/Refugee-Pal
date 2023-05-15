@@ -821,7 +821,7 @@ class _MapsheetWidgetState extends State<MapsheetWidget> {
                                                                       .where(
                                                                           'isRefugee',
                                                                           isEqualTo:
-                                                                              false)
+                                                                              'false')
                                                                       .whereIn(
                                                                           'name',
                                                                           widget

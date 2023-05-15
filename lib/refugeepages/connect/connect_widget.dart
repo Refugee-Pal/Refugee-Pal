@@ -210,6 +210,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                         StreamBuilder<List<Translations18Record>>(
                           stream: queryTranslations18Record(
                             parent: _model.chat!.reference,
+                            limit: 1,
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -957,7 +958,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                                                                                         ),
                                                                                                         subtitle: Text(
                                                                                                           () {
-                                                                                                            if (peopleItem.isRefugee!) {
+                                                                                                            if (valueOrDefault(currentUserDocument?.isRefugee, '') == 'true') {
                                                                                                               return 'Refugee';
                                                                                                             } else if (peopleItem.displayName != null && peopleItem.displayName != '') {
                                                                                                               return valueOrDefault<String>(
@@ -1477,7 +1478,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                                                                                                   mainAxisSize: MainAxisSize.max,
                                                                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                                                                   children: [
-                                                                                                                    if (valueOrDefault<bool>(currentUserDocument?.isRefugee, false) && chatListMessagesRecord.isAnswer!)
+                                                                                                                    if ((valueOrDefault(currentUserDocument?.isRefugee, '') == 'true') && chatListMessagesRecord.isAnswer!)
                                                                                                                       Align(
                                                                                                                         alignment: AlignmentDirectional(-1.0, 0.0),
                                                                                                                         child: Padding(
@@ -2764,9 +2765,8 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                                                     children: [
                                                                       if (_model
                                                                               .isQA! &&
-                                                                          valueOrDefault<bool>(
-                                                                              currentUserDocument?.isRefugee,
-                                                                              false))
+                                                                          (valueOrDefault(currentUserDocument?.isRefugee, '') ==
+                                                                              'true'))
                                                                         Expanded(
                                                                           child:
                                                                               Padding(
@@ -2866,7 +2866,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                                                             listViewChatsRecordList[listViewIndex];
                                                                         return Visibility(
                                                                           visible:
-                                                                              (((listViewChatsRecord.type != 'QA') && !_model.isQA!) || ((listViewChatsRecord.type == 'QA') && _model.isQA!)) && (listViewChatsRecord.users!.toList().contains(valueOrDefault(currentUserDocument?.name, '')) || !valueOrDefault<bool>(currentUserDocument?.isRefugee, false)),
+                                                                              (((listViewChatsRecord.type != 'QA') && !_model.isQA!) || ((listViewChatsRecord.type == 'QA') && _model.isQA!)) && (listViewChatsRecord.users!.toList().contains(valueOrDefault(currentUserDocument?.name, '')) || (valueOrDefault(currentUserDocument?.isRefugee, '') == 'false')),
                                                                           child:
                                                                               StreamBuilder<List<Translations18Record>>(
                                                                             stream:

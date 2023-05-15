@@ -96,8 +96,8 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                   ),
                   child: Stack(
                     children: [
-                      if (valueOrDefault<bool>(
-                          currentUserDocument?.isRefugee, false))
+                      if (valueOrDefault(currentUserDocument?.isRefugee, '') ==
+                          'true')
                         Container(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.9,
@@ -264,7 +264,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
 
                                                 final userUpdateData =
                                                     createUserRecordData(
-                                                  isRefugee: true,
+                                                  isRefugee: 'true',
                                                 );
                                                 await currentUserReference!
                                                     .update(userUpdateData);
@@ -312,7 +312,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                               onPressed: () async {
                                                 final userUpdateData =
                                                     createUserRecordData(
-                                                  isRefugee: false,
+                                                  isRefugee: 'false',
                                                 );
                                                 await currentUserReference!
                                                     .update(userUpdateData);
@@ -564,8 +564,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                               );
                                               await currentUserReference!
                                                   .update(userUpdateData);
-                                              if (_model.switchListTileValue !=
-                                                  false) {
+                                              if (_model.switchListTileValue!) {
                                                 setAppLanguage(context,
                                                     _model.dropDownValue!);
                                               }

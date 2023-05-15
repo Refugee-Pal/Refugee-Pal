@@ -333,10 +333,6 @@ class _MapWidgetState extends State<MapWidget> {
                                                 List<CategoryRecord>
                                                     blurCategoryRecordList =
                                                     snapshot.data!;
-                                                // Return an empty Container when the item does not exist.
-                                                if (snapshot.data!.isEmpty) {
-                                                  return Container();
-                                                }
                                                 final blurCategoryRecord =
                                                     blurCategoryRecordList
                                                             .isNotEmpty
@@ -358,112 +354,67 @@ class _MapWidgetState extends State<MapWidget> {
                                                                   0.0,
                                                                   10.0,
                                                                   0.0),
-                                                      child: StreamBuilder<
-                                                          List<
-                                                              Translations7Record>>(
-                                                        stream:
-                                                            queryTranslations7Record(
-                                                          parent:
-                                                              blurCategoryRecord!
-                                                                  .reference,
-                                                        ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    SpinKitPulse(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  size: 50.0,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          List<Translations7Record>
-                                                              buttonTranslations7RecordList =
-                                                              snapshot.data!;
-                                                          return FFButtonWidget(
-                                                            onPressed:
-                                                                () async {
-                                                              setState(() {
-                                                                _model.isFiltering =
-                                                                    true;
-                                                              });
-                                                            },
-                                                            text: _model.categorySelected ==
-                                                                    'none'
-                                                                ? 'All locations'
-                                                                : valueOrDefault<
-                                                                    String>(
-                                                                    (mapLanguagesRecord!.name !=
-                                                                                'English') &&
-                                                                            (valueOrDefault(currentUserDocument?.translateApp, '') ==
-                                                                                'true')
-                                                                        ? valueOrDefault<
-                                                                            String>(
-                                                                            buttonTranslations7RecordList.where((e) => e.reference.id == mapLanguagesRecord!.code).toList().first.value,
-                                                                            'm,',
-                                                                          )
-                                                                        : blurCategoryRecord!
-                                                                            .title,
-                                                                    'n',
-                                                                  ),
-                                                            icon: FaIcon(
-                                                              FontAwesomeIcons
-                                                                  .mapMarkerAlt,
-                                                            ),
-                                                            options:
-                                                                FFButtonOptions(
-                                                              width: 300.0,
-                                                              height: 60.0,
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              iconPadding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              textStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLarge
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryBtnText,
-                                                                      ),
-                                                              elevation: 2.0,
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                width: 1.0,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          30.0),
-                                                            ),
-                                                          );
+                                                      child: FFButtonWidget(
+                                                        onPressed: () async {
+                                                          setState(() {
+                                                            _model.isFiltering =
+                                                                true;
+                                                          });
                                                         },
+                                                        text: blurCategoryRecord!
+                                                                    .title ==
+                                                                'none'
+                                                            ? 'All categories'
+                                                            : blurCategoryRecord!
+                                                                .title!,
+                                                        icon: FaIcon(
+                                                          FontAwesomeIcons
+                                                              .mapMarkerAlt,
+                                                        ),
+                                                        options:
+                                                            FFButtonOptions(
+                                                          width: 300.0,
+                                                          height: 60.0,
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          iconPadding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          textStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBtnText,
+                                                                  ),
+                                                          elevation: 2.0,
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors
+                                                                .transparent,
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

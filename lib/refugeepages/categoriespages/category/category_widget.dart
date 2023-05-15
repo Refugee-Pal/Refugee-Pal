@@ -280,28 +280,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                         textTranslations7RecordList =
                                         snapshot.data!;
                                     return Text(
-                                      valueOrDefault<String>(
-                                        (stackLanguagesRecord!.name !=
-                                                    'English') &&
-                                                (valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.translateApp,
-                                                        '') ==
-                                                    'true')
-                                            ? valueOrDefault<String>(
-                                                textTranslations7RecordList
-                                                    .where((e) =>
-                                                        e.reference.id ==
-                                                        stackLanguagesRecord!
-                                                            .code)
-                                                    .toList()
-                                                    .first
-                                                    .value,
-                                                'n',
-                                              )
-                                            : categoryCategoryRecord.title,
-                                        'no value',
-                                      ),
+                                      categoryCategoryRecord.title!,
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium

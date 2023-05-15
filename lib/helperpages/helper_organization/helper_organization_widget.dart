@@ -1128,7 +1128,8 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                   queryBuilder: (userRecord) =>
                                                       userRecord
                                                           .where('isRefugee',
-                                                              isEqualTo: false)
+                                                              isEqualTo:
+                                                                  'false')
                                                           .orderBy('name'),
                                                 ),
                                                 builder: (context, snapshot) {
@@ -5436,9 +5437,9 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             children: [
                                                                                               FlutterFlowPlacePicker(
-                                                                                                iOSGoogleMapsApiKey: 'AIzaSyAD3m0KLiLYk9B8XspEEvIdGTuoj5pgbvI',
-                                                                                                androidGoogleMapsApiKey: 'AIzaSyD2XvHRL9NHdgx6a4jNyPKPKjUKKfLoN0I',
-                                                                                                webGoogleMapsApiKey: 'AIzaSyBboeB5b9WGL_M7qMopmvLPEepi74rOHWk',
+                                                                                                iOSGoogleMapsApiKey: 'AIzaSyDIwg7Kvw0cMmYGvJf0FZL3il_2juxTeuY',
+                                                                                                androidGoogleMapsApiKey: 'AIzaSyD2_HVGfCMvlqG_1XnwTA6zh_8eWzo_s1s',
+                                                                                                webGoogleMapsApiKey: 'AIzaSyC-N-ZPYivYiMapQaIND-G2f2Bl9teqy_k',
                                                                                                 onSelect: (place) async {
                                                                                                   setState(() => _model.placePickerValue = place);
                                                                                                 },
@@ -6094,7 +6095,7 @@ class _HelperOrganizationWidgetState extends State<HelperOrganizationWidget> {
                                                                                         alignment: AlignmentDirectional(0.0, -4.83),
                                                                                         child: StreamBuilder<List<UserRecord>>(
                                                                                           stream: queryUserRecord(
-                                                                                            queryBuilder: (userRecord) => userRecord.where('isRefugee', isEqualTo: false),
+                                                                                            queryBuilder: (userRecord) => userRecord.where('isRefugee', isEqualTo: 'false'),
                                                                                             limit: 5,
                                                                                           ),
                                                                                           builder: (context, snapshot) {

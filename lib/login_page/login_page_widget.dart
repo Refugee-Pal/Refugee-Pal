@@ -641,35 +641,22 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                       return FFButtonWidget(
                                                                         onPressed:
                                                                             () async {
-                                                                          if (buttonLoginUserRecord !=
+                                                                          GoRouter.of(context)
+                                                                              .prepareAuthEvent();
+
+                                                                          final user =
+                                                                              await authManager.signInWithEmail(
+                                                                            context,
+                                                                            _model.emailAddressController.text,
+                                                                            _model.passwordController.text,
+                                                                          );
+                                                                          if (user ==
                                                                               null) {
-                                                                            if (buttonLoginUserRecord!.isRefugee ==
-                                                                                true) {
-                                                                              setState(() {
-                                                                                FFAppState().isRefugee = true;
-                                                                              });
-                                                                            } else {
-                                                                              setState(() {
-                                                                                FFAppState().isRefugee = false;
-                                                                              });
-                                                                            }
-
-                                                                            GoRouter.of(context).prepareAuthEvent();
-
-                                                                            final user =
-                                                                                await authManager.signInWithEmail(
-                                                                              context,
-                                                                              _model.emailAddressController.text,
-                                                                              _model.passwordController.text,
-                                                                            );
-                                                                            if (user ==
-                                                                                null) {
-                                                                              return;
-                                                                            }
+                                                                            return;
                                                                           }
 
                                                                           context.goNamedAuth(
-                                                                              'switchPage',
+                                                                              'home',
                                                                               mounted);
                                                                         },
                                                                         text: FFLocalizations.of(context)
@@ -1271,7 +1258,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                     photoUrl:
                                                                         'https://i.stack.imgur.com/34AD2.jpg',
                                                                     isRefugee:
-                                                                        true,
+                                                                        'true',
                                                                   );
                                                                   await UserRecord
                                                                       .collection
