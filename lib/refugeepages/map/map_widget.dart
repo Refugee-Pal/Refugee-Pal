@@ -361,8 +361,7 @@ class _MapWidgetState extends State<MapWidget> {
                                                                 true;
                                                           });
                                                         },
-                                                        text: blurCategoryRecord!
-                                                                    .title ==
+                                                        text: _model.categorySelected ==
                                                                 'none'
                                                             ? 'All categories'
                                                             : blurCategoryRecord!
