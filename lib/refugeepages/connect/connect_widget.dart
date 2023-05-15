@@ -3190,10 +3190,38 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                                                             mainAxisAlignment:
                                                                                 MainAxisAlignment.start,
                                                                             children: [
-                                                                              StreamBuilder<List<ProfessionalsRecord>>(
-                                                                                stream: queryProfessionalsRecord(
-                                                                                  queryBuilder: (professionalsRecord) => professionalsRecord.where('language', isEqualTo: valueOrDefault(currentUserDocument?.language, '')),
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                                                                                child: FFButtonWidget(
+                                                                                  onPressed: () async {
+                                                                                    setState(() {
+                                                                                      _model.filtering = true;
+                                                                                    });
+                                                                                  },
+                                                                                  text: FFLocalizations.of(context).getText(
+                                                                                    '6p6r0syk' /* Filter by Profession */,
+                                                                                  ),
+                                                                                  options: FFButtonOptions(
+                                                                                    width: double.infinity,
+                                                                                    height: 50.0,
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                    iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    textStyle: FlutterFlowTheme.of(context).titleLarge.override(
+                                                                                          fontFamily: 'Inter',
+                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                        ),
+                                                                                    elevation: 2.0,
+                                                                                    borderSide: BorderSide(
+                                                                                      color: Colors.transparent,
+                                                                                      width: 1.0,
+                                                                                    ),
+                                                                                    borderRadius: BorderRadius.circular(20.0),
+                                                                                  ),
                                                                                 ),
+                                                                              ),
+                                                                              StreamBuilder<List<ProfessionalsRecord>>(
+                                                                                stream: queryProfessionalsRecord(),
                                                                                 builder: (context, snapshot) {
                                                                                   // Customize what your widget looks like when it's loading.
                                                                                   if (!snapshot.hasData) {
@@ -3321,10 +3349,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                                                                                         }
                                                                                                         List<Translations15Record> textTranslations15RecordList = snapshot.data!;
                                                                                                         return Text(
-                                                                                                          valueOrDefault<String>(
-                                                                                                            (stackLanguagesRecord!.name != 'English') && (valueOrDefault(currentUserDocument?.translateApp, '') == 'true') ? textTranslations15RecordList.where((e) => e.reference.id == stackLanguagesRecord!.code).toList().first.value : columnProfessionalsRecord.profession,
-                                                                                                            'no value',
-                                                                                                          ),
+                                                                                                          columnProfessionalsRecord.profession!,
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 fontFamily: 'Inter',
                                                                                                                 fontWeight: FontWeight.w500,
@@ -3366,10 +3391,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                                                                                           }
                                                                                                           List<Translations16Record> textTranslations16RecordList = snapshot.data!;
                                                                                                           return Text(
-                                                                                                            valueOrDefault<String>(
-                                                                                                              (stackLanguagesRecord!.name != 'English') && (valueOrDefault(currentUserDocument?.translateApp, '') == 'true') ? textTranslations16RecordList.where((e) => e.reference.id == stackLanguagesRecord!.code).toList().first.value : columnProfessionalsRecord.practicename,
-                                                                                                              'no value',
-                                                                                                            ),
+                                                                                                            columnProfessionalsRecord.practicename!,
                                                                                                             textAlign: TextAlign.center,
                                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                   fontFamily: 'Inter',

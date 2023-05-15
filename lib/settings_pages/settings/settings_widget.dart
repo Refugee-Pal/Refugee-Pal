@@ -221,6 +221,28 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   ),
                 ),
                 Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                  child: FlutterFlowLanguageSelector(
+                    width: double.infinity,
+                    height: 50.0,
+                    backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                    borderColor: Colors.transparent,
+                    dropdownIconColor: Colors.white,
+                    borderRadius: 8.0,
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 13.0,
+                    ),
+                    hideFlags: false,
+                    flagSize: 24.0,
+                    flagTextGap: 8.0,
+                    currentLanguage: FFLocalizations.of(context).languageCode,
+                    languages: FFLocalizations.languages(),
+                    onChanged: (lang) => setAppLanguage(context, lang),
+                  ),
+                ),
+                Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
@@ -259,24 +281,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                   ),
-                ),
-                FlutterFlowLanguageSelector(
-                  width: 200.0,
-                  backgroundColor: FlutterFlowTheme.of(context).tertiary,
-                  borderColor: Colors.transparent,
-                  dropdownIconColor: Colors.white,
-                  borderRadius: 8.0,
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 13.0,
-                  ),
-                  hideFlags: false,
-                  flagSize: 24.0,
-                  flagTextGap: 8.0,
-                  currentLanguage: FFLocalizations.of(context).languageCode,
-                  languages: FFLocalizations.languages(),
-                  onChanged: (lang) => setAppLanguage(context, lang),
                 ),
               ],
             ),
