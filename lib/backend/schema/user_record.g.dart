@@ -89,13 +89,6 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.isRefugee;
-    if (value != null) {
-      result
-        ..add('isRefugee')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
     value = object.areasOfInterest;
     if (value != null) {
       result
@@ -138,6 +131,13 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
     if (value != null) {
       result
         ..add('translateApp')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.isRefugee;
+    if (value != null) {
+      result
+        ..add('isRefugee')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -203,10 +203,6 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
           result.displayName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'isRefugee':
-          result.isRefugee = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool?;
-          break;
         case 'areasOfInterest':
           result.areasOfInterest.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -235,6 +231,10 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
           break;
         case 'translateApp':
           result.translateApp = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isRefugee':
+          result.isRefugee = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
@@ -272,8 +272,6 @@ class _$UserRecord extends UserRecord {
   @override
   final String? displayName;
   @override
-  final bool? isRefugee;
-  @override
   final BuiltList<String>? areasOfInterest;
   @override
   final String? phoneNumber;
@@ -285,6 +283,8 @@ class _$UserRecord extends UserRecord {
   final BuiltList<String>? pinned;
   @override
   final String? translateApp;
+  @override
+  final String? isRefugee;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -302,13 +302,13 @@ class _$UserRecord extends UserRecord {
       this.durationInCanada,
       this.name,
       this.displayName,
-      this.isRefugee,
       this.areasOfInterest,
       this.phoneNumber,
       this.description,
       this.recents,
       this.pinned,
       this.translateApp,
+      this.isRefugee,
       this.ffRef})
       : super._();
 
@@ -333,13 +333,13 @@ class _$UserRecord extends UserRecord {
         durationInCanada == other.durationInCanada &&
         name == other.name &&
         displayName == other.displayName &&
-        isRefugee == other.isRefugee &&
         areasOfInterest == other.areasOfInterest &&
         phoneNumber == other.phoneNumber &&
         description == other.description &&
         recents == other.recents &&
         pinned == other.pinned &&
         translateApp == other.translateApp &&
+        isRefugee == other.isRefugee &&
         ffRef == other.ffRef;
   }
 
@@ -356,13 +356,13 @@ class _$UserRecord extends UserRecord {
     _$hash = $jc(_$hash, durationInCanada.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, displayName.hashCode);
-    _$hash = $jc(_$hash, isRefugee.hashCode);
     _$hash = $jc(_$hash, areasOfInterest.hashCode);
     _$hash = $jc(_$hash, phoneNumber.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, recents.hashCode);
     _$hash = $jc(_$hash, pinned.hashCode);
     _$hash = $jc(_$hash, translateApp.hashCode);
+    _$hash = $jc(_$hash, isRefugee.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -381,13 +381,13 @@ class _$UserRecord extends UserRecord {
           ..add('durationInCanada', durationInCanada)
           ..add('name', name)
           ..add('displayName', displayName)
-          ..add('isRefugee', isRefugee)
           ..add('areasOfInterest', areasOfInterest)
           ..add('phoneNumber', phoneNumber)
           ..add('description', description)
           ..add('recents', recents)
           ..add('pinned', pinned)
           ..add('translateApp', translateApp)
+          ..add('isRefugee', isRefugee)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -439,10 +439,6 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   String? get displayName => _$this._displayName;
   set displayName(String? displayName) => _$this._displayName = displayName;
 
-  bool? _isRefugee;
-  bool? get isRefugee => _$this._isRefugee;
-  set isRefugee(bool? isRefugee) => _$this._isRefugee = isRefugee;
-
   ListBuilder<String>? _areasOfInterest;
   ListBuilder<String> get areasOfInterest =>
       _$this._areasOfInterest ??= new ListBuilder<String>();
@@ -471,6 +467,10 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   String? get translateApp => _$this._translateApp;
   set translateApp(String? translateApp) => _$this._translateApp = translateApp;
 
+  String? _isRefugee;
+  String? get isRefugee => _$this._isRefugee;
+  set isRefugee(String? isRefugee) => _$this._isRefugee = isRefugee;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -492,13 +492,13 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _durationInCanada = $v.durationInCanada;
       _name = $v.name;
       _displayName = $v.displayName;
-      _isRefugee = $v.isRefugee;
       _areasOfInterest = $v.areasOfInterest?.toBuilder();
       _phoneNumber = $v.phoneNumber;
       _description = $v.description;
       _recents = $v.recents?.toBuilder();
       _pinned = $v.pinned?.toBuilder();
       _translateApp = $v.translateApp;
+      _isRefugee = $v.isRefugee;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -534,13 +534,13 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
               durationInCanada: durationInCanada,
               name: name,
               displayName: displayName,
-              isRefugee: isRefugee,
               areasOfInterest: _areasOfInterest?.build(),
               phoneNumber: phoneNumber,
               description: description,
               recents: _recents?.build(),
               pinned: _pinned?.build(),
               translateApp: translateApp,
+              isRefugee: isRefugee,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

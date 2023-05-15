@@ -121,9 +121,11 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                               scrollDirection: Axis.horizontal,
                               children: [
                                 Visibility(
-                                  visible: !valueOrDefault<bool>(
-                                    valueOrDefault<bool>(
-                                        currentUserDocument?.isRefugee, false),
+                                  visible: valueOrDefault<bool>(
+                                    valueOrDefault(
+                                            currentUserDocument?.isRefugee,
+                                            '') ==
+                                        'false',
                                     false,
                                   ),
                                   child: AuthUserStreamWidget(
@@ -1894,60 +1896,67 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                           ),
                                                         ),
                                                         Expanded(
-                                                          child: Theme(
-                                                            data: ThemeData(
-                                                              checkboxTheme:
-                                                                  CheckboxThemeData(
-                                                                shape:
-                                                                    RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              25),
+                                                          child:
+                                                              AuthUserStreamWidget(
+                                                            builder:
+                                                                (context) =>
+                                                                    Theme(
+                                                              data: ThemeData(
+                                                                checkboxTheme:
+                                                                    CheckboxThemeData(
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            25),
+                                                                  ),
                                                                 ),
+                                                                unselectedWidgetColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .accent2,
                                                               ),
-                                                              unselectedWidgetColor:
-                                                                  FlutterFlowTheme.of(
+                                                              child:
+                                                                  CheckboxListTile(
+                                                                value: _model
+                                                                        .checkboxListTileValueMap2[
+                                                                    peoplesItem] ??= false,
+                                                                onChanged:
+                                                                    (newValue) async {
+                                                                  setState(() =>
+                                                                      _model.checkboxListTileValueMap2[
+                                                                              peoplesItem] =
+                                                                          newValue!);
+                                                                },
+                                                                title: Text(
+                                                                  peoplesItem
+                                                                      .name!,
+                                                                  style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .accent2,
-                                                            ),
-                                                            child:
-                                                                CheckboxListTile(
-                                                              value: _model
-                                                                      .checkboxListTileValueMap2[
-                                                                  peoplesItem] ??= false,
-                                                              onChanged:
-                                                                  (newValue) async {
-                                                                setState(() =>
-                                                                    _model.checkboxListTileValueMap2[
-                                                                            peoplesItem] =
-                                                                        newValue!);
-                                                              },
-                                                              title: Text(
-                                                                peoplesItem
-                                                                    .name!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleLarge,
-                                                              ),
-                                                              subtitle: Text(
-                                                                peoplesItem
-                                                                        .isRefugee!
-                                                                    ? 'Refugee'
-                                                                    : peoplesItem
-                                                                        .displayName!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLarge,
-                                                              ),
-                                                              activeColor:
-                                                                  FlutterFlowTheme.of(
+                                                                      .titleLarge,
+                                                                ),
+                                                                subtitle: Text(
+                                                                  valueOrDefault(
+                                                                              currentUserDocument
+                                                                                  ?.isRefugee,
+                                                                              '') ==
+                                                                          'true'
+                                                                      ? 'Refugee'
+                                                                      : peoplesItem
+                                                                          .displayName!,
+                                                                  style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primary,
-                                                              dense: false,
-                                                              controlAffinity:
-                                                                  ListTileControlAffinity
-                                                                      .trailing,
+                                                                      .labelLarge,
+                                                                ),
+                                                                activeColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                dense: false,
+                                                                controlAffinity:
+                                                                    ListTileControlAffinity
+                                                                        .trailing,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),

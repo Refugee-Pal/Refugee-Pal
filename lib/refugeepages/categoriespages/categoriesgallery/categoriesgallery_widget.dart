@@ -252,28 +252,7 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                                       textTranslations8RecordList =
                                                       snapshot.data!;
                                                   return Text(
-                                                    valueOrDefault<String>(
-                                                      (categoriesgalleryLanguagesRecord!
-                                                                      .name !=
-                                                                  'English') &&
-                                                              (valueOrDefault(
-                                                                      currentUserDocument
-                                                                          ?.translateApp,
-                                                                      '') ==
-                                                                  'true')
-                                                          ? textTranslations8RecordList
-                                                              .where((e) =>
-                                                                  e.reference
-                                                                      .id ==
-                                                                  categoriesgalleryLanguagesRecord!
-                                                                      .code)
-                                                              .toList()
-                                                              .first
-                                                              .value
-                                                          : columnCategoryRecord
-                                                              .title,
-                                                      'no value',
-                                                    ),
+                                                    columnCategoryRecord.title!,
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)

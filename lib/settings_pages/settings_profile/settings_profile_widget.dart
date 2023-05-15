@@ -307,6 +307,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                         child: StreamBuilder<List<Translations13Record>>(
                           stream: queryTranslations13Record(
                             parent: currentUserReference,
+                            limit: 1,
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.

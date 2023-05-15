@@ -67,17 +67,10 @@ class _HomeWidgetState extends State<HomeWidget> {
         });
       }
 
-      if (FFAppState().isRefugee != true) {
-        context.goNamed(
-          'helperChat',
-          extra: <String, dynamic>{
-            kTransitionInfoKey: TransitionInfo(
-              hasTransition: true,
-              transitionType: PageTransitionType.fade,
-              duration: Duration(milliseconds: 0),
-            ),
-          },
-        );
+      setAppLanguage(
+          context, valueOrDefault(currentUserDocument?.language, ''));
+      if (valueOrDefault(currentUserDocument?.isRefugee, '') == 'false') {
+        context.pushNamed('helperChat');
       }
     });
 
@@ -122,26 +115,23 @@ class _HomeWidgetState extends State<HomeWidget> {
             appBar: AppBar(
               backgroundColor: FlutterFlowTheme.of(context).primary,
               automaticallyImplyLeading: false,
-              leading: Visibility(
-                visible: !widget.isNew,
-                child: FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30.0,
-                  borderWidth: 1.0,
-                  buttonSize: 60.0,
-                  icon: Icon(
-                    Icons.arrow_back_rounded,
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    size: 30.0,
-                  ),
-                  onPressed: () async {
-                    context.pop();
-                  },
+              leading: FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30.0,
+                borderWidth: 1.0,
+                buttonSize: 60.0,
+                icon: Icon(
+                  Icons.arrow_back_rounded,
+                  color: FlutterFlowTheme.of(context).primaryBtnText,
+                  size: 30.0,
                 ),
+                onPressed: () async {
+                  context.pop();
+                },
               ),
               title: Text(
                 FFLocalizations.of(context).getText(
-                  'ss9kin9q' /* Explore */,
+                  'u4lpja3d' /* Explore */,
                 ),
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Inter',
@@ -569,15 +559,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                                     }
                                                                                     List<Translations7Record> textTranslations7RecordList = snapshot.data!;
                                                                                     return Text(
-                                                                                      valueOrDefault<String>(
-                                                                                        (stackLanguagesRecord!.name != 'English') && (valueOrDefault(currentUserDocument?.translateApp, '') == 'true')
-                                                                                            ? valueOrDefault<String>(
-                                                                                                textTranslations7RecordList.where((e) => e.reference.id == stackLanguagesRecord!.code).toList().first.value,
-                                                                                                's',
-                                                                                              )
-                                                                                            : rowCategoryRecord.title,
-                                                                                        'no value',
-                                                                                      ),
+                                                                                      rowCategoryRecord.title!,
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium,
                                                                                     );
                                                                                   },

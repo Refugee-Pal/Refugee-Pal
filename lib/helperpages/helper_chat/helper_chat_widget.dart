@@ -1066,73 +1066,77 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                               ),
                                                             ),
                                                             Expanded(
-                                                              child: Theme(
-                                                                data: ThemeData(
-                                                                  checkboxTheme:
-                                                                      CheckboxThemeData(
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              25),
+                                                              child:
+                                                                  AuthUserStreamWidget(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Theme(
+                                                                  data:
+                                                                      ThemeData(
+                                                                    checkboxTheme:
+                                                                        CheckboxThemeData(
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(25),
+                                                                      ),
                                                                     ),
+                                                                    unselectedWidgetColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .accent2,
                                                                   ),
-                                                                  unselectedWidgetColor:
-                                                                      FlutterFlowTheme.of(
+                                                                  child:
+                                                                      CheckboxListTile(
+                                                                    value: _model
+                                                                            .checkboxListTileValueMap2[
+                                                                        peopleItem] ??= () {
+                                                                      if (!_model
+                                                                          .isAddPeople!) {
+                                                                        return false;
+                                                                      } else if (_model
+                                                                          .chat!
+                                                                          .users!
+                                                                          .toList()
+                                                                          .contains(
+                                                                              peopleItem.name)) {
+                                                                        return true;
+                                                                      } else {
+                                                                        return false;
+                                                                      }
+                                                                    }(),
+                                                                    onChanged:
+                                                                        (newValue) async {
+                                                                      setState(() =>
+                                                                          _model.checkboxListTileValueMap2[peopleItem] =
+                                                                              newValue!);
+                                                                    },
+                                                                    title: Text(
+                                                                      peopleItem
+                                                                          .name!,
+                                                                      style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .accent2,
-                                                                ),
-                                                                child:
-                                                                    CheckboxListTile(
-                                                                  value: _model
-                                                                          .checkboxListTileValueMap2[
-                                                                      peopleItem] ??= () {
-                                                                    if (!_model
-                                                                        .isAddPeople!) {
-                                                                      return false;
-                                                                    } else if (_model
-                                                                        .chat!
-                                                                        .users!
-                                                                        .toList()
-                                                                        .contains(
-                                                                            peopleItem.name)) {
-                                                                      return true;
-                                                                    } else {
-                                                                      return false;
-                                                                    }
-                                                                  }(),
-                                                                  onChanged:
-                                                                      (newValue) async {
-                                                                    setState(() =>
-                                                                        _model.checkboxListTileValueMap2[peopleItem] =
-                                                                            newValue!);
-                                                                  },
-                                                                  title: Text(
-                                                                    peopleItem
-                                                                        .name!,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleLarge,
-                                                                  ),
-                                                                  subtitle:
-                                                                      Text(
-                                                                    peopleItem
-                                                                            .isRefugee!
-                                                                        ? 'Refugee'
-                                                                        : peopleItem
-                                                                            .displayName!,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelLarge,
-                                                                  ),
-                                                                  activeColor:
-                                                                      FlutterFlowTheme.of(
+                                                                          .titleLarge,
+                                                                    ),
+                                                                    subtitle:
+                                                                        Text(
+                                                                      valueOrDefault(currentUserDocument?.isRefugee, '') ==
+                                                                              'true'
+                                                                          ? 'Refugee'
+                                                                          : peopleItem
+                                                                              .displayName!,
+                                                                      style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primary,
-                                                                  dense: false,
-                                                                  controlAffinity:
-                                                                      ListTileControlAffinity
-                                                                          .trailing,
+                                                                          .labelLarge,
+                                                                    ),
+                                                                    activeColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                    dense:
+                                                                        false,
+                                                                    controlAffinity:
+                                                                        ListTileControlAffinity
+                                                                            .trailing,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -3704,9 +3708,10 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     if (_model.isQA! &&
-                                        valueOrDefault<bool>(
-                                            currentUserDocument?.isRefugee,
-                                            false))
+                                        (valueOrDefault(
+                                                currentUserDocument?.isRefugee,
+                                                '') ==
+                                            'true'))
                                       Expanded(
                                         child: Padding(
                                           padding:
@@ -3811,10 +3816,11 @@ class _HelperChatWidgetState extends State<HelperChatWidget> {
                                                         currentUserDocument
                                                             ?.name,
                                                         '')) ||
-                                                !valueOrDefault<bool>(
-                                                    currentUserDocument
-                                                        ?.isRefugee,
-                                                    false)),
+                                                (valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.isRefugee,
+                                                        '') ==
+                                                    'false')),
                                         child: AuthUserStreamWidget(
                                           builder: (context) => Card(
                                             clipBehavior:

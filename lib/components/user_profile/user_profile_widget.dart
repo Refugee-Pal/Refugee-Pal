@@ -213,7 +213,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                             snapshot.data!;
                                         return Text(
                                           () {
-                                            if (stackUserRecord.isRefugee!) {
+                                            if (valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.isRefugee,
+                                                    '') ==
+                                                'true') {
                                               return 'Refugee';
                                             } else if (stackUserRecord
                                                         .displayName !=
