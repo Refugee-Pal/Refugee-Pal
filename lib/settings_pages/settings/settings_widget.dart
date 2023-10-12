@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_language_selector.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -23,7 +22,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   late SettingsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -37,7 +35,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -46,43 +43,58 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              color: FlutterFlowTheme.of(context).primaryBtnText,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              context.pop();
-            },
-          ),
-          title: Text(
-            FFLocalizations.of(context).getText(
-              '7t4a9v0s' /* Settings */,
-            ),
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Inter',
-                  color: FlutterFlowTheme.of(context).primaryBtnText,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w500,
+        appBar: () {
+          if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+            return true;
+          } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+            return true;
+          } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+            return true;
+          } else {
+            return false;
+          }
+        }()
+            ? AppBar(
+                backgroundColor: FlutterFlowTheme.of(context).primary,
+                automaticallyImplyLeading: false,
+                leading: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 60.0,
+                  icon: Icon(
+                    Icons.arrow_back_rounded,
+                    color: FlutterFlowTheme.of(context).primaryBtnText,
+                    size: 30.0,
+                  ),
+                  onPressed: () async {
+                    context.pop();
+                  },
                 ),
-          ),
-          actions: [],
-          centerTitle: false,
-          elevation: 2.0,
-        ),
+                title: Text(
+                  FFLocalizations.of(context).getText(
+                    '7t4a9v0s' /* Settings */,
+                  ),
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBtnText,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                actions: [],
+                centerTitle: false,
+                elevation: 2.0,
+              )
+            : null,
         body: SafeArea(
+          top: true,
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
             child: Column(
@@ -221,25 +233,32 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                  child: FlutterFlowLanguageSelector(
-                    width: double.infinity,
-                    height: 50.0,
-                    backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                    borderColor: Colors.transparent,
-                    dropdownIconColor: Colors.white,
-                    borderRadius: 8.0,
-                    textStyle: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 13.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                  child: SwitchListTile.adaptive(
+                    value: _model.switchListTileValue ??=
+                        Theme.of(context).brightness == Brightness.dark,
+                    onChanged: (newValue) async {
+                      setState(() => _model.switchListTileValue = newValue!);
+                      if (newValue!) {
+                        setDarkModeSetting(context, ThemeMode.dark);
+                      } else {
+                        setDarkModeSetting(context, ThemeMode.light);
+                      }
+                    },
+                    title: Text(
+                      FFLocalizations.of(context).getText(
+                        'jf8rxhy3' /* Dark mode */,
+                      ),
+                      style: FlutterFlowTheme.of(context).titleLarge.override(
+                            fontFamily: 'Inter',
+                            fontSize: 17.0,
+                          ),
                     ),
-                    hideFlags: false,
-                    flagSize: 24.0,
-                    flagTextGap: 8.0,
-                    currentLanguage: FFLocalizations.of(context).languageCode,
-                    languages: FFLocalizations.languages(),
-                    onChanged: (lang) => setAppLanguage(context, lang),
+                    tileColor: FlutterFlowTheme.of(context).primaryBackground,
+                    activeColor: FlutterFlowTheme.of(context).primary,
+                    activeTrackColor: FlutterFlowTheme.of(context).accent1,
+                    dense: false,
+                    controlAffinity: ListTileControlAffinity.trailing,
                   ),
                 ),
                 Padding(
@@ -250,7 +269,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       await authManager.signOut();
                       GoRouter.of(context).clearRedirectLocation();
 
-                      context.goNamedAuth('loginPage', mounted);
+                      context.goNamedAuth('loginPage', context.mounted);
                     },
                     text: FFLocalizations.of(context).getText(
                       'jqftu137' /* Log out */,

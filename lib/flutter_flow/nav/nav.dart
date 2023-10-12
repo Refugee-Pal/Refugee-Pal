@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
-import '../flutter_flow_theme.dart';
-import '../../backend/backend.dart';
+import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '../../auth/base_auth_user_provider.dart';
-
-import '../../index.dart';
-import '../../main.dart';
-import '../lat_lng.dart';
-import '../place.dart';
+import '../../backend/push_notifications/push_notifications_handler.dart'
+    show PushNotificationsHandler;
+import '/index.dart';
+import '/main.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/lat_lng.dart';
+import '/flutter_flow/place.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -21,6 +24,11 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 class AppStateNotifier extends ChangeNotifier {
+  AppStateNotifier._();
+
+  static AppStateNotifier? _instance;
+  static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
+
   BaseAuthUser? initialUser;
   BaseAuthUser? user;
   bool showSplashImage = true;
@@ -48,10 +56,13 @@ class AppStateNotifier extends ChangeNotifier {
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
   void update(BaseAuthUser newUser) {
+    final shouldUpdate =
+        user?.uid == null || newUser.uid == null || user?.uid != newUser.uid;
     initialUser ??= newUser;
     user = newUser;
     // Refresh the app on auth change unless explicitly marked otherwise.
-    if (notifyOnAuthChange) {
+    // No need to update unless the user has changed.
+    if (notifyOnAuthChange && shouldUpdate) {
       notifyListeners();
     }
     // Once again mark the notifier as needing to update on auth change
@@ -69,7 +80,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, _) =>
+      errorBuilder: (context, state) =>
           appStateNotifier.loggedIn ? HomeWidget() : LoginPageWidget(),
       routes: [
         FFRoute(
@@ -102,7 +113,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'map',
           path: '/map',
           asyncParams: {
-            'locationtoLoad': getDoc(['locations'], LocationsRecord.serializer),
+            'locationtoLoad':
+                getDoc(['locations'], LocationsRecord.fromSnapshot),
           },
           builder: (context, params) => MapWidget(
             locationtoLoad:
@@ -120,9 +132,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/connect',
           requireAuth: true,
           asyncParams: {
-            'chatToLoad': getDoc(['chats'], ChatsRecord.serializer),
+            'chatToLoad': getDoc(['chats'], ChatsRecord.fromSnapshot),
             'messagesToLoad':
-                getDocList(['chats', 'messages'], MessagesRecord.serializer),
+                getDocList(['chats', 'messages'], MessagesRecord.fromSnapshot),
           },
           builder: (context, params) => ConnectWidget(
             chatToLoad: params.getParam('chatToLoad', ParamType.Document),
@@ -136,11 +148,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'loginPage',
           path: '/loginPage',
           builder: (context, params) => LoginPageWidget(),
-        ),
-        FFRoute(
-          name: 'forgotpassword',
-          path: '/forgotpassword',
-          builder: (context, params) => ForgotpasswordWidget(),
         ),
         FFRoute(
           name: 'category',
@@ -189,18 +196,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => UserjourneyHelperWidget(),
         ),
         FFRoute(
-          name: 'helperProfile',
-          path: '/helperProfile',
-          builder: (context, params) => HelperProfileWidget(),
-        ),
-        FFRoute(
           name: 'helperEdit',
           path: '/helperEdit',
           asyncParams: {
-            'rpToEdit':
-                getDoc(['resourceprovider'], ResourceproviderRecord.serializer),
+            'rpToEdit': getDoc(
+                ['resourceprovider'], ResourceproviderRecord.fromSnapshot),
             'subcategoryToEdit':
-                getDoc(['subcategory'], SubcategoryRecord.serializer),
+                getDoc(['subcategory'], SubcategoryRecord.fromSnapshot),
           },
           builder: (context, params) => HelperEditWidget(
             rpToEdit: params.getParam('rpToEdit', ParamType.Document),
@@ -209,15 +211,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             indexInList: params.getParam('indexInList', ParamType.int),
             isEditSubcategory:
                 params.getParam('isEditSubcategory', ParamType.bool),
+            editOrganizationRP:
+                params.getParam('editOrganizationRP', ParamType.bool),
           ),
         ),
         FFRoute(
           name: 'helperOrganization',
           path: '/helperOrganization',
           asyncParams: {
-            'locationToEdit': getDoc(['locations'], LocationsRecord.serializer),
+            'locationToEdit':
+                getDoc(['locations'], LocationsRecord.fromSnapshot),
             'programToEdit':
-                getDoc(['locations', 'programs'], ProgramsRecord.serializer),
+                getDoc(['locations', 'programs'], ProgramsRecord.fromSnapshot),
           },
           builder: (context, params) => HelperOrganizationWidget(
             locationToEdit:
@@ -231,14 +236,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'helperChat',
           path: '/helperChat',
           asyncParams: {
-            'chatToLoad': getDoc(['chats'], ChatsRecord.serializer),
+            'chatToLoad': getDoc(['chats'], ChatsRecord.fromSnapshot),
           },
           builder: (context, params) => HelperChatWidget(
             chatToLoad: params.getParam('chatToLoad', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'PhoneCode',
+          path: '/phoneCode',
+          builder: (context, params) => PhoneCodeWidget(
+            phoneNumber: params.getParam('phoneNumber', ParamType.int),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      urlPathStrategy: UrlPathStrategy.path,
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -253,8 +265,8 @@ extension NavigationExtensions on BuildContext {
   void goNamedAuth(
     String name,
     bool mounted, {
-    Map<String, String> params = const <String, String>{},
-    Map<String, String> queryParams = const <String, String>{},
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, String> queryParameters = const <String, String>{},
     Object? extra,
     bool ignoreRedirect = false,
   }) =>
@@ -262,16 +274,16 @@ extension NavigationExtensions on BuildContext {
           ? null
           : goNamed(
               name,
-              params: params,
-              queryParams: queryParams,
+              pathParameters: pathParameters,
+              queryParameters: queryParameters,
               extra: extra,
             );
 
   void pushNamedAuth(
     String name,
     bool mounted, {
-    Map<String, String> params = const <String, String>{},
-    Map<String, String> queryParams = const <String, String>{},
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, String> queryParameters = const <String, String>{},
     Object? extra,
     bool ignoreRedirect = false,
   }) =>
@@ -279,25 +291,24 @@ extension NavigationExtensions on BuildContext {
           ? null
           : pushNamed(
               name,
-              params: params,
-              queryParams: queryParams,
+              pathParameters: pathParameters,
+              queryParameters: queryParameters,
               extra: extra,
             );
 
   void safePop() {
     // If there is only one route on the stack, navigate to the initial
     // page instead of popping.
-    if (GoRouter.of(this).routerDelegate.matches.length <= 1) {
-      go('/');
-    } else {
+    if (canPop()) {
       pop();
+    } else {
+      go('/');
     }
   }
 }
 
 extension GoRouterExtensions on GoRouter {
-  AppStateNotifier get appState =>
-      (routerDelegate.refreshListenable as AppStateNotifier);
+  AppStateNotifier get appState => AppStateNotifier.instance;
   void prepareAuthEvent([bool ignoreRedirect = false]) =>
       appState.hasRedirect() && !ignoreRedirect
           ? null
@@ -306,16 +317,15 @@ extension GoRouterExtensions on GoRouter {
       !ignoreRedirect && appState.hasRedirect();
   void clearRedirectLocation() => appState.clearRedirectLocation();
   void setRedirectLocationIfUnset(String location) =>
-      (routerDelegate.refreshListenable as AppStateNotifier)
-          .updateNotifyOnAuthChange(false);
+      appState.updateNotifyOnAuthChange(false);
 }
 
 extension _GoRouterStateExtensions on GoRouterState {
   Map<String, dynamic> get extraMap =>
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
-    ..addAll(params)
-    ..addAll(queryParams)
+    ..addAll(pathParameters)
+    ..addAll(queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -371,7 +381,8 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList, collectionNamePath);
+    return deserializeParam<T>(param, type, isList,
+        collectionNamePath: collectionNamePath);
   }
 }
 
@@ -395,7 +406,7 @@ class FFRoute {
   GoRoute toRoute(AppStateNotifier appStateNotifier) => GoRoute(
         name: name,
         path: path,
-        redirect: (state) {
+        redirect: (context, state) {
           if (appStateNotifier.shouldRedirect) {
             final redirectLocation = appStateNotifier.getRedirectLocation();
             appStateNotifier.clearRedirectLocation();
@@ -417,14 +428,17 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: Colors.transparent,
-                  child: Image.asset(
-                    'assets/images/Screenshot_2023-05-10_172514.png',
-                    fit: BoxFit.cover,
+              ? Center(
+                  child: SizedBox(
+                    width: 50.0,
+                    height: 50.0,
+                    child: SpinKitPulse(
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 50.0,
+                    ),
                   ),
                 )
-              : page;
+              : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition
@@ -463,5 +477,25 @@ class TransitionInfo {
         hasTransition: true,
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 500),
+      );
+}
+
+class RootPageContext {
+  const RootPageContext(this.isRootPage, [this.errorRoute]);
+  final bool isRootPage;
+  final String? errorRoute;
+
+  static bool isInactiveRootPage(BuildContext context) {
+    final rootPageContext = context.read<RootPageContext?>();
+    final isRootPage = rootPageContext?.isRootPage ?? false;
+    final location = GoRouter.of(context).location;
+    return isRootPage &&
+        location != '/' &&
+        location != rootPageContext?.errorRoute;
+  }
+
+  static Widget wrap(Widget child, {String? errorRoute}) => Provider.value(
+        value: RootPageContext(true, errorRoute),
+        child: child,
       );
 }

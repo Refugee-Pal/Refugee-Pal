@@ -12,20 +12,6 @@ extension DateTimeExtension on DateTime {
   DateTime get endOfDay => DateTime(year, month, day, 23, 59);
 }
 
-bool isSameDay(DateTime? a, DateTime? b) {
-  if (a == null || b == null) {
-    return false;
-  }
-  return a.year == b.year && a.month == b.month && a.day == b.day;
-}
-
-bool isSameMonth(DateTime? a, DateTime? b) {
-  if (a == null || b == null) {
-    return false;
-  }
-  return a.year == b.year && a.month == b.month;
-}
-
 class FlutterFlowCalendar extends StatefulWidget {
   const FlutterFlowCalendar({
     Key? key,
@@ -143,8 +129,7 @@ class _FlutterFlowCalendarState extends State<FlutterFlowCalendar> {
             calendarFormat: calendarFormat,
             headerVisible: false,
             locale: widget.locale,
-            rowHeight:
-                widget.rowHeight ?? MediaQuery.of(context).size.width / 7,
+            rowHeight: widget.rowHeight ?? MediaQuery.sizeOf(context).width / 7,
             calendarStyle: CalendarStyle(
               defaultTextStyle:
                   widget.dateStyle ?? const TextStyle(color: Color(0xFF5A5A5A)),
@@ -183,11 +168,16 @@ class _FlutterFlowCalendarState extends State<FlutterFlowCalendar> {
               weekendStyle: const TextStyle(color: Color(0xFF616161))
                   .merge(widget.dayOfWeekStyle),
             ),
-            onDaySelected: (newSelectedDay, _) {
+            onPageChanged: (focused) {
+              if (focusedDay.startOfDay != focused.startOfDay) {
+                setState(() => focusedDay = focused);
+              }
+            },
+            onDaySelected: (newSelectedDay, focused) {
               if (!isSameDay(selectedDay, newSelectedDay)) {
                 setSelectedDay(newSelectedDay);
-                if (!isSameMonth(focusedDay, newSelectedDay)) {
-                  setState(() => focusedDay = newSelectedDay);
+                if (focusedDay.startOfDay != focused.startOfDay) {
+                  setState(() => focusedDay = focused);
                 }
               }
             },

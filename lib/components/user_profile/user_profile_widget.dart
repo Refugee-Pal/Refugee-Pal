@@ -57,8 +57,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
     return AuthUserStreamWidget(
       builder: (context) => StreamBuilder<List<LanguagesRecord>>(
         stream: queryLanguagesRecord(
-          queryBuilder: (languagesRecord) => languagesRecord.where('Name',
-              isEqualTo: valueOrDefault(currentUserDocument?.language, '')),
+          queryBuilder: (languagesRecord) => languagesRecord.where(
+            'Name',
+            isEqualTo: valueOrDefault(currentUserDocument?.language, ''),
+          ),
           singleRecord: true,
         ),
         builder: (context, snapshot) {
@@ -145,7 +147,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   25.0, 25.0, 25.0, 10.0),
@@ -165,8 +167,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                       child: Image.network(
                                         stackUserRecord.photoUrl != null &&
                                                 stackUserRecord.photoUrl != ''
-                                            ? stackUserRecord.photoUrl!
-                                            : 'https://picsum.photos/seed/922/600',
+                                            ? stackUserRecord.photoUrl
+                                            : 'https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -175,7 +177,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 10.0, 0.0, 0.0),
                                     child: Text(
-                                      stackUserRecord.name!,
+                                      stackUserRecord.name,
                                       style: FlutterFlowTheme.of(context)
                                           .headlineLarge
                                           .override(
@@ -191,6 +193,13 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                         List<Translations14Record>>(
                                       stream: queryTranslations14Record(
                                         parent: stackUserRecord.reference,
+                                        queryBuilder: (translations14Record) =>
+                                            translations14Record.where(
+                                          'language',
+                                          isEqualTo:
+                                              containerLanguagesRecord?.code,
+                                        ),
+                                        singleRecord: true,
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
@@ -211,6 +220,16 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                         List<Translations14Record>
                                             textTranslations14RecordList =
                                             snapshot.data!;
+                                        // Return an empty Container when the item does not exist.
+                                        if (snapshot.data!.isEmpty) {
+                                          return Container();
+                                        }
+                                        final textTranslations14Record =
+                                            textTranslations14RecordList
+                                                    .isNotEmpty
+                                                ? textTranslations14RecordList
+                                                    .first
+                                                : null;
                                         return Text(
                                           () {
                                             if (valueOrDefault(
@@ -225,23 +244,18 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                 stackUserRecord.displayName !=
                                                     '') {
                                               return valueOrDefault<String>(
-                                                (containerLanguagesRecord!
-                                                                .name !=
+                                                (containerLanguagesRecord
+                                                                ?.name !=
                                                             'English') &&
                                                         (valueOrDefault(
                                                                 currentUserDocument
                                                                     ?.translateApp,
                                                                 '') ==
                                                             'true')
-                                                    ? textTranslations14RecordList
-                                                        .where((e) =>
-                                                            e.reference.id ==
-                                                            containerLanguagesRecord!
-                                                                .code)
-                                                        .toList()
-                                                        .first
-                                                        .value
-                                                    : stackUserRecord.language,
+                                                    ? textTranslations14Record
+                                                        ?.value
+                                                    : stackUserRecord
+                                                        .displayName,
                                                 'n',
                                               );
                                             } else {
@@ -259,7 +273,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                         0.0, 25.0, 0.0, 25.0),
                                     child: StreamBuilder<List<MessagesRecord>>(
                                       stream: queryMessagesRecord(
-                                        parent: _model.newChat2!.reference,
+                                        parent: _model.newChat2?.reference,
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
@@ -282,46 +296,65 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                             snapshot.data!;
                                         return FFButtonWidget(
                                           onPressed: () async {
-                                            final chatsCreateData = {
+                                            var chatsRecordReference =
+                                                ChatsRecord.collection.doc();
+                                            await chatsRecordReference.set({
                                               ...createChatsRecordData(
                                                 type: 'DM',
                                                 lastmessage: '',
                                               ),
-                                              'users': (String var1,
-                                                      String var2) {
-                                                return [var1, var2];
-                                              }(
-                                                  stackUserRecord.name!,
-                                                  valueOrDefault(
-                                                      currentUserDocument?.name,
-                                                      '')),
-                                            };
-                                            var chatsRecordReference =
-                                                ChatsRecord.collection.doc();
-                                            await chatsRecordReference
-                                                .set(chatsCreateData);
-                                            _model.newChat2 =
-                                                ChatsRecord.getDocumentFromData(
-                                                    chatsCreateData,
-                                                    chatsRecordReference);
+                                              ...mapToFirestore(
+                                                {
+                                                  'users': (String var1,
+                                                          String var2) {
+                                                    return [var1, var2];
+                                                  }(
+                                                      stackUserRecord.name,
+                                                      valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.name,
+                                                          '')),
+                                                },
+                                              ),
+                                            });
+                                            _model.newChat2 = ChatsRecord
+                                                .getDocumentFromData({
+                                              ...createChatsRecordData(
+                                                type: 'DM',
+                                                lastmessage: '',
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'users': (String var1,
+                                                          String var2) {
+                                                    return [var1, var2];
+                                                  }(
+                                                      stackUserRecord.name,
+                                                      valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.name,
+                                                          '')),
+                                                },
+                                              ),
+                                            }, chatsRecordReference);
 
-                                            final messagesCreateData =
-                                                createMessagesRecordData(
-                                              text: 'Created chat',
-                                            );
                                             var messagesRecordReference =
                                                 MessagesRecord.createDoc(
                                                     _model.newChat2!.reference);
                                             await messagesRecordReference
-                                                .set(messagesCreateData);
+                                                .set(createMessagesRecordData(
+                                              text: 'Created chat',
+                                            ));
                                             _model.messageDoc2 = MessagesRecord
                                                 .getDocumentFromData(
-                                                    messagesCreateData,
+                                                    createMessagesRecordData(
+                                                      text: 'Created chat',
+                                                    ),
                                                     messagesRecordReference);
 
                                             context.pushNamed(
                                               'connect',
-                                              queryParams: {
+                                              queryParameters: {
                                                 'chatToLoad': serializeParam(
                                                   _model.newChat2,
                                                   ParamType.Document,
@@ -387,13 +420,13 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                       stackUserRecord.description != '')
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          AlignmentDirectional(-1.00, 0.00),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 5.0),
@@ -403,6 +436,16 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                     queryTranslations13Record(
                                                   parent:
                                                       stackUserRecord.reference,
+                                                  queryBuilder:
+                                                      (translations13Record) =>
+                                                          translations13Record
+                                                              .where(
+                                                    'language',
+                                                    isEqualTo:
+                                                        containerLanguagesRecord
+                                                            ?.code,
+                                                  ),
+                                                  singleRecord: true,
                                                 ),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
@@ -423,25 +466,28 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                   List<Translations13Record>
                                                       textTranslations13RecordList =
                                                       snapshot.data!;
+                                                  // Return an empty Container when the item does not exist.
+                                                  if (snapshot.data!.isEmpty) {
+                                                    return Container();
+                                                  }
+                                                  final textTranslations13Record =
+                                                      textTranslations13RecordList
+                                                              .isNotEmpty
+                                                          ? textTranslations13RecordList
+                                                              .first
+                                                          : null;
                                                   return Text(
                                                     valueOrDefault<String>(
-                                                      (containerLanguagesRecord!
-                                                                      .name !=
+                                                      (containerLanguagesRecord
+                                                                      ?.name !=
                                                                   'English') &&
                                                               (valueOrDefault(
                                                                       currentUserDocument
                                                                           ?.translateApp,
                                                                       '') ==
                                                                   'true')
-                                                          ? textTranslations13RecordList
-                                                              .where((e) =>
-                                                                  e.reference
-                                                                      .id ==
-                                                                  containerLanguagesRecord!
-                                                                      .code)
-                                                              .toList()
-                                                              .first
-                                                              .value
+                                                          ? textTranslations13Record
+                                                              ?.value
                                                           : stackUserRecord
                                                               .language,
                                                       'n',
@@ -463,13 +509,14 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                       ),
                                     ),
                                   Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment:
+                                        AlignmentDirectional(-1.00, 0.00),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
+                                              AlignmentDirectional(-1.00, 0.00),
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -487,7 +534,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
+                                              AlignmentDirectional(-1.00, 0.00),
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -519,7 +566,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                     textTranslations12RecordList =
                                                     snapshot.data!;
                                                 return Text(
-                                                  stackUserRecord.language!,
+                                                  stackUserRecord.language,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .titleMedium,
@@ -540,13 +587,13 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                       stackUserRecord.refugeeStatus != '')
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          AlignmentDirectional(-1.00, 0.00),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(-1.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                -1.00, 0.00),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 5.0),
@@ -562,8 +609,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                             ),
                                           ),
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(-1.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                -1.00, 0.00),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 5.0, 0.0, 0.0),
@@ -573,6 +620,16 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                     queryTranslations11Record(
                                                   parent:
                                                       stackUserRecord.reference,
+                                                  queryBuilder:
+                                                      (translations11Record) =>
+                                                          translations11Record
+                                                              .where(
+                                                    'language',
+                                                    isEqualTo:
+                                                        containerLanguagesRecord
+                                                            ?.code,
+                                                  ),
+                                                  singleRecord: true,
                                                 ),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
@@ -593,25 +650,28 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                   List<Translations11Record>
                                                       textTranslations11RecordList =
                                                       snapshot.data!;
+                                                  // Return an empty Container when the item does not exist.
+                                                  if (snapshot.data!.isEmpty) {
+                                                    return Container();
+                                                  }
+                                                  final textTranslations11Record =
+                                                      textTranslations11RecordList
+                                                              .isNotEmpty
+                                                          ? textTranslations11RecordList
+                                                              .first
+                                                          : null;
                                                   return Text(
                                                     valueOrDefault<String>(
-                                                      (containerLanguagesRecord!
-                                                                      .name !=
+                                                      (containerLanguagesRecord
+                                                                      ?.name !=
                                                                   'English') &&
                                                               (valueOrDefault(
                                                                       currentUserDocument
                                                                           ?.translateApp,
                                                                       '') ==
                                                                   'true')
-                                                          ? textTranslations11RecordList
-                                                              .where((e) =>
-                                                                  e.reference
-                                                                      .id ==
-                                                                  containerLanguagesRecord!
-                                                                      .code)
-                                                              .toList()
-                                                              .first
-                                                              .value
+                                                          ? textTranslations11Record
+                                                              ?.value
                                                           : stackUserRecord
                                                               .refugeeStatus,
                                                       'n',
@@ -632,25 +692,23 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                         ],
                                       ),
                                     ),
-                                  if (stackUserRecord.durationInCanada !=
-                                          null &&
-                                      stackUserRecord.durationInCanada != '')
+                                  if (stackUserRecord.dateArrived != null)
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          AlignmentDirectional(-1.00, 0.00),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(-1.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                -1.00, 0.00),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 5.0),
                                               child: Text(
                                                 FFLocalizations.of(context)
                                                     .getText(
-                                                  'nbmdevfb' /* Duration in Canada */,
+                                                  'nbmdevfb' /* Arrived in Canada */,
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -659,16 +717,20 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                             ),
                                           ),
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(-1.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                -1.00, 0.00),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 5.0, 0.0, 0.0),
                                               child: Text(
-                                                valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.durationInCanada,
-                                                    ''),
+                                                dateTimeFormat(
+                                                  'relative',
+                                                  currentUserDocument!
+                                                      .dateArrived!,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .titleMedium,
@@ -692,7 +754,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                           stackUserRecord.phoneNumber != '')
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
+                                              AlignmentDirectional(-1.00, 0.00),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             crossAxisAlignment:
@@ -700,7 +762,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                             children: [
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    -1.0, 0.0),
+                                                    -1.00, 0.00),
                                                 child: Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
@@ -718,15 +780,14 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                               ),
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    -1.0, 0.0),
+                                                    -1.00, 0.00),
                                                 child: Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 5.0, 0.0, 0.0),
                                                   child: SelectionArea(
                                                       child: Text(
-                                                    stackUserRecord
-                                                        .phoneNumber!,
+                                                    stackUserRecord.phoneNumber,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .titleMedium,
@@ -738,7 +799,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                         ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.00, 0.00),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
                                           borderRadius: 30.0,
@@ -753,83 +814,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                           onPressed: () async {
                                             await launchUrl(Uri(
                                               scheme: 'tel',
-                                              path:
-                                                  stackUserRecord.phoneNumber!,
+                                              path: stackUserRecord.phoneNumber,
                                             ));
                                           },
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Divider(
-                                    thickness: 2.0,
-                                    color: FlutterFlowTheme.of(context).accent3,
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-1.0, 0.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  -1.0, 0.0),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 5.0),
-                                                child: Text(
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'bvcov6j8' /* Email */,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall,
-                                                ),
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  -1.0, 0.0),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 5.0, 0.0, 0.0),
-                                                child: SelectionArea(
-                                                    child: Text(
-                                                  stackUserRecord.email!,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleMedium,
-                                                )),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      FlutterFlowIconButton(
-                                        borderColor: Colors.transparent,
-                                        borderRadius: 30.0,
-                                        borderWidth: 1.0,
-                                        buttonSize: 60.0,
-                                        icon: FaIcon(
-                                          FontAwesomeIcons.solidEnvelope,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 30.0,
-                                        ),
-                                        onPressed: () async {
-                                          await launchURL(
-                                              stackUserRecord.email!);
-                                        },
                                       ),
                                     ],
                                   ),

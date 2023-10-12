@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/delete_confirmation/delete_confirmation_widget.dart';
 import '/components/small_map/small_map_widget.dart';
+import '/components/user_profile/user_profile_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -13,6 +14,7 @@ import '/flutter_flow/upload_data.dart';
 import '/navbars/helper_nav_bar/helper_nav_bar_widget.dart';
 import 'dart:io';
 import 'dart:ui';
+import 'helper_organization_widget.dart' show HelperOrganizationWidget;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -29,7 +31,8 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
 
-class HelperOrganizationModel extends FlutterFlowModel {
+class HelperOrganizationModel
+    extends FlutterFlowModel<HelperOrganizationWidget> {
   ///  Local state fields for this page.
 
   bool? isOnboarding = false;
@@ -54,13 +57,26 @@ class HelperOrganizationModel extends FlutterFlowModel {
 
   bool? isJoin = false;
 
+  bool isEditOrganization = false;
+
+  bool hasUploaded = false;
+
+  DocumentReference? profileToShow;
+
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey1 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
   // State field(s) for PageView widget.
   PageController? pageViewController;
+
+  int get pageViewCurrentIndex => pageViewController != null &&
+          pageViewController!.hasClients &&
+          pageViewController!.page != null
+      ? pageViewController!.page!.round()
+      : 0;
   // State field(s) for emailAddress widget.
   TextEditingController? emailAddressController1;
   String? Function(BuildContext, String?)? emailAddressController1Validator;
@@ -109,11 +125,27 @@ class HelperOrganizationModel extends FlutterFlowModel {
 
   // Stores action output result for [Bottom Sheet - deleteConfirmation] action in Button widget.
   bool? isDelete;
+  // State field(s) for TabBar widget.
+  TabController? tabBarController;
+  int get tabBarCurrentIndex =>
+      tabBarController != null ? tabBarController!.index : 0;
+
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl2 = '';
 
+  bool isDataUploading3 = false;
+  FFUploadedFile uploadedLocalFile3 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl3 = '';
+
+  // State field(s) for editOrgName widget.
+  TextEditingController? editOrgNameController;
+  String? Function(BuildContext, String?)? editOrgNameControllerValidator;
+  // State field(s) for editOrgInfo widget.
+  TextEditingController? editOrgInfoController;
+  String? Function(BuildContext, String?)? editOrgInfoControllerValidator;
   // State field(s) for emailAddress widget.
   TextEditingController? emailAddressController4;
   String? Function(BuildContext, String?)? emailAddressController4Validator;
@@ -198,6 +230,8 @@ class HelperOrganizationModel extends FlutterFlowModel {
   // State field(s) for emailAddress widget.
   TextEditingController? emailAddressController16;
   String? Function(BuildContext, String?)? emailAddressController16Validator;
+  // Model for userProfile component.
+  late UserProfileModel userProfileModel;
   // Model for helperNavBar component.
   late HelperNavBarModel helperNavBarModel;
 
@@ -207,13 +241,18 @@ class HelperOrganizationModel extends FlutterFlowModel {
     emailAddressController1Validator = _emailAddressController1Validator;
     emailAddressController2Validator = _emailAddressController2Validator;
     emailAddressController10Validator = _emailAddressController10Validator;
+    userProfileModel = createModel(context, () => UserProfileModel());
     helperNavBarModel = createModel(context, () => HelperNavBarModel());
   }
 
   void dispose() {
+    unfocusNode.dispose();
     emailAddressController1?.dispose();
     emailAddressController2?.dispose();
     emailAddressController3?.dispose();
+    tabBarController?.dispose();
+    editOrgNameController?.dispose();
+    editOrgInfoController?.dispose();
     emailAddressController4?.dispose();
     emailAddressController5?.dispose();
     emailAddressController6?.dispose();
@@ -228,9 +267,11 @@ class HelperOrganizationModel extends FlutterFlowModel {
     emailAddressController15?.dispose();
     emailAddress1Controller?.dispose();
     emailAddressController16?.dispose();
+    userProfileModel.dispose();
     helperNavBarModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

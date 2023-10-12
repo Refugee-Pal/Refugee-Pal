@@ -11,6 +11,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,18 +30,20 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
   late UserjourneyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
-  int get pageViewCurrentIndex => _model.pageViewController != null &&
-          _model.pageViewController!.hasClients &&
-          _model.pageViewController!.page != null
-      ? _model.pageViewController!.page!.round()
-      : 0;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => UserjourneyModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await currentUserReference!.update(createUserRecordData(
+        isRefugee: 'true',
+      ));
+    });
+
+    _model.emailAddressController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -48,7 +51,6 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -59,20 +61,25 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
     return AuthUserStreamWidget(
       builder: (context) => StreamBuilder<List<LanguagesRecord>>(
         stream: queryLanguagesRecord(
-          queryBuilder: (languagesRecord) => languagesRecord.where('Name',
-              isEqualTo: valueOrDefault(currentUserDocument?.language, '')),
+          queryBuilder: (languagesRecord) => languagesRecord.where(
+            'Name',
+            isEqualTo: valueOrDefault(currentUserDocument?.language, ''),
+          ),
           singleRecord: true,
         ),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: SpinKitPulse(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+            return Scaffold(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              body: Center(
+                child: SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: SpinKitPulse(
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 50.0,
+                  ),
                 ),
               ),
             );
@@ -83,11 +90,14 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                   ? userjourneyLanguagesRecordList.first
                   : null;
           return GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+            onTap: () => _model.unfocusNode.canRequestFocus
+                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                : FocusScope.of(context).unfocus(),
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               body: SafeArea(
+                top: true,
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
@@ -100,7 +110,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                           'true')
                         Container(
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.9,
+                          height: MediaQuery.sizeOf(context).height * 0.9,
                           child: Stack(
                             children: [
                               Padding(
@@ -112,6 +122,227 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                       PageController(initialPage: 0),
                                   scrollDirection: Axis.horizontal,
                                   children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20.0, 0.0, 20.0, 0.0),
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 60.0, 0.0, 0.0),
+                                              child: SvgPicture.asset(
+                                                'assets/images/undraw_profile_pic_re_iwgo.svg',
+                                                width: 175.0,
+                                                height: 175.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      25.0, 60.0, 25.0, 20.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  '3swfm5at' /* Enter your name */,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineLarge
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 80.0, 0.0, 0.0),
+                                              child: TextFormField(
+                                                controller: _model
+                                                    .emailAddressController,
+                                                onFieldSubmitted: (_) async {
+                                                  await currentUserReference!
+                                                      .update(
+                                                          createUserRecordData(
+                                                    name: _model
+                                                        .emailAddressController
+                                                        .text,
+                                                  ));
+                                                  await _model
+                                                      .pageViewController
+                                                      ?.nextPage(
+                                                    duration: Duration(
+                                                        milliseconds: 300),
+                                                    curve: Curves.ease,
+                                                  );
+                                                },
+                                                textInputAction:
+                                                    TextInputAction.next,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  labelText: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    '74ypvube' /* Name */,
+                                                  ),
+                                                  labelStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            Color(0xFF57636C),
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                  hintStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            Color(0xFF57636C),
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFDBE2E7),
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40.0),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40.0),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40.0),
+                                                  ),
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  contentPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(24.0, 24.0,
+                                                              20.0, 24.0),
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium,
+                                                validator: _model
+                                                    .emailAddressControllerValidator
+                                                    .asValidator(context),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 80.0, 0.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  await _model
+                                                      .pageViewController
+                                                      ?.nextPage(
+                                                    duration: Duration(
+                                                        milliseconds: 300),
+                                                    curve: Curves.ease,
+                                                  );
+
+                                                  await currentUserReference!
+                                                      .update(
+                                                          createUserRecordData(
+                                                    name: _model
+                                                        .emailAddressController
+                                                        .text,
+                                                  ));
+                                                  await _model
+                                                      .pageViewController
+                                                      ?.nextPage(
+                                                    duration: Duration(
+                                                        milliseconds: 300),
+                                                    curve: Curves.ease,
+                                                  );
+                                                },
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  'l31sr4ym' /* Next */,
+                                                ),
+                                                options: FFButtonOptions(
+                                                  width: 180.0,
+                                                  height: 60.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleLarge
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                      ),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                     SingleChildScrollView(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -119,7 +350,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    25.0, 60.0, 25.0, 0.0),
+                                                    25.0, 60.0, 25.0, 20.0),
                                             child: Text(
                                               FFLocalizations.of(context)
                                                   .getText(
@@ -152,11 +383,11 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    30.0, 25.0, 30.0, 0.0),
+                                                    30.0, 40.0, 30.0, 0.0),
                                             child: Text(
                                               FFLocalizations.of(context)
                                                   .getText(
-                                                '9et910d4' /* Refugee Pal offers limitless p... */,
+                                                '9et910d4' /* In order for Refugee Pal to ma... */,
                                               ),
                                               textAlign: TextAlign.center,
                                               style: FlutterFlowTheme.of(
@@ -175,7 +406,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 25.0, 0.0, 0.0),
+                                                    0.0, 40.0, 0.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
                                                 await _model.pageViewController
@@ -190,8 +421,8 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                 '45qnvsu5' /* Next */,
                                               ),
                                               options: FFButtonOptions(
-                                                width: 160.0,
-                                                height: 50.0,
+                                                width: 180.0,
+                                                height: 60.0,
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
@@ -216,7 +447,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(25.0),
+                                                    BorderRadius.circular(30.0),
                                               ),
                                             ),
                                           ),
@@ -252,7 +483,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 100.0, 0.0, 0.0),
+                                                    0.0, 120.0, 0.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
                                                 await _model.pageViewController
@@ -262,12 +493,11 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                   curve: Curves.ease,
                                                 );
 
-                                                final userUpdateData =
-                                                    createUserRecordData(
-                                                  isRefugee: 'true',
-                                                );
                                                 await currentUserReference!
-                                                    .update(userUpdateData);
+                                                    .update(
+                                                        createUserRecordData(
+                                                  isRefugee: 'true',
+                                                ));
                                               },
                                               text: FFLocalizations.of(context)
                                                   .getText(
@@ -307,15 +537,14 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 50.0, 0.0, 0.0),
+                                                    0.0, 60.0, 0.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                final userUpdateData =
-                                                    createUserRecordData(
-                                                  isRefugee: 'false',
-                                                );
                                                 await currentUserReference!
-                                                    .update(userUpdateData);
+                                                    .update(
+                                                        createUserRecordData(
+                                                  isRefugee: 'false',
+                                                ));
 
                                                 context.pushNamed(
                                                     'userjourneyHelper');
@@ -418,7 +647,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   25.0,
-                                                                  75.0,
+                                                                  80.0,
                                                                   25.0,
                                                                   50.0),
                                                       child:
@@ -432,8 +661,6 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                             blurLanguagesRecordList
                                                                 .map((e) =>
                                                                     e.name)
-                                                                .withoutNulls
-                                                                .toList()
                                                                 .toList(),
                                                         onChanged: (val) =>
                                                             setState(() => _model
@@ -478,6 +705,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                                     4.0),
                                                         hidesUnderline: true,
                                                         isSearchable: true,
+                                                        isMultiSelect: false,
                                                       ),
                                                     ),
                                                     Padding(
@@ -543,7 +771,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  25.0, 25.0, 25.0, 0.0),
+                                                  25.0, 40.0, 25.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
                                               await _model.pageViewController
@@ -553,17 +781,15 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                 curve: Curves.ease,
                                               );
 
-                                              final userUpdateData =
-                                                  createUserRecordData(
+                                              await currentUserReference!
+                                                  .update(createUserRecordData(
                                                 language: _model.dropDownValue,
                                                 translateApp:
                                                     _model.switchListTileValue ==
                                                             false
                                                         ? 'false'
                                                         : 'true',
-                                              );
-                                              await currentUserReference!
-                                                  .update(userUpdateData);
+                                              ));
                                               if (_model.switchListTileValue!) {
                                                 setAppLanguage(context,
                                                     _model.dropDownValue!);
@@ -574,7 +800,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                               'rnyu7fol' /* Next */,
                                             ),
                                             options: FFButtonOptions(
-                                              width: double.infinity,
+                                              width: 160.0,
                                               height: 60.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
@@ -644,13 +870,12 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                   curve: Curves.ease,
                                                 );
 
-                                                final userUpdateData =
-                                                    createUserRecordData(
+                                                await currentUserReference!
+                                                    .update(
+                                                        createUserRecordData(
                                                   refugeeStatus:
                                                       'Government Sponsored (GAR)',
-                                                );
-                                                await currentUserReference!
-                                                    .update(userUpdateData);
+                                                ));
                                               },
                                               text: FFLocalizations.of(context)
                                                   .getText(
@@ -694,13 +919,18 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                     0.0, 30.0, 0.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                final userUpdateData =
-                                                    createUserRecordData(
+                                                await currentUserReference!
+                                                    .update(
+                                                        createUserRecordData(
                                                   refugeeStatus:
                                                       'Private Sponsored (PSR)',
+                                                ));
+                                                await _model.pageViewController
+                                                    ?.nextPage(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease,
                                                 );
-                                                await currentUserReference!
-                                                    .update(userUpdateData);
                                               },
                                               text: FFLocalizations.of(context)
                                                   .getText(
@@ -744,13 +974,18 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                     0.0, 30.0, 0.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                final userUpdateData =
-                                                    createUserRecordData(
+                                                await currentUserReference!
+                                                    .update(
+                                                        createUserRecordData(
                                                   refugeeStatus:
                                                       'Blended Visa (BVOR)',
+                                                ));
+                                                await _model.pageViewController
+                                                    ?.nextPage(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease,
                                                 );
-                                                await currentUserReference!
-                                                    .update(userUpdateData);
                                               },
                                               text: FFLocalizations.of(context)
                                                   .getText(
@@ -793,17 +1028,75 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                     0.0, 30.0, 0.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                final userUpdateData =
-                                                    createUserRecordData(
+                                                await currentUserReference!
+                                                    .update(
+                                                        createUserRecordData(
                                                   refugeeStatus:
                                                       'Refugee Claimant',
+                                                ));
+                                                await _model.pageViewController
+                                                    ?.nextPage(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease,
                                                 );
-                                                await currentUserReference!
-                                                    .update(userUpdateData);
                                               },
                                               text: FFLocalizations.of(context)
                                                   .getText(
                                                 '96yd5bo5' /* Refugee Claimant */,
+                                              ),
+                                              options: FFButtonOptions(
+                                                width: 275.0,
+                                                height: 60.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                        ),
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(30.0),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 30.0, 0.0, 0.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                await currentUserReference!
+                                                    .update(
+                                                        createUserRecordData(
+                                                  refugeeStatus: 'CUAET Visa',
+                                                ));
+                                                await _model.pageViewController
+                                                    ?.nextPage(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease,
+                                                );
+                                              },
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                'lu84eedu' /* CUAET Visa */,
                                               ),
                                               options: FFButtonOptions(
                                                 width: 275.0,
@@ -913,12 +1206,25 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                       ),
                                                       child: StreamBuilder<
                                                           List<
-                                                              Translations7Record>>(
+                                                              Translations8Record>>(
                                                         stream:
-                                                            queryTranslations7Record(
+                                                            queryTranslations8Record(
                                                           parent:
                                                               listViewCategoryRecord
                                                                   .reference,
+                                                          queryBuilder:
+                                                              (translations8Record) =>
+                                                                  translations8Record
+                                                                      .where(
+                                                            'language',
+                                                            isEqualTo: userjourneyLanguagesRecord
+                                                                        ?.code !=
+                                                                    ''
+                                                                ? userjourneyLanguagesRecord
+                                                                    ?.code
+                                                                : null,
+                                                          ),
+                                                          singleRecord: true,
                                                         ),
                                                         builder: (context,
                                                             snapshot) {
@@ -939,9 +1245,15 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                               ),
                                                             );
                                                           }
-                                                          List<Translations7Record>
-                                                              checkboxListTileTranslations7RecordList =
+                                                          List<Translations8Record>
+                                                              checkboxListTileTranslations8RecordList =
                                                               snapshot.data!;
+                                                          final checkboxListTileTranslations8Record =
+                                                              checkboxListTileTranslations8RecordList
+                                                                      .isNotEmpty
+                                                                  ? checkboxListTileTranslations8RecordList
+                                                                      .first
+                                                                  : null;
                                                           return Theme(
                                                             data: ThemeData(
                                                               checkboxTheme:
@@ -963,7 +1275,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                                 CheckboxListTile(
                                                               value: _model
                                                                       .checkboxListTileValueMap[
-                                                                  listViewCategoryRecord] ??= true,
+                                                                  listViewCategoryRecord] ??= false,
                                                               onChanged:
                                                                   (newValue) async {
                                                                 setState(() =>
@@ -974,25 +1286,25 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                               title: Text(
                                                                 valueOrDefault<
                                                                     String>(
-                                                                  (userjourneyLanguagesRecord!.name !=
+                                                                  (userjourneyLanguagesRecord?.name !=
                                                                               'English') &&
                                                                           (valueOrDefault(currentUserDocument?.translateApp, '') ==
                                                                               'true')
-                                                                      ? checkboxListTileTranslations7RecordList
-                                                                          .where((e) =>
-                                                                              e.reference.id ==
-                                                                              userjourneyLanguagesRecord!
-                                                                                  .code)
-                                                                          .toList()
-                                                                          .first
-                                                                          .value
+                                                                      ? checkboxListTileTranslations8Record
+                                                                          ?.value
                                                                       : listViewCategoryRecord
                                                                           .title,
                                                                   'no value',
                                                                 ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .titleLarge,
+                                                                    .titleLarge
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      fontSize:
+                                                                          18.0,
+                                                                    ),
                                                               ),
                                                               tileColor: FlutterFlowTheme
                                                                       .of(context)
@@ -1028,22 +1340,24 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                   curve: Curves.ease,
                                                 );
 
-                                                final userUpdateData = {
-                                                  'areasOfInterest': _model
-                                                      .checkboxListTileCheckedItems
-                                                      .map((e) => e.title)
-                                                      .withoutNulls
-                                                      .toList(),
-                                                };
                                                 await currentUserReference!
-                                                    .update(userUpdateData);
+                                                    .update({
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'areasOfInterest': _model
+                                                          .checkboxListTileCheckedItems
+                                                          .map((e) => e.title)
+                                                          .toList(),
+                                                    },
+                                                  ),
+                                                });
                                               },
                                               text: FFLocalizations.of(context)
                                                   .getText(
                                                 'a3b1yo1s' /* Next */,
                                               ),
                                               options: FFButtonOptions(
-                                                width: 250.0,
+                                                width: 180.0,
                                                 height: 60.0,
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -1124,7 +1438,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                           25.0),
                                                   child: Container(
                                                     width: double.infinity,
-                                                    height: 425.0,
+                                                    height: 400.0,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
                                                               .of(context)
@@ -1146,7 +1460,10 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                                 .calendarSelectedDay =
                                                             newSelectedDate);
                                                       },
-                                                      titleStyle: TextStyle(),
+                                                      titleStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
                                                       dayOfWeekStyle:
                                                           TextStyle(),
                                                       dateStyle: TextStyle(),
@@ -1169,21 +1486,15 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                       0.0, 50.0, 0.0, 0.0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
-                                                  context.pushNamed(
-                                                      'refugeepalwelcomescreen');
+                                                  context.goNamed('home');
 
-                                                  final userUpdateData =
-                                                      createUserRecordData(
-                                                    durationInCanada: (getCurrentTimestamp
-                                                                .secondsSinceEpoch -
-                                                            _model
-                                                                .calendarSelectedDay!
-                                                                .start
-                                                                .secondsSinceEpoch)
-                                                        .toString(),
-                                                  );
                                                   await currentUserReference!
-                                                      .update(userUpdateData);
+                                                      .update(
+                                                          createUserRecordData(
+                                                    dateArrived: _model
+                                                        .calendarSelectedDay
+                                                        ?.start,
+                                                  ));
                                                 },
                                                 text:
                                                     FFLocalizations.of(context)
@@ -1191,7 +1502,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                                   'fdb0h78g' /* Done */,
                                                 ),
                                                 options: FFButtonOptions(
-                                                  width: 250.0,
+                                                  width: 180.0,
                                                   height: 60.0,
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
@@ -1231,7 +1542,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.0, 1.0),
+                                alignment: AlignmentDirectional(0.00, 1.00),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 10.0),
@@ -1239,7 +1550,7 @@ class _UserjourneyWidgetState extends State<UserjourneyWidget> {
                                       smooth_page_indicator.SmoothPageIndicator(
                                     controller: _model.pageViewController ??=
                                         PageController(initialPage: 0),
-                                    count: 6,
+                                    count: 7,
                                     axisDirection: Axis.horizontal,
                                     onDotClicked: (i) async {
                                       await _model.pageViewController!

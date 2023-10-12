@@ -22,6 +22,7 @@ class FFButtonOptions {
     this.hoverBorderSide,
     this.hoverTextColor,
     this.hoverElevation,
+    this.maxLines,
   });
 
   final TextStyle? textStyle;
@@ -32,6 +33,7 @@ class FFButtonOptions {
   final Color? color;
   final Color? disabledColor;
   final Color? disabledTextColor;
+  final int? maxLines;
   final Color? splashColor;
   final double? iconSize;
   final Color? iconColor;
@@ -69,6 +71,8 @@ class FFButtonWidget extends StatefulWidget {
 class _FFButtonWidgetState extends State<FFButtonWidget> {
   bool loading = false;
 
+  int get maxLines => widget.options.maxLines ?? 1;
+
   @override
   Widget build(BuildContext context) {
     Widget textWidget = loading
@@ -86,7 +90,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
         : AutoSizeText(
             widget.text,
             style: widget.options.textStyle?.withoutColor(),
-            maxLines: 1,
+            maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
           );
 
@@ -156,7 +160,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
         if (states.contains(MaterialState.pressed)) {
           return widget.options.splashColor;
         }
-        return null;
+        return widget.options.hoverColor == null ? null : Colors.transparent;
       }),
       padding: MaterialStateProperty.all(widget.options.padding ??
           const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0)),
@@ -171,7 +175,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
       ),
     );
 
-    if (widget.icon != null || widget.iconData != null) {
+    if ((widget.icon != null || widget.iconData != null) && !loading) {
       return Container(
         height: widget.options.height,
         width: widget.options.width,

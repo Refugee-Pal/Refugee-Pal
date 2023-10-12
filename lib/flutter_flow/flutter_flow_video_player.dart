@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
+import '/flutter_flow/flutter_flow_util.dart' show routeObserver;
+
 const kDefaultAspectRatio = 16 / 9;
 
 enum VideoType {
@@ -26,6 +28,7 @@ class FlutterFlowVideoPlayer extends StatefulWidget {
     this.allowFullScreen = true,
     this.allowPlaybackSpeedMenu = false,
     this.lazyLoad = false,
+    this.pauseOnNavigate = true,
   });
 
   final String path;
@@ -39,15 +42,18 @@ class FlutterFlowVideoPlayer extends StatefulWidget {
   final bool allowFullScreen;
   final bool allowPlaybackSpeedMenu;
   final bool lazyLoad;
+  final bool pauseOnNavigate;
 
   @override
   State<StatefulWidget> createState() => _FlutterFlowVideoPlayerState();
 }
 
-class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer> {
+class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer>
+    with RouteAware {
   VideoPlayerController? _videoPlayerController;
   ChewieController? _chewieController;
   bool _loggedError = false;
+  bool _subscribedRoute = false;
 
   @override
   void initState() {
@@ -57,6 +63,9 @@ class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer> {
 
   @override
   void dispose() {
+    if (_subscribedRoute) {
+      routeObserver.unsubscribe(this);
+    }
     _videoPlayers.remove(_videoPlayerController);
     _videoPlayerController?.dispose();
     _chewieController?.dispose();
@@ -74,8 +83,24 @@ class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer> {
     }
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (widget.pauseOnNavigate && ModalRoute.of(context) is PageRoute) {
+      _subscribedRoute = true;
+      routeObserver.subscribe(this, ModalRoute.of(context)!);
+    }
+  }
+
+  @override
+  void didPushNext() {
+    if (widget.pauseOnNavigate) {
+      _videoPlayerController?.pause();
+    }
+  }
+
   double get width => widget.width == null || widget.width! >= double.infinity
-      ? MediaQuery.of(context).size.width
+      ? MediaQuery.sizeOf(context).width
       : widget.width!;
 
   double get height =>

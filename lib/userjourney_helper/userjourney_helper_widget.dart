@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -16,7 +17,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
 import 'userjourney_helper_model.dart';
@@ -34,12 +34,6 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
   late UserjourneyHelperModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
-  int get pageViewCurrentIndex => _model.pageViewController != null &&
-          _model.pageViewController!.hasClients &&
-          _model.pageViewController!.page != null
-      ? _model.pageViewController!.page!.round()
-      : 0;
 
   @override
   void initState() {
@@ -49,15 +43,12 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() {
-        _model.userInterests = [false, false, false, false].toList();
+        _model.userInterests =
+            [false, false, false, false].toList().cast<bool>();
       });
     });
 
     _model.textController1 ??= TextEditingController();
-    _model.textController2 ??= TextEditingController();
-    _model.textController3 ??= TextEditingController();
-    _model.textController4 ??= TextEditingController();
-    _model.textController5 ??= TextEditingController();
     _model.emailAddressController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -66,7 +57,6 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -79,13 +69,16 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: SpinKitPulse(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitPulse(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
+                ),
               ),
             ),
           );
@@ -93,11 +86,14 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
         List<UserRecord> userjourneyHelperUserRecordList =
             snapshot.data!.where((u) => u.uid != currentUserUid).toList();
         return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => _model.unfocusNode.canRequestFocus
+              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+              : FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: SafeArea(
+              top: true,
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -108,7 +104,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.9,
+                      height: MediaQuery.sizeOf(context).height * 0.9,
                       child: Stack(
                         children: [
                           Padding(
@@ -135,8 +131,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                         children: [
                                           Container(
                                             width: double.infinity,
-                                            height: MediaQuery.of(context)
-                                                    .size
+                                            height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 1.0,
                                             decoration: BoxDecoration(
@@ -205,147 +200,73 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                         ),
                                                   ),
                                                 ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 40.0, 0.0, 0.0),
+                                                  child: FFButtonWidget(
+                                                    onPressed: () async {
+                                                      await _model
+                                                          .pageViewController
+                                                          ?.nextPage(
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        curve: Curves.ease,
+                                                      );
+                                                    },
+                                                    text: FFLocalizations.of(
+                                                            context)
+                                                        .getText(
+                                                      '0k7rvc01' /* Next */,
+                                                    ),
+                                                    options: FFButtonOptions(
+                                                      width: 180.0,
+                                                      height: 60.0,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30.0),
+                                                    ),
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ),
-                                ),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 75.0, 25.0, 25.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '4u3xfl4p' /* Are you a healthcare, legal or... */,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineLarge
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                fontSize: 30.0,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-
-                                            final userUpdateData =
-                                                createUserRecordData(
-                                              displayName: 'professional',
-                                            );
-                                            await currentUserReference!
-                                                .update(userUpdateData);
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            '72fr8huc' /* Yes */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 60.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLarge
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      fontSize: 24.0,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-
-                                            final userUpdateData =
-                                                createUserRecordData(
-                                              displayName: 'nonprofessional',
-                                            );
-                                            await currentUserReference!
-                                                .update(userUpdateData);
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'j79dwi7r' /* No */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 60.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLarge
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      fontSize: 24.0,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                                 Column(
@@ -403,7 +324,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(25.0, 75.0,
+                                                      .fromSTEB(25.0, 80.0,
                                                           25.0, 50.0),
                                                   child: FlutterFlowDropDown<
                                                       String>(
@@ -414,8 +335,6 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                     options:
                                                         blurLanguagesRecordList
                                                             .map((e) => e.name)
-                                                            .withoutNulls
-                                                            .toList()
                                                             .toList(),
                                                     onChanged: (val) =>
                                                         setState(() => _model
@@ -457,6 +376,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                                 12.0, 4.0),
                                                     hidesUnderline: true,
                                                     isSearchable: true,
+                                                    isMultiSelect: false,
                                                   ),
                                                 ),
                                               ],
@@ -467,30 +387,38 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 25.0, 25.0, 0.0),
+                                          25.0, 80.0, 25.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          await _model.pageViewController
-                                              ?.nextPage(
-                                            duration:
-                                                Duration(milliseconds: 300),
-                                            curve: Curves.ease,
-                                          );
-
-                                          final userUpdateData =
-                                              createUserRecordData(
+                                          await currentUserReference!
+                                              .update(createUserRecordData(
                                             language: _model.dropDownValue,
                                             translateApp: 'false',
-                                          );
-                                          await currentUserReference!
-                                              .update(userUpdateData);
+                                          ));
+                                          if (currentUserDisplayName ==
+                                              'Helper') {
+                                            await _model.pageViewController
+                                                ?.animateToPage(
+                                              3,
+                                              duration:
+                                                  Duration(milliseconds: 500),
+                                              curve: Curves.ease,
+                                            );
+                                          } else {
+                                            await _model.pageViewController
+                                                ?.nextPage(
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.ease,
+                                            );
+                                          }
                                         },
                                         text:
                                             FFLocalizations.of(context).getText(
                                           'wwlcfq0u' /* Next */,
                                         ),
                                         options: FFButtonOptions(
-                                          width: double.infinity,
+                                          width: 180.0,
                                           height: 60.0,
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -521,530 +449,6 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                     ),
                                   ],
                                 ),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 75.0, 25.0, 25.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'fm2m6o1s' /* Set up your Professional Profi... */,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineLarge
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                fontSize: 30.0,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                      Image.asset(
-                                        'assets/images/healthcare.png',
-                                        width: 310.0,
-                                        height: 240.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'b0bd7j0k' /* Create a profile for your clin... */,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 50.0, 25.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'meynx7zb' /* Continue */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 60.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLarge
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      fontSize: 24.0,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 75.0, 25.0, 25.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '1v2l4msv' /* I am a... */,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineLarge
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                fontSize: 30.0,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            elevation: 3.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/Good-Communication.jpg',
-                                                  width: double.infinity,
-                                                  height: 130.0,
-                                                  fit: BoxFit.fitWidth,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 5.0, 0.0, 3.0),
-                                                  child: Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      '5acwhvx9' /* Healthcare Professional */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleMedium,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 10.0, 25.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await _model.pageViewController
-                                                ?.animateToPage(
-                                              6,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            elevation: 3.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/Refugee_Claims.jpg',
-                                                  width: double.infinity,
-                                                  height: 130.0,
-                                                  fit: BoxFit.fitWidth,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 5.0, 0.0, 3.0),
-                                                  child: Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      'xbhr4sco' /* Refugee Lawyer */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleMedium,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 10.0, 25.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await _model.pageViewController
-                                                ?.animateToPage(
-                                              6,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            elevation: 3.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/shutterstock_1050440903-1614850629-hero.jpg',
-                                                  width: double.infinity,
-                                                  height: 130.0,
-                                                  fit: BoxFit.fitWidth,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 5.0, 0.0, 3.0),
-                                                  child: Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      'd4wfklu1' /* Counsellor */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleMedium,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 10.0, 25.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await _model.pageViewController
-                                                ?.animateToPage(
-                                              6,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            elevation: 3.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/Counseller_vs_psychologist.jpg',
-                                                  width: double.infinity,
-                                                  height: 130.0,
-                                                  fit: BoxFit.fitWidth,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 5.0, 0.0, 3.0),
-                                                  child: Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      'q7gvveis' /* Psychologist */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleMedium,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 75.0, 25.0, 50.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'twcyjxwv' /* My area of practice is: */,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineLarge
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                fontSize: 30.0,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'cdr37iqr' /* Family practice */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 60.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLarge
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      fontSize: 24.0,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'rsxnj3wm' /* Primary care (other) */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 60.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLarge
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      fontSize: 24.0,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await _model.pageViewController
-                                                ?.nextPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            '9y771tm6' /* Dentistry */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 60.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleLarge
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      fontSize: 24.0,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -1053,7 +457,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                           25.0, 75.0, 25.0, 25.0),
                                       child: Text(
                                         FFLocalizations.of(context).getText(
-                                          'j8fkef5z' /* Get started */,
+                                          'j8fkef5z' /* Tell us a bit more about you */,
                                         ),
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
@@ -1071,157 +475,140 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           25.0, 25.0, 25.0, 0.0),
-                                      child: TextFormField(
-                                        controller: _model.textController1,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: FFLocalizations.of(context)
-                                              .getText(
-                                            'e8qsoj60' /* Practice name */,
-                                          ),
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFDBE2E7),
-                                              width: 2.0,
+                                      child: Autocomplete<String>(
+                                        initialValue: TextEditingValue(),
+                                        optionsBuilder: (textEditingValue) {
+                                          if (textEditingValue.text == '') {
+                                            return const Iterable<
+                                                String>.empty();
+                                          }
+                                          return <String>[].where((option) {
+                                            final lowercaseOption =
+                                                option.toLowerCase();
+                                            return lowercaseOption.contains(
+                                                textEditingValue.text
+                                                    .toLowerCase());
+                                          });
+                                        },
+                                        optionsViewBuilder:
+                                            (context, onSelected, options) {
+                                          return AutocompleteOptionsList(
+                                            textFieldKey: _model.textFieldKey,
+                                            textController:
+                                                _model.textController1!,
+                                            options: options.toList(),
+                                            onSelected: onSelected,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            textHighlightStyle: TextStyle(),
+                                            elevation: 4.0,
+                                            optionBackgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryBackground,
+                                            optionHighlightColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            maxHeight: 200.0,
+                                          );
+                                        },
+                                        onSelected: (String selection) {
+                                          setState(() =>
+                                              _model.textFieldSelectedOption =
+                                                  selection);
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        fieldViewBuilder: (
+                                          context,
+                                          textEditingController,
+                                          focusNode,
+                                          onEditingComplete,
+                                        ) {
+                                          _model.textController1 =
+                                              textEditingController;
+                                          return TextFormField(
+                                            key: _model.textFieldKey,
+                                            controller: textEditingController,
+                                            focusNode: focusNode,
+                                            onEditingComplete:
+                                                onEditingComplete,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelText:
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                'b7er5pp3' /* Job title/profession */,
+                                              ),
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            Color(0xFF57636C),
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            Color(0xFF57636C),
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0xFFDBE2E7),
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0),
+                                              ),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                              contentPadding:
+                                                  EdgeInsetsDirectional
+                                                      .fromSTEB(24.0, 24.0,
+                                                          20.0, 24.0),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 24.0, 20.0, 24.0),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        maxLines: null,
-                                        validator: _model
-                                            .textController1Validator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 25.0, 25.0, 0.0),
-                                      child: TextFormField(
-                                        controller: _model.textController2,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: FFLocalizations.of(context)
-                                              .getText(
-                                            'jlqa1reh' /* Address */,
-                                          ),
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFDBE2E7),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 24.0, 20.0, 24.0),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        maxLines: null,
-                                        validator: _model
-                                            .textController2Validator
-                                            .asValidator(context),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium,
+                                            maxLines: null,
+                                            validator: _model
+                                                .textController1Validator
+                                                .asValidator(context),
+                                          );
+                                        },
                                       ),
                                     ),
                                     Padding(
@@ -1234,57 +621,11 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                           borderRadius:
                                               BorderRadius.circular(25.0),
                                         ),
-                                        child: Theme(
-                                          data: ThemeData(
-                                            checkboxTheme: CheckboxThemeData(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              ),
-                                            ),
-                                            unselectedWidgetColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .accent2,
-                                          ),
-                                          child: CheckboxListTile(
-                                            value: _model
-                                                    .checkboxListTileValue1 ??=
-                                                true,
-                                            onChanged: (newValue) async {
-                                              setState(() => _model
-                                                      .checkboxListTileValue1 =
-                                                  newValue!);
-                                            },
-                                            title: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'td76pavw' /* I accept IFHP */,
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLarge,
-                                            ),
-                                            tileColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            activeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            dense: false,
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ),
-                                          ),
-                                        ),
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 25.0, 25.0, 0.0),
+                                          25.0, 80.0, 25.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           await _model.pageViewController
@@ -1293,324 +634,19 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                 Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
+
+                                          await currentUserReference!
+                                              .update(createUserRecordData(
+                                            displayName:
+                                                _model.textController1.text,
+                                          ));
                                         },
                                         text:
                                             FFLocalizations.of(context).getText(
                                           '9ug8q4gy' /* Next */,
                                         ),
                                         options: FFButtonOptions(
-                                          width: double.infinity,
-                                          height: 60.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .titleLarge
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                fontSize: 24.0,
-                                              ),
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 75.0, 25.0, 25.0),
-                                      child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'a9bzlzhg' /* Add your contact information */,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineLarge
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              fontSize: 30.0,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 25.0, 25.0, 0.0),
-                                      child: TextFormField(
-                                        controller: _model.textController3,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: FFLocalizations.of(context)
-                                              .getText(
-                                            'iq5rocz7' /* Phone number */,
-                                          ),
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFDBE2E7),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 24.0, 20.0, 24.0),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        maxLines: null,
-                                        keyboardType: TextInputType.number,
-                                        validator: _model
-                                            .textController3Validator
-                                            .asValidator(context),
-                                        inputFormatters: [
-                                          _model.textFieldMask3
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 25.0, 25.0, 0.0),
-                                      child: TextFormField(
-                                        controller: _model.textController4,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: FFLocalizations.of(context)
-                                              .getText(
-                                            '6dqfinjl' /* Email address */,
-                                          ),
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFDBE2E7),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 24.0, 20.0, 24.0),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        maxLines: null,
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        validator: _model
-                                            .textController4Validator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 25.0, 25.0, 0.0),
-                                      child: TextFormField(
-                                        controller: _model.textController5,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: FFLocalizations.of(context)
-                                              .getText(
-                                            'vz161ayf' /* Website URL */,
-                                          ),
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFDBE2E7),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 24.0, 20.0, 24.0),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        maxLines: null,
-                                        validator: _model
-                                            .textController5Validator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          25.0, 25.0, 25.0, 0.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          await _model.pageViewController
-                                              ?.nextPage(
-                                            duration:
-                                                Duration(milliseconds: 300),
-                                            curve: Curves.ease,
-                                          );
-                                        },
-                                        text:
-                                            FFLocalizations.of(context).getText(
-                                          '1qp0ba0m' /* Next */,
-                                        ),
-                                        options: FFButtonOptions(
-                                          width: double.infinity,
+                                          width: 180.0,
                                           height: 60.0,
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1667,7 +703,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.00, 0.00),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1763,7 +799,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                               ),
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    1.0, 0.0),
+                                                    1.00, 0.00),
                                                 child: FlutterFlowIconButton(
                                                   borderColor:
                                                       Colors.transparent,
@@ -1778,7 +814,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                     size: 30.0,
                                                   ),
                                                   onPressed: () async {
-                                                    setState(() {
+                                                    safeSetState(() {
                                                       _model.simpleSearchResults =
                                                           TextSearch(
                                                         userjourneyHelperUserRecordList
@@ -1797,6 +833,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                               .map((r) =>
                                                                   r.object)
                                                               .toList();
+                                                      ;
                                                     });
                                                     setState(() {
                                                       _model.isShowAll = false;
@@ -1808,7 +845,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                 Align(
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.68, 0.0),
+                                                          0.68, 0.00),
                                                   child: FlutterFlowIconButton(
                                                     borderColor:
                                                         Colors.transparent,
@@ -1890,7 +927,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                                             .photoUrl !=
                                                                         ''
                                                                 ? peoplesItem
-                                                                    .photoUrl!
+                                                                    .photoUrl
                                                                 : 'https://picsum.photos/seed/862/600',
                                                             fit: BoxFit.cover,
                                                           ),
@@ -1919,18 +956,18 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                               child:
                                                                   CheckboxListTile(
                                                                 value: _model
-                                                                        .checkboxListTileValueMap2[
+                                                                        .checkboxListTileValueMap[
                                                                     peoplesItem] ??= false,
                                                                 onChanged:
                                                                     (newValue) async {
                                                                   setState(() =>
-                                                                      _model.checkboxListTileValueMap2[
+                                                                      _model.checkboxListTileValueMap[
                                                                               peoplesItem] =
                                                                           newValue!);
                                                                 },
                                                                 title: Text(
                                                                   peoplesItem
-                                                                      .name!,
+                                                                      .name,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleLarge,
@@ -1943,7 +980,7 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                                                           'true'
                                                                       ? 'Refugee'
                                                                       : peoplesItem
-                                                                          .displayName!,
+                                                                          .displayName,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelLarge,
@@ -1974,14 +1011,14 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                                             25.0, 50.0, 25.0, 25.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            context.pushNamed('helperChat');
+                                            context.goNamed('helperChat');
                                           },
                                           text: FFLocalizations.of(context)
                                               .getText(
-                                            '1qp0ba0m' /* Next */,
+                                            'elbpjfvc' /* Next */,
                                           ),
                                           options: FFButtonOptions(
-                                            width: double.infinity,
+                                            width: 180.0,
                                             height: 60.0,
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -2018,14 +1055,14 @@ class _UserjourneyHelperWidgetState extends State<UserjourneyHelperWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
+                            alignment: AlignmentDirectional(0.00, 1.00),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 10.0),
                               child: smooth_page_indicator.SmoothPageIndicator(
                                 controller: _model.pageViewController ??=
                                     PageController(initialPage: 0),
-                                count: 9,
+                                count: 4,
                                 axisDirection: Axis.horizontal,
                                 onDotClicked: (i) async {
                                   await _model.pageViewController!

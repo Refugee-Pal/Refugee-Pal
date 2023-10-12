@@ -25,7 +25,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
   late SettingsAccInfoModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -50,20 +48,25 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
     return AuthUserStreamWidget(
       builder: (context) => StreamBuilder<List<LanguagesRecord>>(
         stream: queryLanguagesRecord(
-          queryBuilder: (languagesRecord) => languagesRecord.where('Name',
-              isEqualTo: valueOrDefault(currentUserDocument?.language, '')),
+          queryBuilder: (languagesRecord) => languagesRecord.where(
+            'Name',
+            isEqualTo: valueOrDefault(currentUserDocument?.language, ''),
+          ),
           singleRecord: true,
         ),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: SpinKitPulse(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+            return Scaffold(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              body: Center(
+                child: SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: SpinKitPulse(
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 50.0,
+                  ),
                 ),
               ),
             );
@@ -79,43 +82,63 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                   ? settingsAccInfoLanguagesRecordList.first
                   : null;
           return GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+            onTap: () => _model.unfocusNode.canRequestFocus
+                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                : FocusScope.of(context).unfocus(),
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              appBar: AppBar(
-                backgroundColor: FlutterFlowTheme.of(context).primary,
-                automaticallyImplyLeading: false,
-                leading: FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30.0,
-                  borderWidth: 1.0,
-                  buttonSize: 60.0,
-                  icon: Icon(
-                    Icons.arrow_back_rounded,
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    size: 30.0,
-                  ),
-                  onPressed: () async {
-                    context.pop();
-                  },
-                ),
-                title: Text(
-                  FFLocalizations.of(context).getText(
-                    '78hdnm2w' /* Personal Information */,
-                  ),
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Inter',
-                        color: FlutterFlowTheme.of(context).primaryBtnText,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
+              appBar: () {
+                if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointMedium) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointLarge) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }()
+                  ? AppBar(
+                      backgroundColor: FlutterFlowTheme.of(context).primary,
+                      automaticallyImplyLeading: false,
+                      leading: FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
+                        icon: Icon(
+                          Icons.arrow_back_rounded,
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                          size: 30.0,
+                        ),
+                        onPressed: () async {
+                          context.pop();
+                        },
                       ),
-                ),
-                actions: [],
-                centerTitle: false,
-                elevation: 2.0,
-              ),
+                      title: Text(
+                        FFLocalizations.of(context).getText(
+                          '78hdnm2w' /* Personal Information */,
+                        ),
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Inter',
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                      actions: [],
+                      centerTitle: false,
+                      elevation: 2.0,
+                    )
+                  : null,
               body: SafeArea(
+                top: true,
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -146,7 +169,7 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                     currentUserDocument?.isRefugee, '') ==
                                 'true')
                               Align(
-                                alignment: AlignmentDirectional(-0.95, 0.0),
+                                alignment: AlignmentDirectional(-0.95, 0.00),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 20.0, 0.0, 5.0),
@@ -170,7 +193,13 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                               StreamBuilder<List<Translations11Record>>(
                                 stream: queryTranslations11Record(
                                   parent: currentUserReference,
-                                  limit: 1,
+                                  queryBuilder: (translations11Record) =>
+                                      translations11Record.where(
+                                    'language',
+                                    isEqualTo:
+                                        settingsAccInfoLanguagesRecord?.code,
+                                  ),
+                                  singleRecord: true,
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -190,27 +219,31 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                   List<Translations11Record>
                                       dropDownTranslations11RecordList =
                                       snapshot.data!;
+                                  // Return an empty Container when the item does not exist.
+                                  if (snapshot.data!.isEmpty) {
+                                    return Container();
+                                  }
+                                  final dropDownTranslations11Record =
+                                      dropDownTranslations11RecordList
+                                              .isNotEmpty
+                                          ? dropDownTranslations11RecordList
+                                              .first
+                                          : null;
                                   return FlutterFlowDropDown<String>(
                                     controller:
                                         _model.dropDownValueController1 ??=
                                             FormFieldController<String>(
                                       _model.dropDownValue1 ??=
-                                          (settingsAccInfoLanguagesRecord!
-                                                          .name !=
+                                          (settingsAccInfoLanguagesRecord
+                                                          ?.name !=
                                                       'English') &&
                                                   (valueOrDefault(
                                                           currentUserDocument
                                                               ?.translateApp,
                                                           '') ==
                                                       'true')
-                                              ? dropDownTranslations11RecordList
-                                                  .where((e) =>
-                                                      e.reference.id ==
-                                                      settingsAccInfoLanguagesRecord!
-                                                          .code)
-                                                  .toList()
-                                                  .first
-                                                  .value
+                                              ? dropDownTranslations11Record
+                                                  ?.value
                                               : valueOrDefault(
                                                   currentUserDocument
                                                       ?.refugeeStatus,
@@ -234,8 +267,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                         () => _model.dropDownValue1 = val),
                                     width: double.infinity,
                                     height: 50.0,
-                                    searchHintTextStyle:
-                                        FlutterFlowTheme.of(context).labelLarge,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -247,7 +278,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                         FFLocalizations.of(context).getText(
                                       'hf6zfi4z' /* Refugee Status */,
                                     ),
-                                    searchHintText: '',
                                     fillColor: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     elevation: 2.0,
@@ -258,6 +288,7 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                         12.0, 4.0, 12.0, 4.0),
                                     hidesUnderline: true,
                                     isSearchable: false,
+                                    isMultiSelect: false,
                                   );
                                 },
                               ),
@@ -265,7 +296,7 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                     currentUserDocument?.isRefugee, '') ==
                                 'false')
                               Align(
-                                alignment: AlignmentDirectional(-0.95, 0.0),
+                                alignment: AlignmentDirectional(-0.95, 0.00),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 20.0, 0.0, 0.0),
@@ -312,8 +343,8 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                           _model.dropDownValueController2 ??=
                                               FormFieldController<String>(
                                         _model.dropDownValue2 ??=
-                                            (settingsAccInfoLanguagesRecord!
-                                                            .name !=
+                                            (settingsAccInfoLanguagesRecord
+                                                            ?.name !=
                                                         'English') &&
                                                     (valueOrDefault(
                                                             currentUserDocument
@@ -323,8 +354,8 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                                 ? dropDownTranslations14RecordList
                                                     .where((e) =>
                                                         e.reference.id ==
-                                                        settingsAccInfoLanguagesRecord!
-                                                            .code)
+                                                        settingsAccInfoLanguagesRecord
+                                                            ?.code)
                                                     .toList()
                                                     .first
                                                     .value
@@ -348,9 +379,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                           () => _model.dropDownValue2 = val),
                                       width: double.infinity,
                                       height: 50.0,
-                                      searchHintTextStyle:
-                                          FlutterFlowTheme.of(context)
-                                              .labelLarge,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -362,7 +390,6 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                           FFLocalizations.of(context).getText(
                                         'djm1uvc7' /* Area of expertise */,
                                       ),
-                                      searchHintText: '',
                                       fillColor: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       elevation: 2.0,
@@ -373,12 +400,13 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                           12.0, 4.0, 12.0, 4.0),
                                       hidesUnderline: true,
                                       isSearchable: false,
+                                      isMultiSelect: false,
                                     );
                                   },
                                 ),
                               ),
                             Align(
-                              alignment: AlignmentDirectional(-0.95, 0.0),
+                              alignment: AlignmentDirectional(-0.95, 0.00),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
@@ -393,89 +421,146 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 5.0, 0.0, 0.0),
-                              child: FlutterFlowDropDown<String>(
-                                controller: _model.dropDownValueController3 ??=
-                                    FormFieldController<String>(
-                                  _model.dropDownValue3 ??= valueOrDefault(
-                                      currentUserDocument?.language, ''),
-                                ),
-                                options: [
-                                  FFLocalizations.of(context).getText(
-                                    'hpnw8yu4' /* English */,
-                                  ),
-                                  FFLocalizations.of(context).getText(
-                                    'd04pzwmc' /* Farsi */,
-                                  ),
-                                  FFLocalizations.of(context).getText(
-                                    'b6jpewfb' /* Pashto */,
-                                  ),
-                                  FFLocalizations.of(context).getText(
-                                    'qp75pzrn' /* Arabic */,
-                                  ),
-                                  FFLocalizations.of(context).getText(
-                                    'm0n2i0eo' /* Ukrainian */,
-                                  )
-                                ],
-                                onChanged: (val) =>
-                                    setState(() => _model.dropDownValue3 = val),
-                                width: double.infinity,
-                                height: 50.0,
-                                searchHintTextStyle:
-                                    FlutterFlowTheme.of(context).labelLarge,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                hintText: FFLocalizations.of(context).getText(
-                                  '4vawf6sw' /* Language */,
-                                ),
-                                searchHintText: '',
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                elevation: 2.0,
-                                borderColor: Colors.transparent,
-                                borderWidth: 0.0,
-                                borderRadius: 0.0,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 4.0, 12.0, 4.0),
-                                hidesUnderline: true,
-                                isSearchable: false,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 25.0, 0.0, 0.0),
-                              child: SwitchListTile.adaptive(
-                                value: _model.switchListTileValue ??= true,
-                                onChanged: (newValue) async {
-                                  setState(() =>
-                                      _model.switchListTileValue = newValue!);
-                                },
-                                title: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'fes6rmrc' /* Translate the app for me */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleLarge
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 18.0,
+                              child: StreamBuilder<List<LanguagesRecord>>(
+                                stream: queryLanguagesRecord(),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitPulse(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 50.0,
+                                        ),
                                       ),
-                                ),
-                                tileColor: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                dense: false,
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
+                                    );
+                                  }
+                                  List<LanguagesRecord>
+                                      dropDownLanguagesRecordList =
+                                      snapshot.data!;
+                                  return FlutterFlowDropDown<String>(
+                                    controller:
+                                        _model.dropDownValueController3 ??=
+                                            FormFieldController<String>(
+                                      _model.dropDownValue3 ??= valueOrDefault(
+                                          currentUserDocument?.language, ''),
+                                    ),
+                                    options: dropDownLanguagesRecordList
+                                        .map((e) => e.name)
+                                        .toList(),
+                                    onChanged: (val) => setState(
+                                        () => _model.dropDownValue3 = val),
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                    hintText:
+                                        FFLocalizations.of(context).getText(
+                                      '4vawf6sw' /* Language */,
+                                    ),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor: Colors.transparent,
+                                    borderWidth: 0.0,
+                                    borderRadius: 0.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 4.0, 12.0, 4.0),
+                                    hidesUnderline: true,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
+                                  );
+                                },
                               ),
                             ),
+                            if (currentUserDocument?.dateArrived != null)
+                              Align(
+                                alignment: AlignmentDirectional(-0.95, 0.00),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 20.0, 0.0, 0.0),
+                                  child: Text(
+                                    FFLocalizations.of(context).getText(
+                                      '58shaoue' /* Date arrived in Canada */,
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodySmall,
+                                  ),
+                                ),
+                              ),
+                            if (currentUserDocument?.dateArrived != null)
+                              Align(
+                                alignment: AlignmentDirectional(-0.95, 0.00),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 10.0, 0.0, 0.0),
+                                  child: Text(
+                                    dateTimeFormat(
+                                      'yMMMd',
+                                      currentUserDocument!.dateArrived!,
+                                      locale: FFLocalizations.of(context)
+                                          .languageCode,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            if (valueOrDefault(
+                                    currentUserDocument?.isRefugee, '') ==
+                                'true')
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 25.0, 0.0, 0.0),
+                                child: SwitchListTile.adaptive(
+                                  value: _model
+                                      .switchListTileValue ??= valueOrDefault(
+                                              currentUserDocument?.translateApp,
+                                              '') ==
+                                          'true'
+                                      ? true
+                                      : false,
+                                  onChanged: (newValue) async {
+                                    setState(() =>
+                                        _model.switchListTileValue = newValue!);
+                                  },
+                                  title: Text(
+                                    FFLocalizations.of(context).getText(
+                                      'fes6rmrc' /* Translate the app for me */,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 18.0,
+                                        ),
+                                  ),
+                                  tileColor: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  dense: false,
+                                  controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                ),
+                              ),
                             Align(
-                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.00, 0.00),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     5.0, 25.0, 0.0, 10.0),
@@ -522,11 +607,18 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                             .secondaryBackground,
                                       ),
                                       child: StreamBuilder<
-                                          List<Translations7Record>>(
-                                        stream: queryTranslations7Record(
+                                          List<Translations8Record>>(
+                                        stream: queryTranslations8Record(
                                           parent:
                                               listViewCategoryRecord.reference,
-                                          limit: 1,
+                                          queryBuilder: (translations8Record) =>
+                                              translations8Record.where(
+                                            'language',
+                                            isEqualTo:
+                                                settingsAccInfoLanguagesRecord
+                                                    ?.code,
+                                          ),
+                                          singleRecord: true,
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -544,9 +636,15 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                               ),
                                             );
                                           }
-                                          List<Translations7Record>
-                                              checkboxListTileTranslations7RecordList =
+                                          List<Translations8Record>
+                                              checkboxListTileTranslations8RecordList =
                                               snapshot.data!;
+                                          final checkboxListTileTranslations8Record =
+                                              checkboxListTileTranslations8RecordList
+                                                      .isNotEmpty
+                                                  ? checkboxListTileTranslations8RecordList
+                                                      .first
+                                                  : null;
                                           return Theme(
                                             data: ThemeData(
                                               checkboxTheme: CheckboxThemeData(
@@ -578,29 +676,27 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                               },
                                               title: Text(
                                                 valueOrDefault<String>(
-                                                  (settingsAccInfoLanguagesRecord!
-                                                                  .name !=
+                                                  (settingsAccInfoLanguagesRecord
+                                                                  ?.name !=
                                                               'English') &&
                                                           (valueOrDefault(
                                                                   currentUserDocument
                                                                       ?.translateApp,
                                                                   '') ==
                                                               'true')
-                                                      ? checkboxListTileTranslations7RecordList
-                                                          .where((e) =>
-                                                              e.reference.id ==
-                                                              settingsAccInfoLanguagesRecord!
-                                                                  .code)
-                                                          .toList()
-                                                          .first
-                                                          .value
+                                                      ? checkboxListTileTranslations8Record
+                                                          ?.value
                                                       : listViewCategoryRecord
                                                           .title,
                                                   'no value',
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleLarge,
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 18.0,
+                                                        ),
                                               ),
                                               tileColor:
                                                   FlutterFlowTheme.of(context)
@@ -629,57 +725,55 @@ class _SettingsAccInfoWidgetState extends State<SettingsAccInfoWidget> {
                                   if (valueOrDefault(
                                           currentUserDocument?.isRefugee, '') ==
                                       'true') {
-                                    final userUpdateData1 = {
+                                    await currentUserReference!.update({
                                       ...createUserRecordData(
                                         language: _model.dropDownValue3,
                                         refugeeStatus: _model.dropDownValue1,
                                       ),
-                                      'areasOfInterest': _model
-                                          .checkboxListTileCheckedItems
-                                          .map((e) => e.title)
-                                          .withoutNulls
-                                          .toList(),
-                                    };
-                                    await currentUserReference!
-                                        .update(userUpdateData1);
+                                      ...mapToFirestore(
+                                        {
+                                          'areasOfInterest': _model
+                                              .checkboxListTileCheckedItems
+                                              .map((e) => e.title)
+                                              .toList(),
+                                        },
+                                      ),
+                                    });
                                   } else {
-                                    final userUpdateData2 = {
+                                    await currentUserReference!.update({
                                       ...createUserRecordData(
                                         language: _model.dropDownValue3,
                                         displayName: _model.dropDownValue2,
                                       ),
-                                      'areasOfInterest': _model
-                                          .checkboxListTileCheckedItems
-                                          .map((e) => e.title)
-                                          .withoutNulls
-                                          .toList(),
-                                    };
-                                    await currentUserReference!
-                                        .update(userUpdateData2);
+                                      ...mapToFirestore(
+                                        {
+                                          'areasOfInterest': _model
+                                              .checkboxListTileCheckedItems
+                                              .map((e) => e.title)
+                                              .toList(),
+                                        },
+                                      ),
+                                    });
                                   }
 
                                   if (_model.switchListTileValue!) {
                                     setAppLanguage(
                                         context, _model.dropDownValue3!);
 
-                                    final userUpdateData3 =
-                                        createUserRecordData(
-                                      translateApp: 'true',
-                                    );
                                     await currentUserReference!
-                                        .update(userUpdateData3);
+                                        .update(createUserRecordData(
+                                      translateApp: 'true',
+                                    ));
                                   } else {
                                     setAppLanguage(context, 'en');
 
-                                    final userUpdateData4 =
-                                        createUserRecordData(
-                                      translateApp: 'false',
-                                    );
                                     await currentUserReference!
-                                        .update(userUpdateData4);
+                                        .update(createUserRecordData(
+                                      translateApp: 'false',
+                                    ));
                                   }
 
-                                  context.pushNamed('settings');
+                                  context.safePop();
                                 },
                                 text: FFLocalizations.of(context).getText(
                                   'iu08vel5' /* Save Changes */,

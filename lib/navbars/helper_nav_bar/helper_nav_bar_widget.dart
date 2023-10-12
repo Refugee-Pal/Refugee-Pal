@@ -123,7 +123,7 @@ class _HelperNavBarWidgetState extends State<HelperNavBarWidget> {
                 onPressed: () async {
                   context.pushNamed(
                     'helperOrganization',
-                    queryParams: {
+                    queryParameters: {
                       'locationToEdit': serializeParam(
                         null,
                         ParamType.Document,
@@ -151,20 +151,6 @@ class _HelperNavBarWidgetState extends State<HelperNavBarWidget> {
                 ),
                 onPressed: () async {
                   context.pushNamed('helperChat');
-                },
-              ),
-              FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 40.0,
-                borderWidth: 1.0,
-                buttonSize: 80.0,
-                icon: FaIcon(
-                  FontAwesomeIcons.solidUser,
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  size: 35.0,
-                ),
-                onPressed: () async {
-                  context.pushNamed('helperProfile');
                 },
               ),
             ],

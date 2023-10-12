@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "939869975986-kkv1o2m7kjdnpt7ncfu0obaloq766mc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.innovationfair.refugeepal",
+            "certificate_hash": "754caf9bff2c20cdd2747f23df486656568ba6c4"
+          }
+        },
+        {
           "client_id": "939869975986-158gbo9u6laehbouskfbdshn383p6ikk.apps.googleusercontent.com",
           "client_type": 3
         }

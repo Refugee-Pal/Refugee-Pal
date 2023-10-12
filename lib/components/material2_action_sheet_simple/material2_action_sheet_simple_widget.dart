@@ -77,8 +77,8 @@ class _Material2ActionSheetSimpleWidgetState
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if ((widget.messageToLoad!.text != null &&
-                          widget.messageToLoad!.text != '') &&
+                  if ((widget.messageToLoad?.text != null &&
+                          widget.messageToLoad?.text != '') &&
                       !isWeb)
                     Container(
                       width: double.infinity,
@@ -96,7 +96,7 @@ class _Material2ActionSheetSimpleWidgetState
                             onTap: () async {
                               Navigator.pop(context);
                               await Share.share(
-                                widget.messageToLoad!.text!,
+                                widget.messageToLoad!.text,
                                 sharePositionOrigin:
                                     getWidgetBoundingBox(context),
                               );
@@ -153,8 +153,8 @@ class _Material2ActionSheetSimpleWidgetState
                         ),
                       ),
                     ),
-                  if (widget.messageToLoad!.text != null &&
-                      widget.messageToLoad!.text != '')
+                  if (widget.messageToLoad?.text != null &&
+                      widget.messageToLoad?.text != '')
                     Container(
                       width: double.infinity,
                       height: 60.0,
@@ -170,7 +170,7 @@ class _Material2ActionSheetSimpleWidgetState
                           onTap: () async {
                             Navigator.pop(context);
                             await Clipboard.setData(ClipboardData(
-                                text: widget.messageToLoad!.text!));
+                                text: widget.messageToLoad!.text));
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -223,7 +223,7 @@ class _Material2ActionSheetSimpleWidgetState
                         ),
                       ),
                     ),
-                  if (widget.messageToLoad!.user ==
+                  if (widget.messageToLoad?.user ==
                       valueOrDefault(currentUserDocument?.name, ''))
                     AuthUserStreamWidget(
                       builder: (context) => Wrap(
@@ -236,10 +236,9 @@ class _Material2ActionSheetSimpleWidgetState
                         verticalDirection: VerticalDirection.down,
                         clipBehavior: Clip.none,
                         children: [
-                          Visibility(
-                            visible: widget.messageToLoad!.text != null &&
-                                widget.messageToLoad!.text != '',
-                            child: Container(
+                          if (widget.messageToLoad?.text != null &&
+                              widget.messageToLoad?.text != '')
+                            Container(
                               width: double.infinity,
                               height: 60.0,
                               decoration: BoxDecoration(),
@@ -313,7 +312,6 @@ class _Material2ActionSheetSimpleWidgetState
                                 ),
                               ),
                             ),
-                          ),
                           Container(
                             width: double.infinity,
                             height: 60.0,
@@ -396,20 +394,16 @@ class _Material2ActionSheetSimpleWidgetState
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if (widget.messageToLoad!.isAnswer!) {
-                            final messagesUpdateData1 =
-                                createMessagesRecordData(
+                          if (widget.messageToLoad!.isAnswer) {
+                            await widget.messageToLoad!.reference
+                                .update(createMessagesRecordData(
                               isAnswer: false,
-                            );
-                            await widget.messageToLoad!.reference
-                                .update(messagesUpdateData1);
+                            ));
                           } else {
-                            final messagesUpdateData2 =
-                                createMessagesRecordData(
-                              isAnswer: true,
-                            );
                             await widget.messageToLoad!.reference
-                                .update(messagesUpdateData2);
+                                .update(createMessagesRecordData(
+                              isAnswer: true,
+                            ));
                           }
                         },
                         child: Container(
@@ -425,20 +419,16 @@ class _Material2ActionSheetSimpleWidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                if (widget.messageToLoad!.isAnswer == true) {
-                                  final messagesUpdateData1 =
-                                      createMessagesRecordData(
+                                if (widget.messageToLoad?.isAnswer == true) {
+                                  await widget.messageToLoad!.reference
+                                      .update(createMessagesRecordData(
                                     isAnswer: false,
-                                  );
-                                  await widget.messageToLoad!.reference
-                                      .update(messagesUpdateData1);
+                                  ));
                                 } else {
-                                  final messagesUpdateData2 =
-                                      createMessagesRecordData(
-                                    isAnswer: true,
-                                  );
                                   await widget.messageToLoad!.reference
-                                      .update(messagesUpdateData2);
+                                      .update(createMessagesRecordData(
+                                    isAnswer: true,
+                                  ));
                                 }
 
                                 Navigator.pop(context);
@@ -475,7 +465,7 @@ class _Material2ActionSheetSimpleWidgetState
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            widget.messageToLoad!.isAnswer ==
+                                            widget.messageToLoad?.isAnswer ==
                                                     true
                                                 ? 'Unmark as answer'
                                                 : 'Mark as answer',
@@ -522,12 +512,12 @@ class _Material2ActionSheetSimpleWidgetState
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, -1.0),
+                    alignment: AlignmentDirectional(0.00, -1.00),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 20.0),
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 0.98,
+                        width: MediaQuery.sizeOf(context).width * 0.98,
                         height: 60.0,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).primaryBackground,
@@ -574,12 +564,10 @@ class _Material2ActionSheetSimpleWidgetState
                                       onFieldSubmitted: (_) async {
                                         Navigator.pop(context);
 
-                                        final messagesUpdateData =
-                                            createMessagesRecordData(
-                                          text: _model.textController.text,
-                                        );
                                         await widget.messageToLoad!.reference
-                                            .update(messagesUpdateData);
+                                            .update(createMessagesRecordData(
+                                          text: _model.textController.text,
+                                        ));
                                       },
                                       autofocus: true,
                                       obscureText: false,
@@ -657,12 +645,10 @@ class _Material2ActionSheetSimpleWidgetState
                                   onPressed: () async {
                                     Navigator.pop(context);
 
-                                    final messagesUpdateData =
-                                        createMessagesRecordData(
-                                      text: _model.textController.text,
-                                    );
                                     await widget.messageToLoad!.reference
-                                        .update(messagesUpdateData);
+                                        .update(createMessagesRecordData(
+                                      text: _model.textController.text,
+                                    ));
                                   },
                                 ),
                               ],
