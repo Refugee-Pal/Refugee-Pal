@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
@@ -69,53 +70,45 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+          appStateNotifier.loggedIn ? HomeWidget() : LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+              appStateNotifier.loggedIn ? HomeWidget() : LoginPageWidget(),
         ),
         FFRoute(
           name: 'home',
           path: '/home',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'home')
-              : HomeWidget(
-                  test: params.getParam<String>('test', ParamType.String, true),
-                ),
+          builder: (context, params) => HomeWidget(
+            startingChip: params.getParam('startingChip', ParamType.String),
+            startingCategory:
+                params.getParam('startingCategory', ParamType.String),
+            isNew: params.getParam('isNew', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'categoriesgallery',
           path: '/digitalresourcehub',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'categoriesgallery')
-              : NavBarPage(
-                  initialPage: 'categoriesgallery',
-                  page: CategoriesgalleryWidget(),
-                ),
+          builder: (context, params) => CategoriesgalleryWidget(),
         ),
         FFRoute(
           name: 'settings',
           path: '/settings',
-          builder: (context, params) => NavBarPage(
-            initialPage: '',
-            page: SettingsWidget(),
-          ),
+          builder: (context, params) => SettingsWidget(),
         ),
         FFRoute(
-          name: 'interactivemap',
-          path: '/interactivemap',
+          name: 'map',
+          path: '/map',
           asyncParams: {
             'locationtoLoad': getDoc(['locations'], LocationsRecord.serializer),
           },
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'interactivemap')
-              : InteractivemapWidget(
-                  locationtoLoad:
-                      params.getParam('locationtoLoad', ParamType.Document),
-                ),
+          builder: (context, params) => MapWidget(
+            locationtoLoad:
+                params.getParam('locationtoLoad', ParamType.Document),
+            isLoadPrograms: params.getParam('isLoadPrograms', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'refugeepalwelcomescreen',
@@ -123,23 +116,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => RefugeepalwelcomescreenWidget(),
         ),
         FFRoute(
-          name: 'connecthealthcare',
-          path: '/connecthealthcare',
+          name: 'connect',
+          path: '/connect',
           requireAuth: true,
           asyncParams: {
             'chatToLoad': getDoc(['chats'], ChatsRecord.serializer),
             'messagesToLoad':
                 getDocList(['chats', 'messages'], MessagesRecord.serializer),
           },
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'connecthealthcare')
-              : ConnecthealthcareWidget(
-                  loadProfessionals:
-                      params.getParam('loadProfessionals', ParamType.bool),
-                  chatToLoad: params.getParam('chatToLoad', ParamType.Document),
-                  messagesToLoad: params.getParam<MessagesRecord>(
-                      'messagesToLoad', ParamType.Document, true),
-                ),
+          builder: (context, params) => ConnectWidget(
+            chatToLoad: params.getParam('chatToLoad', ParamType.Document),
+            messagesToLoad: params.getParam<MessagesRecord>(
+                'messagesToLoad', ParamType.Document, true),
+            professionToLoad:
+                params.getParam('professionToLoad', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'loginPage',
@@ -154,23 +145,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'category',
           path: '/category',
-          builder: (context, params) => NavBarPage(
-            initialPage: '',
-            page: CategoryWidget(
-              catrgorydetailed: params.getParam('catrgorydetailed',
-                  ParamType.DocumentReference, false, ['category']),
-            ),
+          builder: (context, params) => CategoryWidget(
+            catrgorydetailed: params.getParam('catrgorydetailed',
+                ParamType.DocumentReference, false, ['category']),
           ),
         ),
         FFRoute(
           name: 'subcategory',
           path: '/subcategory',
-          builder: (context, params) => NavBarPage(
-            initialPage: '',
-            page: SubcategoryWidget(
-              subcategorydetail: params.getParam('subcategorydetail',
-                  ParamType.DocumentReference, false, ['subcategory']),
-            ),
+          builder: (context, params) => SubcategoryWidget(
+            subcategorydetail: params.getParam('subcategorydetail',
+                ParamType.DocumentReference, false, ['subcategory']),
           ),
         ),
         FFRoute(
@@ -197,6 +182,60 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'settingsAccInfoCopy',
           path: '/settingsProfileCopy2',
           builder: (context, params) => SettingsAccInfoCopyWidget(),
+        ),
+        FFRoute(
+          name: 'userjourneyHelper',
+          path: '/userjourneyHelper',
+          builder: (context, params) => UserjourneyHelperWidget(),
+        ),
+        FFRoute(
+          name: 'helperProfile',
+          path: '/helperProfile',
+          builder: (context, params) => HelperProfileWidget(),
+        ),
+        FFRoute(
+          name: 'helperEdit',
+          path: '/helperEdit',
+          asyncParams: {
+            'rpToEdit':
+                getDoc(['resourceprovider'], ResourceproviderRecord.serializer),
+            'subcategoryToEdit':
+                getDoc(['subcategory'], SubcategoryRecord.serializer),
+          },
+          builder: (context, params) => HelperEditWidget(
+            rpToEdit: params.getParam('rpToEdit', ParamType.Document),
+            subcategoryToEdit:
+                params.getParam('subcategoryToEdit', ParamType.Document),
+            indexInList: params.getParam('indexInList', ParamType.int),
+            isEditSubcategory:
+                params.getParam('isEditSubcategory', ParamType.bool),
+          ),
+        ),
+        FFRoute(
+          name: 'helperOrganization',
+          path: '/helperOrganization',
+          asyncParams: {
+            'locationToEdit': getDoc(['locations'], LocationsRecord.serializer),
+            'programToEdit':
+                getDoc(['locations', 'programs'], ProgramsRecord.serializer),
+          },
+          builder: (context, params) => HelperOrganizationWidget(
+            locationToEdit:
+                params.getParam('locationToEdit', ParamType.Document),
+            editing: params.getParam('editing', ParamType.String),
+            itemInList: params.getParam('itemInList', ParamType.int),
+            programToEdit: params.getParam('programToEdit', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'helperChat',
+          path: '/helperChat',
+          asyncParams: {
+            'chatToLoad': getDoc(['chats'], ChatsRecord.serializer),
+          },
+          builder: (context, params) => HelperChatWidget(
+            chatToLoad: params.getParam('chatToLoad', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
@@ -378,13 +417,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      color: FlutterFlowTheme.of(context).primary,
-                    ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/Screenshot_2023-05-10_172514.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;
@@ -422,5 +459,9 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(
+        hasTransition: true,
+        transitionType: PageTransitionType.fade,
+        duration: Duration(milliseconds: 500),
+      );
 }

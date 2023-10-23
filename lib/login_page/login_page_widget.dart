@@ -6,9 +6,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +54,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -168,29 +172,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Stack(
-                                      children: [
-                                        if (Theme.of(context).brightness ==
-                                            Brightness.light)
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                            child: Image.asset(
-                                              'assets/images/officialicon.png',
-                                              width: 170.0,
-                                              height: 172.4,
-                                              fit: BoxFit.fitWidth,
-                                            ),
-                                          ),
-                                        if (Theme.of(context).brightness ==
-                                            Brightness.dark)
-                                          Image.asset(
-                                            'assets/images/noCode_UI_onDark@3x.png',
-                                            width: 170.0,
-                                            height: 50.0,
-                                            fit: BoxFit.fitWidth,
-                                          ),
-                                      ],
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      child: Image.asset(
+                                        'assets/images/officialicon.png',
+                                        width: 170.0,
+                                        height: 172.4,
+                                        fit: BoxFit.fitWidth,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -218,50 +207,54 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                             initialIndex: 0,
                                             child: Column(
                                               children: [
-                                                TabBar(
-                                                  isScrollable: true,
-                                                  labelColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  unselectedLabelColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryText,
-                                                  labelPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(24.0, 0.0,
-                                                              24.0, 0.0),
-                                                  labelStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                  indicatorColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                  indicatorWeight: 2.0,
-                                                  tabs: [
-                                                    Tab(
-                                                      text: FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'b25z0lnb' /* Sign In */,
+                                                Align(
+                                                  alignment: Alignment(0.0, 0),
+                                                  child: TabBar(
+                                                    isScrollable: true,
+                                                    labelColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    unselectedLabelColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondaryText,
+                                                    labelPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(24.0, 0.0,
+                                                                24.0, 0.0),
+                                                    labelStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                    indicatorColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondary,
+                                                    indicatorWeight: 2.0,
+                                                    tabs: [
+                                                      Tab(
+                                                        text:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                          'b25z0lnb' /* Sign In */,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Tab(
-                                                      text: FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'anpe57kt' /* Sign Up */,
+                                                      Tab(
+                                                        text:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                          'anpe57kt' /* Sign Up */,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                                 Expanded(
                                                   child: TabBarView(
@@ -276,13 +269,23 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
-                                                                          20.0,
+                                                                          25.0,
                                                                           24.0,
                                                                           0.0),
                                                               child:
                                                                   TextFormField(
                                                                 controller: _model
                                                                     .emailAddressController,
+                                                                onChanged: (_) =>
+                                                                    EasyDebounce
+                                                                        .debounce(
+                                                                  '_model.emailAddressController',
+                                                                  Duration(
+                                                                      milliseconds:
+                                                                          1000),
+                                                                  () => setState(
+                                                                      () {}),
+                                                                ),
                                                                 obscureText:
                                                                     false,
                                                                 decoration:
@@ -384,7 +387,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
-                                                                          12.0,
+                                                                          15.0,
                                                                           24.0,
                                                                           0.0),
                                                               child:
@@ -592,115 +595,144 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                               50.0),
                                                                     ),
                                                                   ),
-                                                                  FFButtonWidget(
-                                                                    onPressed:
-                                                                        () async {
-                                                                      GoRouter.of(
-                                                                              context)
-                                                                          .prepareAuthEvent();
-
-                                                                      final user =
-                                                                          await authManager
-                                                                              .signInWithEmail(
-                                                                        context,
-                                                                        _model
-                                                                            .emailAddressController
-                                                                            .text,
-                                                                        _model
-                                                                            .passwordController
-                                                                            .text,
-                                                                      );
-                                                                      if (user ==
-                                                                          null) {
-                                                                        return;
-                                                                      }
-
-                                                                      context.goNamedAuth(
-                                                                          'home',
-                                                                          mounted);
-                                                                    },
-                                                                    text: FFLocalizations.of(
-                                                                            context)
-                                                                        .getText(
-                                                                      '2tvvnxy3' /* Sign In */,
+                                                                  StreamBuilder<
+                                                                      List<
+                                                                          UserRecord>>(
+                                                                    stream:
+                                                                        queryUserRecord(
+                                                                      queryBuilder: (userRecord) => userRecord.where(
+                                                                          'email',
+                                                                          isEqualTo: _model
+                                                                              .emailAddressController
+                                                                              .text),
+                                                                      singleRecord:
+                                                                          true,
                                                                     ),
-                                                                    options:
-                                                                        FFButtonOptions(
-                                                                      width:
-                                                                          130.0,
-                                                                      height:
-                                                                          50.0,
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                      textStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleSmall
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Inter',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryBtnText,
+                                                                    builder:
+                                                                        (context,
+                                                                            snapshot) {
+                                                                      // Customize what your widget looks like when it's loading.
+                                                                      if (!snapshot
+                                                                          .hasData) {
+                                                                        return Center(
+                                                                          child:
+                                                                              SizedBox(
+                                                                            width:
+                                                                                50.0,
+                                                                            height:
+                                                                                50.0,
+                                                                            child:
+                                                                                SpinKitPulse(
+                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              size: 50.0,
+                                                                            ),
                                                                           ),
-                                                                      elevation:
-                                                                          3.0,
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: Colors
-                                                                            .transparent,
-                                                                        width:
-                                                                            1.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              60.0),
-                                                                    ),
+                                                                        );
+                                                                      }
+                                                                      List<UserRecord>
+                                                                          buttonLoginUserRecordList =
+                                                                          snapshot
+                                                                              .data!;
+                                                                      final buttonLoginUserRecord = buttonLoginUserRecordList
+                                                                              .isNotEmpty
+                                                                          ? buttonLoginUserRecordList
+                                                                              .first
+                                                                          : null;
+                                                                      return FFButtonWidget(
+                                                                        onPressed:
+                                                                            () async {
+                                                                          GoRouter.of(context)
+                                                                              .prepareAuthEvent();
+
+                                                                          final user =
+                                                                              await authManager.signInWithEmail(
+                                                                            context,
+                                                                            _model.emailAddressController.text,
+                                                                            _model.passwordController.text,
+                                                                          );
+                                                                          if (user ==
+                                                                              null) {
+                                                                            return;
+                                                                          }
+
+                                                                          context.goNamedAuth(
+                                                                              'home',
+                                                                              mounted);
+                                                                        },
+                                                                        text: FFLocalizations.of(context)
+                                                                            .getText(
+                                                                          '2tvvnxy3' /* Sign In */,
+                                                                        ),
+                                                                        options:
+                                                                            FFButtonOptions(
+                                                                          width:
+                                                                              130.0,
+                                                                          height:
+                                                                              50.0,
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          textStyle: FlutterFlowTheme.of(context)
+                                                                              .titleSmall
+                                                                              .override(
+                                                                                fontFamily: 'Inter',
+                                                                                color: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                              ),
+                                                                          elevation:
+                                                                              3.0,
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            width:
+                                                                                1.0,
+                                                                          ),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(60.0),
+                                                                        ),
+                                                                      );
+                                                                    },
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          20.0,
-                                                                          0.0,
-                                                                          20.0,
-                                                                          0.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
                                                                   Padding(
                                                                     padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
+                                                                            20.0,
                                                                             0.0,
-                                                                            12.0,
-                                                                            0.0,
+                                                                            20.0,
                                                                             0.0),
-                                                                    child: Text(
-                                                                      FFLocalizations.of(
-                                                                              context)
-                                                                          .getText(
-                                                                        '4msc8nc7' /* Or use a social account to log... */,
-                                                                      ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodySmall,
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              12.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Text(
+                                                                            FFLocalizations.of(context).getText(
+                                                                              '4msc8nc7' /* Or use a social account to log... */,
+                                                                            ),
+                                                                            style:
+                                                                                FlutterFlowTheme.of(context).bodySmall,
+                                                                          ),
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                   ),
                                                                 ],
@@ -840,7 +872,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
-                                                                          20.0,
+                                                                          25.0,
                                                                           24.0,
                                                                           0.0),
                                                               child:
@@ -948,7 +980,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
-                                                                          14.0,
+                                                                          15.0,
                                                                           24.0,
                                                                           0.0),
                                                               child:
@@ -1056,7 +1088,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
-                                                                          14.0,
+                                                                          15.0,
                                                                           24.0,
                                                                           0.0),
                                                               child:
@@ -1226,7 +1258,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                                     photoUrl:
                                                                         'https://i.stack.imgur.com/34AD2.jpg',
                                                                     isRefugee:
-                                                                        true,
+                                                                        'true',
                                                                   );
                                                                   await UserRecord
                                                                       .collection

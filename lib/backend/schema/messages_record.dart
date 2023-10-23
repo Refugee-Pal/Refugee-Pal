@@ -23,6 +23,10 @@ abstract class MessagesRecord
 
   bool? get isAnswer;
 
+  String? get imgPath;
+
+  String? get videoPath;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -34,7 +38,9 @@ abstract class MessagesRecord
     ..user = ''
     ..showName = false
     ..showTime = false
-    ..isAnswer = false;
+    ..isAnswer = false
+    ..imgPath = ''
+    ..videoPath = '';
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -69,6 +75,8 @@ Map<String, dynamic> createMessagesRecordData({
   bool? showName,
   bool? showTime,
   bool? isAnswer,
+  String? imgPath,
+  String? videoPath,
 }) {
   final firestoreData = serializers.toFirestore(
     MessagesRecord.serializer,
@@ -79,7 +87,9 @@ Map<String, dynamic> createMessagesRecordData({
         ..user = user
         ..showName = showName
         ..showTime = showTime
-        ..isAnswer = isAnswer,
+        ..isAnswer = isAnswer
+        ..imgPath = imgPath
+        ..videoPath = videoPath,
     ),
   );
 

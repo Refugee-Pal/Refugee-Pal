@@ -1,4 +1,68 @@
-# 🗓️ 2023-03-07: Week 1
+# 💻 Resources and Software Utilized
+Because this project was completely digital, our materials solely consisted of software
+
+
+### 🛠️ FlutterFlow No Code and FlutterFlow Documentation
+![image](https://user-images.githubusercontent.com/123277428/235285465-d9183e8c-845a-4baf-9659-5dc79e68a06b.png)
+
+FlutterFlow's visual drag-and-drop interface and library of components helped us accelerate the development process of Refugee Pal by automatically generating Flutter/Dart code, which we could easily export. We chose FlutterFlow for its unique features, including source code exporting, Github integration, easy Firebase backend setup, compatibility with multiple operating systems, and extensive library of components. Additionally, the platform's comprehensive documentation, with step-by-step tutorials and video guides, made it easy to build out our app's features.
+
+### 🚀 Firebase and Firebase Documentation
+![image](https://user-images.githubusercontent.com/123277428/235285477-0ac5b4d7-aac1-44fc-ac97-0333e7edbc29.png)
+
+Firebase is a backend and database platform by Google that provides a comprehensive set of tools to help build and manage apps. We used it to implement user authentication, cloud messaging, and our firestore realtime database. Firebase alllowed us to manage complex database infastructure without having to worry about backend maintenance and other drawbacks.
+
+### 🎨 Figma
+![image](https://user-images.githubusercontent.com/123277428/235285588-d3965ffc-035c-4874-9f19-96e2f295e111.png)
+
+Figma is a design platform which we used for many purposes. We used Figma to brainstorm features, structuring the database, and much more. Additionally, we created wireframe sketches which is an essential mockup of the app design and UI before going into the actual app development.
+
+### 📱Flutter Framework
+![image](https://user-images.githubusercontent.com/123277428/235285502-9925d383-0396-4df5-bcc9-4f7cc8c7a6a2.png)
+
+Despite the power and flexibility of the no code builder FlutterFlow, we encountered certain complexities during the development of Refugee Pal that required custom code widgets and functions. To address these challenges, we leveraged the versatile Flutter framework, which enabled us to integrate these custom elements seamlessly into the app's architecture.
+
+### 🛠️ Xcode
+![image](https://user-images.githubusercontent.com/123277428/235285568-1abfa306-df18-4fbb-b4fb-41f301d9941b.png)
+
+We utilized the Flutter framework to test Refugee Pal on Xcode, Apple's integrated development environment (IDE) for iOS. This enabled us to ensure that the app functioned seamlessly on iOS devices and delivered the best possible user experience to our target audience. With Flutter, we were able to take advantage of Xcode's advanced debugging and testing tools to ensure that the app was free of any issues that could compromise its functionality.
+
+### 🤖 Android Studio
+![image](https://user-images.githubusercontent.com/123277428/235285543-bd4e91da-deba-445c-8c87-8415198b7af4.png)
+
+We also used the Flutter framework to test Refugee Pal on Android Studio, Google's integrated development environment (IDE) for Android. This allowed us to ensure that the app worked flawlessly on a wide range of Android devices, providing an exceptional user experience across different screen sizes, resolutions, and performance levels. Flutter's integration with Android Studio enabled us to leverage its powerful testing and debugging tools to detect and resolve any issues that could affect the app's functionality.
+
+# 👨‍💻 Mobile App Development with FlutterFlow and Firebase
+
+### Firestore
+
+We stored a majority of our data in a NoSQL database, which refers to a non-relational database, organized into different collections with schemas and documents, such as locations for the interactive map, the information for all of our categories in the digital resource hub, healthcare professionals and their information, as well as user information which can be used to personalize the app.
+
+![image](https://user-images.githubusercontent.com/123277428/235285672-aafe6180-60a3-4191-82b0-105f8f40d411.png)
+
+### Firebase User Authentication
+
+We used the user authentication service provided by firebase which allows users to sign in and signup with their email or use social accounts, with email verification and forgot password availability.
+
+![image](https://user-images.githubusercontent.com/123277428/235285684-6f606f97-2f49-4a52-ac4f-ffa4ec78fbf1.png)
+
+### FlutterFlow Drag and Drop UI/UX and component library
+
+To create the visuals and pages of the actual app, we utilized the component library available in FlutterFlow, which are sorted into layout, base, page, and form elements. To the right side of the scren, you can edit the properties of different elements on the page, connect to the database through a backend query and add actions.
+
+![image](https://user-images.githubusercontent.com/123277428/235285691-bc885789-6559-4276-9b55-01f3912b1a97.png)
+
+### Actions and complex functions on FlutterFlow
+
+FlutterFlow lets you add a variety of different complex functions and actions which we used include navigation, backend/database connection, and UI interactions all of which we utilized to implement the functions of our features.
+
+### Backend Query and Query Collections on Firestore
+
+In order to display data from our database, whether it be search or firestore, we use backend queries. Query collections let us display specific data from the database by applying filters and sorting options. These queries can be used to search for documents from collections based on specific conditions. This was utilized across all parts of the app.
+
+![image](https://user-images.githubusercontent.com/123277428/235285708-f00fcd26-7e3f-4277-aaff-bc66aa105032.png)
+
+# 🗓️ 2023-03-07: Week 1
 
 ### Researching No Code and Backend
 
@@ -30,7 +94,7 @@ Antony: Currently trying to finalize wireframe sketches of the app. I outlined f
 
 ### Starting to Work on Digital Resource Hub and Structuring Firestore NoSQL Database
 
-Ali: The first feature i want to complete is the digital resource hub, so i began planning a roadmap for implementation. At first, i thought of having individual pages for every category and subcategory, but then realized it would be very tedious, ineffective, and slow. The better way was to use the firestore database. At this point, i encountered many roadblocks when trying to structure the database. The digital resource hub was very complex because there is first a category gallery page, then a detailed category page with subcategories, and then another subcategory detailed page. One thing inside of the other.
+Ali: The first feature I want to complete is the digital resource hub, so i began planning a roadmap for implementation. At first, i thought of having individual pages for every category and subcategory, but then realized it would be very tedious, ineffective, and slow. The better way was to use the firestore database. At this point, i encountered many roadblocks when trying to structure the database. The digital resource hub was very complex because there is first a category gallery page, then a detailed category page with subcategories, and then another subcategory detailed page. One thing inside of the other.
 
 ### Challenges when Working on Firestore database for Categories, Subcategories, and Resourceproviders
 
@@ -50,7 +114,7 @@ After reading the FlutterFlow documents and watching a couple tutorials, i reali
 
 ### Figuring out how to Filter Displayed Information from Database in Digital Resource Hub Pages
 
-The other issue was how I would filter the subcategories and resourceproviders being displayed in the page. All the subcategories of every category are in one document, and when making a backend query i only wanted to display data which was specific to its category. I got some help from Antony to set up a dedicated sub-page which would pass the category and subcategory into the page which displayed subcategories and resource providers. By the end of today, however, I had finally completed the digital resource hub.
+Ali: The other issue was how I would filter the subcategories and resourceproviders being displayed in the page. All the subcategories of every category are in one document, and when making a backend query i only wanted to display data which was specific to its category. I got some help from Antony to set up a dedicated sub-page which would pass the category and subcategory into the page which displayed subcategories and resource providers. By the end of today, however, I had finally completed the digital resource hub.
 
 ### Antony Finished App Mockup Wireframe
 
@@ -108,14 +172,58 @@ Ali: We were able to run the app on test mode using Flutterflow. However, we had
 
 ### Installing Flutter and Encountering Issues with Pod Installation and Outdated Ruby
 
-Ali: Once i had installed flutter, i had to figure out how to run the app. So through the terminal, I tried going to our refugee pal folder, and running the command “Flutter run”. However, i encountered a bug which was saying that pods needed to be installed. Since our app is using firestore which is like a plugin, we have to install something called cocoapods. However, when i was trying to install cocoapods i realized it wasnt working because the ruby version on my mac laptop was out of date. I had to install homebrew and then install the most up to date version of ruby through the command line, which was 3.2.2 when my laptop had 2.6.
+Ali: Once i had installed Flutter, i had to figure out how to run the app. So through the terminal, I tried going to our refugee pal folder, and running the command “Flutter run”. However, I encountered a bug which was saying that pods needed to be installed. Since our app is using firestore which is like a plugin, we have to install something called CocoaPods. However, when I was trying to install CocoaPods I realized it wasnt working because the Ruby version on my Macbook was out of date. I had to install homebrew and then install the most up to date version of Ruby through the command line, which was 3.2.2 when my laptop had 2.6.
 
 ### Successfully Running the App on iOS Simulator and iPhone!
 
-Ali: Finally, i was able to successfully run the app on an iOS simulator using Xcode and also on the web. Now i had to figure out how to run it on my phone. I connected my phone with a cable and tried running. I just had to select which device i wanted to run it on through the command line and change some settings on my phone,and then BAM! It had refugee pal on my iphone. I also changed some things in the pubspec file so that we also had an app icon.
+Ali: Finally, I was able to successfully run the app on an iOS simulator using Xcode and also on the web. Now I had to figure out how to run it on my phone. I connected my phone with a cable and tried running. I just had to select which device i wanted to run it on through the command line and change some settings on my phone,and then BAM! It had refugee pal on my iphone. I also changed some things in the pubspec file so that we also had an app icon.
 
 ### Preparing for Regionals
 
 Ali: I spent this week mainly doing some final touches to the app, like changing the aesthetics, border radius, and other aspects of the app, making the design consistent. The app definitely needs some improvement in its user interface. I also ran different tests for every single feature makign sure it was fully functional. 
 
-Ali and Antony: We began preparing for the judge presentation. We wrote a detailed script, ran through the presentation a couple times, made a slideshow, and more. Our main goal is to be more organized in our presentation to the judges unlike last time. We also prepared all the peripherals and things we were bringing, like my phone, laptop, posterboard, logbook and binder, etc.
+# 🗓️  2023-04-13: Week 6
+
+### Planning for CWSF
+
+Ali and Antony: After qualifying for the Canada-Wide Science Fair, we were very excited and we decided to start planning for the next few weeks immediately. We first laid out a list of tasks separated into improvements to the app, additional research and testing as well as improvements to our presentation. Then, we wrote a timeline for the next four weeks, using the tasks we had laid out.
+
+### Minor App Improvements
+
+Antony: This week, I started working on minor improvements and bug fixes that I did not have time to make before regionals. For CWSF, we wanted Refugee Pal's user accounts to be closely integrated with the interactive map and the find professionals feature, so that refugees are able to click directly on a location or program, view the settlement workers, case managers and organizers involved and chat with them within the app. I made a user profile page which would show up whenever someone's profile picture is clicked on. I also found a solution to a bug we had with stationary widgets by wrapping both elements in a stack instead of in a column, and making one scrollable.
+
+# 🗓️  2023-04-20: Week 7
+
+
+### Translating Firestore Data
+
+Antony: After last week, we had one more issue with the app. We only got translations to work partially, through Flutterflow's built in Google Translate integration. Unfortunately, it only translated the data hard-coded in the app itself, such as constant page titles that did not change. The firestore data was not translated. To fix this, I researched alternative ways to translate the app. I decided to use the Translate Text in Firestore extension for Firebase. Meanwhile, I made some minor changes to the ProjectBoard.
+
+Antony: I spent the entire weekend working on translations. When I started using the Firestore extension, I found out it was not as easy as I expected it to be. Firstly, the extension outputted data in a map format, which is similar to an array (list) but each value has an index. Flutterflow does not support this format, and I had to write a custom cloud function which would convert the map value to a subcollection. I had no previous experience with Firebase functions or async programming, and it took me two days to write a function which actually worked. Just as I had almost finished, I looked at my Firebase usage and realized that it was over 20 times the free limit. Luckily, I didn't get billed. Out of caution, I downgraded the Firebase plan. Upon inspection, the bug was probably caused by my function triggering itself over and over again recursively.
+
+# 🗓️  2023-04-27: Week 8
+
+### Overhauling Refugee Pal for Helpers
+
+Ali and Antony: This week, we decided to overhaul Refugee Pal for helpers. The version of Refugee Pal for helpers we developed for the regional science fair was very basic; it only allowed helpers to update some data, would not fill in input fields with the existing data. We also wanted to extend the functionality of user accounts and improve our data structure for the interactive map by adding programs, so that refugees can accurately determine thesolutions to their challenges. Antony created a whole new navbar and set of pages. We created organizations, which would allow refugee support organizations to manage and protect their services from editing.
+
+Antony: Around this time, I also managed to get my hands on a Macbook, which helped to speed up development greatly, since the Flutterflow native MacOS app runs much more smoothly than the webapp. I used this extra time to improve the app's design, ensuring that it was as consistent as possible.
+
+
+# 🗓️  2023-5-4: Week 9
+
+### Plans for Testing
+
+Ali and Antony: By this time, we had begun to realize that many things that we planned for the app were not going to get done. We wanted to reach out to refugee uspport organizations and test our app, because the last test we had run was with the webapp version of Refugee Pal. Surveying a larger and more diverse sample size, as well as people who actively work to support refugees would allow us to better understand how eell our app was working and how we could develop our ideas beyond the Canada-Wide Science Fair, possibly even with external support. We started off by sending emails, but made a few phone calls as well. Unfortuantely, this took longer than expected and by next week we still had not recieved a formal invitation to test the app.
+
+### Improvements to Connect and Explore
+
+Antony: Before the deadline which I had set myself on Sunday, I decided to make some final improvements to Connect and Explore. In Connect and Chats, I enabled uploading images and videos to chat, made minor changes to the user interface and added a new Bottom Sheet element for editing and deleting chat messages. To provide refugees with a personalized experience, we created pins, where the user can pin any location, resource or Q&A chat and come back to it later.
+
+Antony: This came with changes to the Explore page. Instead of having a standard view below the searchbar, now we have the old view with all services on one page, and new views showcasing pinned and recently visited items. I also used redirections back to Explore from the interactive map to enable viewing a list of locations rather than them being on the map only. I did the same, with Q&A chat threads allowing refugees to search for them and sort by category. With this, we had finally finished developing the app.
+
+### Running Refugee Pal on Android Studio
+
+Antony: While I was working on the app, I also set up Android Studio on my PC. It took me an entire morning to set up Android Studio, because I had to enable virtualization and because my antivirus was stopping things from working. After fixing these problems, I was able to run Refugee Pal on the android emulator.
+
+# 🗓️ 2023-5-10: Week 10

@@ -19,8 +19,6 @@ abstract class ProfessionalsRecord
 
   String? get name;
 
-  String? get practicetype;
-
   String? get profession;
 
   String? get registrationstatus;
@@ -31,6 +29,16 @@ abstract class ProfessionalsRecord
 
   int? get contact;
 
+  String? get practicename;
+
+  bool? get isIFHP;
+
+  bool? get isFree;
+
+  String? get profile;
+
+  int? get views;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -39,12 +47,16 @@ abstract class ProfessionalsRecord
     ..address = ''
     ..language = ''
     ..name = ''
-    ..practicetype = ''
     ..profession = ''
     ..registrationstatus = ''
     ..mail = ''
     ..website = ''
-    ..contact = 0;
+    ..contact = 0
+    ..practicename = ''
+    ..isIFHP = false
+    ..isFree = false
+    ..profile = ''
+    ..views = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('professionals');
@@ -63,20 +75,26 @@ abstract class ProfessionalsRecord
           ..address = snapshot.data['address']
           ..language = snapshot.data['language']
           ..name = snapshot.data['name']
-          ..practicetype = snapshot.data['practicetype']
           ..profession = snapshot.data['profession']
           ..registrationstatus = snapshot.data['registrationstatus']
           ..mail = snapshot.data['mail']
           ..website = snapshot.data['website']
           ..contact = snapshot.data['contact']?.round()
+          ..practicename = snapshot.data['practicename']
+          ..isIFHP = snapshot.data['isIFHP']
+          ..isFree = snapshot.data['isFree']
+          ..profile = snapshot.data['profile']
+          ..views = snapshot.data['views']?.round()
           ..ffRef = ProfessionalsRecord.collection.doc(snapshot.objectID),
       );
 
-  static Future<List<ProfessionalsRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
+  static Future<List<ProfessionalsRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
       FFAlgoliaManager.instance
           .algoliaQuery(
             index: 'professionals',
@@ -84,6 +102,7 @@ abstract class ProfessionalsRecord
             maxResults: maxResults,
             location: location,
             searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
           )
           .then((r) => r.map(fromAlgolia).toList());
 
@@ -102,12 +121,16 @@ Map<String, dynamic> createProfessionalsRecordData({
   String? address,
   String? language,
   String? name,
-  String? practicetype,
   String? profession,
   String? registrationstatus,
   String? mail,
   String? website,
   int? contact,
+  String? practicename,
+  bool? isIFHP,
+  bool? isFree,
+  String? profile,
+  int? views,
 }) {
   final firestoreData = serializers.toFirestore(
     ProfessionalsRecord.serializer,
@@ -116,12 +139,16 @@ Map<String, dynamic> createProfessionalsRecordData({
         ..address = address
         ..language = language
         ..name = name
-        ..practicetype = practicetype
         ..profession = profession
         ..registrationstatus = registrationstatus
         ..mail = mail
         ..website = website
-        ..contact = contact,
+        ..contact = contact
+        ..practicename = practicename
+        ..isIFHP = isIFHP
+        ..isFree = isFree
+        ..profile = profile
+        ..views = views,
     ),
   );
 

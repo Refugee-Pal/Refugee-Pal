@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:label="RefugeePal"
+        android:label="Refugee Pal"
         tools:replace="android:label"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
@@ -57,7 +59,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD2XvHRL9NHdgx6a4jNyPKPKjUKKfLoN0I"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD2_HVGfCMvlqG_1XnwTA6zh_8eWzo_s1s"/>
 
 
     </application>

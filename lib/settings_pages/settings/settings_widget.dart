@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -122,7 +125,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -153,7 +155,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -184,7 +185,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -215,27 +215,24 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: FlutterFlowLanguageSelector(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 60.0,
-                    backgroundColor:
-                        FlutterFlowTheme.of(context).secondaryBackground,
+                    width: double.infinity,
+                    height: 50.0,
+                    backgroundColor: FlutterFlowTheme.of(context).primaryText,
                     borderColor: Colors.transparent,
                     dropdownIconColor: Colors.white,
-                    borderRadius: 20.0,
-                    textStyle: GoogleFonts.getFont(
-                      'Inter',
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 22.0,
+                    borderRadius: 8.0,
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 13.0,
                     ),
                     hideFlags: false,
                     flagSize: 24.0,
@@ -260,7 +257,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ),
                     icon: Icon(
                       Icons.logout,
-                      size: 15.0,
+                      size: 30.0,
                     ),
                     options: FFButtonOptions(
                       width: 200.0,

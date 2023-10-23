@@ -99,6 +99,34 @@ class _$LocationsRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
+    value = object.imgPath;
+    if (value != null) {
+      result
+        ..add('imgPath')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.organization;
+    if (value != null) {
+      result
+        ..add('organization')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.people;
+    if (value != null) {
+      result
+        ..add('people')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.views;
+    if (value != null) {
+      result
+        ..add('views')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -170,6 +198,24 @@ class _$LocationsRecordSerializer
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
+        case 'imgPath':
+          result.imgPath = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'organization':
+          result.organization = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'people':
+          result.people.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'views':
+          result.views = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -207,6 +253,14 @@ class _$LocationsRecord extends LocationsRecord {
   @override
   final BuiltList<String>? category;
   @override
+  final String? imgPath;
+  @override
+  final String? organization;
+  @override
+  final BuiltList<String>? people;
+  @override
+  final int? views;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$LocationsRecord([void Function(LocationsRecordBuilder)? updates]) =>
@@ -224,6 +278,10 @@ class _$LocationsRecord extends LocationsRecord {
       this.coordinates,
       this.bullet,
       this.category,
+      this.imgPath,
+      this.organization,
+      this.people,
+      this.views,
       this.ffRef})
       : super._();
 
@@ -250,6 +308,10 @@ class _$LocationsRecord extends LocationsRecord {
         coordinates == other.coordinates &&
         bullet == other.bullet &&
         category == other.category &&
+        imgPath == other.imgPath &&
+        organization == other.organization &&
+        people == other.people &&
+        views == other.views &&
         ffRef == other.ffRef;
   }
 
@@ -267,6 +329,10 @@ class _$LocationsRecord extends LocationsRecord {
     _$hash = $jc(_$hash, coordinates.hashCode);
     _$hash = $jc(_$hash, bullet.hashCode);
     _$hash = $jc(_$hash, category.hashCode);
+    _$hash = $jc(_$hash, imgPath.hashCode);
+    _$hash = $jc(_$hash, organization.hashCode);
+    _$hash = $jc(_$hash, people.hashCode);
+    _$hash = $jc(_$hash, views.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -286,6 +352,10 @@ class _$LocationsRecord extends LocationsRecord {
           ..add('coordinates', coordinates)
           ..add('bullet', bullet)
           ..add('category', category)
+          ..add('imgPath', imgPath)
+          ..add('organization', organization)
+          ..add('people', people)
+          ..add('views', views)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -341,6 +411,23 @@ class LocationsRecordBuilder
       _$this._category ??= new ListBuilder<String>();
   set category(ListBuilder<String>? category) => _$this._category = category;
 
+  String? _imgPath;
+  String? get imgPath => _$this._imgPath;
+  set imgPath(String? imgPath) => _$this._imgPath = imgPath;
+
+  String? _organization;
+  String? get organization => _$this._organization;
+  set organization(String? organization) => _$this._organization = organization;
+
+  ListBuilder<String>? _people;
+  ListBuilder<String> get people =>
+      _$this._people ??= new ListBuilder<String>();
+  set people(ListBuilder<String>? people) => _$this._people = people;
+
+  int? _views;
+  int? get views => _$this._views;
+  set views(int? views) => _$this._views = views;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -363,6 +450,10 @@ class LocationsRecordBuilder
       _coordinates = $v.coordinates;
       _bullet = $v.bullet?.toBuilder();
       _category = $v.category?.toBuilder();
+      _imgPath = $v.imgPath;
+      _organization = $v.organization;
+      _people = $v.people?.toBuilder();
+      _views = $v.views;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -399,6 +490,10 @@ class LocationsRecordBuilder
               coordinates: coordinates,
               bullet: _bullet?.build(),
               category: _category?.build(),
+              imgPath: imgPath,
+              organization: organization,
+              people: _people?.build(),
+              views: views,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -407,6 +502,9 @@ class LocationsRecordBuilder
         _bullet?.build();
         _$failedField = 'category';
         _category?.build();
+
+        _$failedField = 'people';
+        _people?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'LocationsRecord', _$failedField, e.toString());

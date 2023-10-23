@@ -10,6 +10,28 @@ import 'subcategory_record.dart';
 import 'professions_record.dart';
 import 'chats_record.dart';
 import 'messages_record.dart';
+import 'languages_record.dart';
+import 'organizations_record.dart';
+import 'programs_record.dart';
+import 'translations1_record.dart';
+import 'translations2_record.dart';
+import 'translations3_record.dart';
+import 'translations4_record.dart';
+import 'translations5_record.dart';
+import 'translations6_record.dart';
+import 'translations7_record.dart';
+import 'translations8_record.dart';
+import 'translations9_record.dart';
+import 'translations10_record.dart';
+import 'translations11_record.dart';
+import 'translations12_record.dart';
+import 'translations13_record.dart';
+import 'translations14_record.dart';
+import 'translations15_record.dart';
+import 'translations16_record.dart';
+import 'translations17_record.dart';
+import 'translations18_record.dart';
+import 'translations19_record.dart';
 
 import 'index.dart';
 
@@ -30,6 +52,28 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   ProfessionsRecord,
   ChatsRecord,
   MessagesRecord,
+  LanguagesRecord,
+  OrganizationsRecord,
+  ProgramsRecord,
+  Translations1Record,
+  Translations2Record,
+  Translations3Record,
+  Translations4Record,
+  Translations5Record,
+  Translations6Record,
+  Translations7Record,
+  Translations8Record,
+  Translations9Record,
+  Translations10Record,
+  Translations11Record,
+  Translations12Record,
+  Translations13Record,
+  Translations14Record,
+  Translations15Record,
+  Translations16Record,
+  Translations17Record,
+  Translations18Record,
+  Translations19Record,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

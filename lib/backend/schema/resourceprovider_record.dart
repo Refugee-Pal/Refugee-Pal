@@ -21,6 +21,8 @@ abstract class ResourceproviderRecord
 
   String? get link;
 
+  int? get views;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -30,7 +32,8 @@ abstract class ResourceproviderRecord
         ..name = ''
         ..subcategory = ''
         ..information = ''
-        ..link = '';
+        ..link = ''
+        ..views = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('resourceprovider');
@@ -51,14 +54,17 @@ abstract class ResourceproviderRecord
           ..subcategory = snapshot.data['subcategory']
           ..information = snapshot.data['information']
           ..link = snapshot.data['link']
+          ..views = snapshot.data['views']?.round()
           ..ffRef = ResourceproviderRecord.collection.doc(snapshot.objectID),
       );
 
-  static Future<List<ResourceproviderRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
+  static Future<List<ResourceproviderRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
       FFAlgoliaManager.instance
           .algoliaQuery(
             index: 'resourceprovider',
@@ -66,6 +72,7 @@ abstract class ResourceproviderRecord
             maxResults: maxResults,
             location: location,
             searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
           )
           .then((r) => r.map(fromAlgolia).toList());
 
@@ -85,6 +92,7 @@ Map<String, dynamic> createResourceproviderRecordData({
   String? subcategory,
   String? information,
   String? link,
+  int? views,
 }) {
   final firestoreData = serializers.toFirestore(
     ResourceproviderRecord.serializer,
@@ -93,7 +101,8 @@ Map<String, dynamic> createResourceproviderRecordData({
         ..name = name
         ..subcategory = subcategory
         ..information = information
-        ..link = link,
+        ..link = link
+        ..views = views,
     ),
   );
 

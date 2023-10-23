@@ -46,13 +46,6 @@ class _$ProfessionalsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.practicetype;
-    if (value != null) {
-      result
-        ..add('practicetype')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.profession;
     if (value != null) {
       result
@@ -85,6 +78,40 @@ class _$ProfessionalsRecordSerializer
     if (value != null) {
       result
         ..add('contact')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.practicename;
+    if (value != null) {
+      result
+        ..add('practicename')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.isIFHP;
+    if (value != null) {
+      result
+        ..add('isIFHP')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.isFree;
+    if (value != null) {
+      result
+        ..add('isFree')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.profile;
+    if (value != null) {
+      result
+        ..add('profile')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.views;
+    if (value != null) {
+      result
+        ..add('views')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     value = object.ffRef;
@@ -122,10 +149,6 @@ class _$ProfessionalsRecordSerializer
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'practicetype':
-          result.practicetype = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'profession':
           result.profession = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -144,6 +167,26 @@ class _$ProfessionalsRecordSerializer
           break;
         case 'contact':
           result.contact = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'practicename':
+          result.practicename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isIFHP':
+          result.isIFHP = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'isFree':
+          result.isFree = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'profile':
+          result.profile = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'views':
+          result.views = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
         case 'Document__Reference__Field':
@@ -167,8 +210,6 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
   @override
   final String? name;
   @override
-  final String? practicetype;
-  @override
   final String? profession;
   @override
   final String? registrationstatus;
@@ -178,6 +219,16 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
   final String? website;
   @override
   final int? contact;
+  @override
+  final String? practicename;
+  @override
+  final bool? isIFHP;
+  @override
+  final bool? isFree;
+  @override
+  final String? profile;
+  @override
+  final int? views;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -189,12 +240,16 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
       {this.address,
       this.language,
       this.name,
-      this.practicetype,
       this.profession,
       this.registrationstatus,
       this.mail,
       this.website,
       this.contact,
+      this.practicename,
+      this.isIFHP,
+      this.isFree,
+      this.profile,
+      this.views,
       this.ffRef})
       : super._();
 
@@ -214,12 +269,16 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
         address == other.address &&
         language == other.language &&
         name == other.name &&
-        practicetype == other.practicetype &&
         profession == other.profession &&
         registrationstatus == other.registrationstatus &&
         mail == other.mail &&
         website == other.website &&
         contact == other.contact &&
+        practicename == other.practicename &&
+        isIFHP == other.isIFHP &&
+        isFree == other.isFree &&
+        profile == other.profile &&
+        views == other.views &&
         ffRef == other.ffRef;
   }
 
@@ -229,12 +288,16 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
     _$hash = $jc(_$hash, address.hashCode);
     _$hash = $jc(_$hash, language.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, practicetype.hashCode);
     _$hash = $jc(_$hash, profession.hashCode);
     _$hash = $jc(_$hash, registrationstatus.hashCode);
     _$hash = $jc(_$hash, mail.hashCode);
     _$hash = $jc(_$hash, website.hashCode);
     _$hash = $jc(_$hash, contact.hashCode);
+    _$hash = $jc(_$hash, practicename.hashCode);
+    _$hash = $jc(_$hash, isIFHP.hashCode);
+    _$hash = $jc(_$hash, isFree.hashCode);
+    _$hash = $jc(_$hash, profile.hashCode);
+    _$hash = $jc(_$hash, views.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -246,12 +309,16 @@ class _$ProfessionalsRecord extends ProfessionalsRecord {
           ..add('address', address)
           ..add('language', language)
           ..add('name', name)
-          ..add('practicetype', practicetype)
           ..add('profession', profession)
           ..add('registrationstatus', registrationstatus)
           ..add('mail', mail)
           ..add('website', website)
           ..add('contact', contact)
+          ..add('practicename', practicename)
+          ..add('isIFHP', isIFHP)
+          ..add('isFree', isFree)
+          ..add('profile', profile)
+          ..add('views', views)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -272,10 +339,6 @@ class ProfessionalsRecordBuilder
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
-
-  String? _practicetype;
-  String? get practicetype => _$this._practicetype;
-  set practicetype(String? practicetype) => _$this._practicetype = practicetype;
 
   String? _profession;
   String? get profession => _$this._profession;
@@ -298,6 +361,26 @@ class ProfessionalsRecordBuilder
   int? get contact => _$this._contact;
   set contact(int? contact) => _$this._contact = contact;
 
+  String? _practicename;
+  String? get practicename => _$this._practicename;
+  set practicename(String? practicename) => _$this._practicename = practicename;
+
+  bool? _isIFHP;
+  bool? get isIFHP => _$this._isIFHP;
+  set isIFHP(bool? isIFHP) => _$this._isIFHP = isIFHP;
+
+  bool? _isFree;
+  bool? get isFree => _$this._isFree;
+  set isFree(bool? isFree) => _$this._isFree = isFree;
+
+  String? _profile;
+  String? get profile => _$this._profile;
+  set profile(String? profile) => _$this._profile = profile;
+
+  int? _views;
+  int? get views => _$this._views;
+  set views(int? views) => _$this._views = views;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -312,12 +395,16 @@ class ProfessionalsRecordBuilder
       _address = $v.address;
       _language = $v.language;
       _name = $v.name;
-      _practicetype = $v.practicetype;
       _profession = $v.profession;
       _registrationstatus = $v.registrationstatus;
       _mail = $v.mail;
       _website = $v.website;
       _contact = $v.contact;
+      _practicename = $v.practicename;
+      _isIFHP = $v.isIFHP;
+      _isFree = $v.isFree;
+      _profile = $v.profile;
+      _views = $v.views;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -344,12 +431,16 @@ class ProfessionalsRecordBuilder
             address: address,
             language: language,
             name: name,
-            practicetype: practicetype,
             profession: profession,
             registrationstatus: registrationstatus,
             mail: mail,
             website: website,
             contact: contact,
+            practicename: practicename,
+            isIFHP: isIFHP,
+            isFree: isFree,
+            profile: profile,
+            views: views,
             ffRef: ffRef);
     replace(_$result);
     return _$result;
