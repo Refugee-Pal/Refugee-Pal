@@ -26,11 +26,6 @@ class _RefugeepalwelcomescreenWidgetState
   late RefugeepalwelcomescreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  int get pageViewCurrentIndex => _model.pageViewController != null &&
-          _model.pageViewController!.hasClients &&
-          _model.pageViewController!.page != null
-      ? _model.pageViewController!.page!.round()
-      : 0;
 
   final animationsMap = {
     'imageOnPageLoadAnimation': AnimationInfo(
@@ -117,18 +112,6 @@ class _RefugeepalwelcomescreenWidgetState
         ),
       ],
     ),
-    'textOnPageLoadAnimation7': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 1000.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
   };
 
   @override
@@ -192,7 +175,7 @@ class _RefugeepalwelcomescreenWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.55),
+                                  alignment: AlignmentDirectional(0.00, -0.55),
                                   child: Image.asset(
                                     'assets/images/refugeeicon.png',
                                     width: 250.0,
@@ -220,7 +203,7 @@ class _RefugeepalwelcomescreenWidgetState
                                       'textOnPageLoadAnimation1']!),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -1.0),
+                                  alignment: AlignmentDirectional(0.00, -1.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 120.0),
@@ -250,7 +233,7 @@ class _RefugeepalwelcomescreenWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.9),
+                                  alignment: AlignmentDirectional(0.00, -0.90),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 0.0),
@@ -277,7 +260,7 @@ class _RefugeepalwelcomescreenWidgetState
                                   fit: BoxFit.contain,
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.2),
+                                  alignment: AlignmentDirectional(0.00, -0.20),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 10.0, 0.0),
@@ -308,66 +291,7 @@ class _RefugeepalwelcomescreenWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.9),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 24.0, 0.0, 0.0),
-                                    child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'tuuv8igp' /* Connect with Healthcare Profes... */,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .displaySmall
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: Colors.white,
-                                            fontSize: 28.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ).animateOnPageLoad(animationsMap[
-                                        'textOnPageLoadAnimation4']!),
-                                  ),
-                                ),
-                                Image.asset(
-                                  'assets/images/healthcare.png',
-                                  width: 300.0,
-                                  height: 300.0,
-                                  fit: BoxFit.contain,
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, -0.2),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 10.0, 0.0),
-                                    child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        '5faocj4g' /* Find practicing doctors in Sur... */,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 75.0, 0.0, 0.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, -0.9),
+                                  alignment: AlignmentDirectional(0.00, -0.90),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 0.0),
@@ -384,7 +308,7 @@ class _RefugeepalwelcomescreenWidgetState
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ).animateOnPageLoad(animationsMap[
-                                        'textOnPageLoadAnimation5']!),
+                                        'textOnPageLoadAnimation4']!),
                                   ),
                                 ),
                                 Image.asset(
@@ -394,7 +318,7 @@ class _RefugeepalwelcomescreenWidgetState
                                   fit: BoxFit.contain,
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.2),
+                                  alignment: AlignmentDirectional(0.00, -0.20),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 10.0, 0.0),
@@ -425,13 +349,13 @@ class _RefugeepalwelcomescreenWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.9),
+                                  alignment: AlignmentDirectional(0.00, -0.90),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
-                                        'y6sh2xxa' /* Q&A Chat Threads and Connect w... */,
+                                        'y6sh2xxa' /* Q&A Chat Threads  */,
                                       ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
@@ -443,7 +367,7 @@ class _RefugeepalwelcomescreenWidgetState
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ).animateOnPageLoad(animationsMap[
-                                        'textOnPageLoadAnimation6']!),
+                                        'textOnPageLoadAnimation5']!),
                                   ),
                                 ),
                                 Image.asset(
@@ -453,7 +377,7 @@ class _RefugeepalwelcomescreenWidgetState
                                   fit: BoxFit.contain,
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.2),
+                                  alignment: AlignmentDirectional(0.00, -0.20),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 10.0, 0.0),
@@ -484,7 +408,7 @@ class _RefugeepalwelcomescreenWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.9),
+                                  alignment: AlignmentDirectional(0.00, -0.90),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 0.0),
@@ -502,7 +426,7 @@ class _RefugeepalwelcomescreenWidgetState
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ).animateOnPageLoad(animationsMap[
-                                        'textOnPageLoadAnimation7']!),
+                                        'textOnPageLoadAnimation6']!),
                                   ),
                                 ),
                                 Image.asset(
@@ -512,7 +436,7 @@ class _RefugeepalwelcomescreenWidgetState
                                   fit: BoxFit.contain,
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, -0.2),
+                                  alignment: AlignmentDirectional(0.00, -0.20),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 10.0, 0.0),
@@ -538,7 +462,7 @@ class _RefugeepalwelcomescreenWidgetState
                                       0.0, 50.0, 0.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      context.pushNamed('home');
+                                      context.goNamed('home');
                                     },
                                     text: FFLocalizations.of(context).getText(
                                       'c4bo7pjy' /* Next */,
@@ -575,14 +499,14 @@ class _RefugeepalwelcomescreenWidgetState
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.9),
+                      alignment: AlignmentDirectional(0.00, 0.90),
                       child: Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                         child: smooth_page_indicator.SmoothPageIndicator(
                           controller: _model.pageViewController ??=
                               PageController(initialPage: 0),
-                          count: 6,
+                          count: 5,
                           axisDirection: Axis.horizontal,
                           onDotClicked: (i) async {
                             await _model.pageViewController!.animateToPage(

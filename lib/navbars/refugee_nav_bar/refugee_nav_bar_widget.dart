@@ -151,7 +151,7 @@ class _RefugeeNavBarWidgetState extends State<RefugeeNavBarWidget> {
                 onPressed: () async {
                   context.pushNamed(
                     'connect',
-                    queryParams: {
+                    queryParameters: {
                       'professionToLoad': serializeParam(
                         'none',
                         ParamType.String,

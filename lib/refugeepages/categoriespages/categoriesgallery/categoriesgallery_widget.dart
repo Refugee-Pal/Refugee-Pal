@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/navbars/refugee_nav_bar/refugee_nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -24,7 +25,6 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
   late CategoriesgalleryModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -38,7 +38,6 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -49,20 +48,25 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
     return AuthUserStreamWidget(
       builder: (context) => StreamBuilder<List<LanguagesRecord>>(
         stream: queryLanguagesRecord(
-          queryBuilder: (languagesRecord) => languagesRecord.where('Name',
-              isEqualTo: valueOrDefault(currentUserDocument?.language, '')),
+          queryBuilder: (languagesRecord) => languagesRecord.where(
+            'Name',
+            isEqualTo: valueOrDefault(currentUserDocument?.language, ''),
+          ),
           singleRecord: true,
         ),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: SpinKitPulse(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+            return Scaffold(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              body: Center(
+                child: SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: SpinKitPulse(
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 50.0,
+                  ),
                 ),
               ),
             );
@@ -78,58 +82,78 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                   ? categoriesgalleryLanguagesRecordList.first
                   : null;
           return GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+            onTap: () => _model.unfocusNode.canRequestFocus
+                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                : FocusScope.of(context).unfocus(),
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              appBar: AppBar(
-                backgroundColor: FlutterFlowTheme.of(context).primary,
-                automaticallyImplyLeading: false,
-                leading: FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30.0,
-                  borderWidth: 1.0,
-                  buttonSize: 60.0,
-                  icon: Icon(
-                    Icons.arrow_back_rounded,
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    size: 30.0,
-                  ),
-                  onPressed: () async {
-                    context.pop();
-                  },
-                ),
-                title: Text(
-                  FFLocalizations.of(context).getText(
-                    '3wgiwebk' /* Resources */,
-                  ),
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Inter',
-                        color: FlutterFlowTheme.of(context).primaryBtnText,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
+              appBar: () {
+                if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointMedium) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointLarge) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }()
+                  ? AppBar(
+                      backgroundColor: FlutterFlowTheme.of(context).primary,
+                      automaticallyImplyLeading: false,
+                      leading: FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
+                        icon: Icon(
+                          Icons.arrow_back_rounded,
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                          size: 30.0,
+                        ),
+                        onPressed: () async {
+                          context.pop();
+                        },
                       ),
-                ),
-                actions: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30.0,
-                    borderWidth: 1.0,
-                    buttonSize: 60.0,
-                    icon: FaIcon(
-                      FontAwesomeIcons.cog,
-                      color: FlutterFlowTheme.of(context).primaryBtnText,
-                      size: 30.0,
-                    ),
-                    onPressed: () async {
-                      context.pushNamed('settings');
-                    },
-                  ),
-                ],
-                centerTitle: false,
-                elevation: 2.0,
-              ),
+                      title: Text(
+                        FFLocalizations.of(context).getText(
+                          '3wgiwebk' /* Resources */,
+                        ),
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Inter',
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                      actions: [
+                        FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 30.0,
+                          borderWidth: 1.0,
+                          buttonSize: 60.0,
+                          icon: FaIcon(
+                            FontAwesomeIcons.cog,
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            size: 30.0,
+                          ),
+                          onPressed: () async {
+                            context.pushNamed('settings');
+                          },
+                        ),
+                      ],
+                      centerTitle: false,
+                      elevation: 2.0,
+                    )
+                  : null,
               body: SafeArea(
+                top: true,
                 child: Stack(
                   children: [
                     StreamBuilder<List<CategoryRecord>>(
@@ -162,7 +186,7 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                     columnCategoryRecord.description != null &&
                                         columnCategoryRecord.description != '',
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 20.0, 20.0, 20.0),
@@ -174,7 +198,7 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                       onTap: () async {
                                         context.pushNamed(
                                           'category',
-                                          queryParams: {
+                                          queryParameters: {
                                             'catrgorydetailed': serializeParam(
                                               columnCategoryRecord.reference,
                                               ParamType.DocumentReference,
@@ -209,15 +233,15 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                                 topRight: Radius.circular(20.0),
                                               ),
                                               child: Image.network(
-                                                columnCategoryRecord.banner!,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    1.0,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.17,
+                                                columnCategoryRecord.banner,
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        1.0,
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.17,
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -231,6 +255,16 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                                     queryTranslations8Record(
                                                   parent: columnCategoryRecord
                                                       .reference,
+                                                  queryBuilder:
+                                                      (translations8Record) =>
+                                                          translations8Record
+                                                              .where(
+                                                    'language',
+                                                    isEqualTo:
+                                                        categoriesgalleryLanguagesRecord
+                                                            ?.code,
+                                                  ),
+                                                  singleRecord: true,
                                                 ),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
@@ -251,8 +285,28 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                                   List<Translations8Record>
                                                       textTranslations8RecordList =
                                                       snapshot.data!;
+                                                  final textTranslations8Record =
+                                                      textTranslations8RecordList
+                                                              .isNotEmpty
+                                                          ? textTranslations8RecordList
+                                                              .first
+                                                          : null;
                                                   return Text(
-                                                    columnCategoryRecord.title!,
+                                                    valueOrDefault<String>(
+                                                      (categoriesgalleryLanguagesRecord
+                                                                      ?.name !=
+                                                                  'English') &&
+                                                              (valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.translateApp,
+                                                                      '') ==
+                                                                  'true')
+                                                          ? textTranslations8Record
+                                                              ?.value
+                                                          : columnCategoryRecord
+                                                              .title,
+                                                      'n',
+                                                    ),
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -277,6 +331,16 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                                     queryTranslations7Record(
                                                   parent: columnCategoryRecord
                                                       .reference,
+                                                  queryBuilder:
+                                                      (translations7Record) =>
+                                                          translations7Record
+                                                              .where(
+                                                    'language',
+                                                    isEqualTo:
+                                                        categoriesgalleryLanguagesRecord
+                                                            ?.code,
+                                                  ),
+                                                  singleRecord: true,
                                                 ),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
@@ -297,25 +361,24 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                                                   List<Translations7Record>
                                                       textTranslations7RecordList =
                                                       snapshot.data!;
+                                                  final textTranslations7Record =
+                                                      textTranslations7RecordList
+                                                              .isNotEmpty
+                                                          ? textTranslations7RecordList
+                                                              .first
+                                                          : null;
                                                   return Text(
                                                     valueOrDefault<String>(
-                                                      (categoriesgalleryLanguagesRecord!
-                                                                      .name !=
+                                                      (categoriesgalleryLanguagesRecord
+                                                                      ?.name !=
                                                                   'English') &&
                                                               (valueOrDefault(
                                                                       currentUserDocument
                                                                           ?.translateApp,
                                                                       '') ==
                                                                   'true')
-                                                          ? textTranslations7RecordList
-                                                              .where((e) =>
-                                                                  e.reference
-                                                                      .id ==
-                                                                  categoriesgalleryLanguagesRecord!
-                                                                      .code)
-                                                              .toList()
-                                                              .first
-                                                              .value
+                                                          ? textTranslations7Record
+                                                              ?.value
                                                           : columnCategoryRecord
                                                               .description,
                                                       'no value',
@@ -347,14 +410,18 @@ class _CategoriesgalleryWidgetState extends State<CategoriesgalleryWidget> {
                         );
                       },
                     ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
-                      child: wrapWithModel(
-                        model: _model.refugeeNavBarModel,
-                        updateCallback: () => setState(() {}),
-                        child: RefugeeNavBarWidget(),
+                    if (responsiveVisibility(
+                      context: context,
+                      desktop: false,
+                    ))
+                      Align(
+                        alignment: AlignmentDirectional(0.00, 1.00),
+                        child: wrapWithModel(
+                          model: _model.refugeeNavBarModel,
+                          updateCallback: () => setState(() {}),
+                          child: RefugeeNavBarWidget(),
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),

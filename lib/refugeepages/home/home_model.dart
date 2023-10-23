@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/navbars/refugee_nav_bar/refugee_nav_bar_widget.dart';
 import 'dart:ui';
+import 'home_widget.dart' show HomeWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomeModel extends FlutterFlowModel {
+class HomeModel extends FlutterFlowModel<HomeWidget> {
   ///  Local state fields for this page.
 
   String? categorySelected = 'all';
@@ -31,6 +32,10 @@ class HomeModel extends FlutterFlowModel {
   void removeFromSearchResults(String item) => searchResults.remove(item);
   void removeAtIndexFromSearchResults(int index) =>
       searchResults.removeAt(index);
+  void insertAtIndexInSearchResults(int index, String item) =>
+      searchResults.insert(index, item);
+  void updateSearchResultsAtIndex(int index, Function(String) updateFn) =>
+      searchResults[index] = updateFn(searchResults[index]);
 
   List<String> resourceSearchResults = [];
   void addToResourceSearchResults(String item) =>
@@ -39,8 +44,11 @@ class HomeModel extends FlutterFlowModel {
       resourceSearchResults.remove(item);
   void removeAtIndexFromResourceSearchResults(int index) =>
       resourceSearchResults.removeAt(index);
-
-  String? categoryID;
+  void insertAtIndexInResourceSearchResults(int index, String item) =>
+      resourceSearchResults.insert(index, item);
+  void updateResourceSearchResultsAtIndex(
+          int index, Function(String) updateFn) =>
+      resourceSearchResults[index] = updateFn(resourceSearchResults[index]);
 
   bool? isNavigate;
 
@@ -50,16 +58,22 @@ class HomeModel extends FlutterFlowModel {
       choiceChipChoices.remove(item);
   void removeAtIndexFromChoiceChipChoices(int index) =>
       choiceChipChoices.removeAt(index);
+  void insertAtIndexInChoiceChipChoices(int index, String item) =>
+      choiceChipChoices.insert(index, item);
+  void updateChoiceChipChoicesAtIndex(int index, Function(String) updateFn) =>
+      choiceChipChoices[index] = updateFn(choiceChipChoices[index]);
 
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for emailAddress widget.
   TextEditingController? emailAddressController;
   String? Function(BuildContext, String?)? emailAddressControllerValidator;
   List<ResourceproviderRecord> simpleSearchResults1 = [];
   List<SubcategoryRecord> simpleSearchResults2 = [];
   List<ChatsRecord> simpleSearchResults3 = [];
-  List<LocationsRecord> simpleSearchResults4 = [];
+  List<ChatsRecord> simpleSearchResults4 = [];
+  List<LocationsRecord> simpleSearchResults5 = [];
   // State field(s) for ChoiceChips widget.
   String? choiceChipsValue;
   FormFieldController<List<String>>? choiceChipsValueController;
@@ -73,10 +87,12 @@ class HomeModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     emailAddressController?.dispose();
     refugeeNavBarModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

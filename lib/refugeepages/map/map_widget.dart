@@ -39,7 +39,7 @@ class _MapWidgetState extends State<MapWidget> {
   late MapModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -60,11 +60,13 @@ class _MapWidgetState extends State<MapWidget> {
           backgroundColor: Colors.transparent,
           barrierColor: Colors.transparent,
           context: context,
-          builder: (bottomSheetContext) {
+          builder: (context) {
             return GestureDetector(
-              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+              onTap: () => _model.unfocusNode.canRequestFocus
+                  ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                  : FocusScope.of(context).unfocus(),
               child: Padding(
-                padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                padding: MediaQuery.viewInsetsOf(context),
                 child: Container(
                   height: 650.0,
                   child: MapsheetWidget(
@@ -76,15 +78,20 @@ class _MapWidgetState extends State<MapWidget> {
               ),
             );
           },
-        ).then((value) => setState(() {}));
+        ).then((value) => safeSetState(() {}));
 
-        final userUpdateData = {
-          'recents': FieldValue.arrayUnion([_model.locationSelected!.name]),
-        };
-        await currentUserReference!.update(userUpdateData);
+        await currentUserReference!.update({
+          ...mapToFirestore(
+            {
+              'recents': FieldValue.arrayUnion([_model.locationSelected?.name]),
+            },
+          ),
+        });
       }
     });
 
+    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
+        .then((loc) => setState(() => currentUserLocationValue = loc));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -92,31 +99,50 @@ class _MapWidgetState extends State<MapWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+    if (currentUserLocationValue == null) {
+      return Container(
+        color: FlutterFlowTheme.of(context).primaryBackground,
+        child: Center(
+          child: SizedBox(
+            width: 50.0,
+            height: 50.0,
+            child: SpinKitPulse(
+              color: FlutterFlowTheme.of(context).primary,
+              size: 50.0,
+            ),
+          ),
+        ),
+      );
+    }
 
     return AuthUserStreamWidget(
       builder: (context) => StreamBuilder<List<LanguagesRecord>>(
         stream: queryLanguagesRecord(
-          queryBuilder: (languagesRecord) => languagesRecord.where('Name',
-              isEqualTo: valueOrDefault(currentUserDocument?.language, '')),
+          queryBuilder: (languagesRecord) => languagesRecord.where(
+            'Name',
+            isEqualTo: valueOrDefault(currentUserDocument?.language, ''),
+          ),
           singleRecord: true,
         ),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: SpinKitPulse(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+            return Scaffold(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              body: Center(
+                child: SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: SpinKitPulse(
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 50.0,
+                  ),
                 ),
               ),
             );
@@ -130,59 +156,79 @@ class _MapWidgetState extends State<MapWidget> {
               ? mapLanguagesRecordList.first
               : null;
           return GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+            onTap: () => _model.unfocusNode.canRequestFocus
+                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                : FocusScope.of(context).unfocus(),
             child: Scaffold(
               key: scaffoldKey,
               resizeToAvoidBottomInset: false,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              appBar: AppBar(
-                backgroundColor: FlutterFlowTheme.of(context).primary,
-                automaticallyImplyLeading: false,
-                leading: FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30.0,
-                  borderWidth: 1.0,
-                  buttonSize: 60.0,
-                  icon: Icon(
-                    Icons.arrow_back_rounded,
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    size: 30.0,
-                  ),
-                  onPressed: () async {
-                    context.pop();
-                  },
-                ),
-                title: Text(
-                  FFLocalizations.of(context).getText(
-                    'y69o17bw' /* Interactive Map */,
-                  ),
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Inter',
-                        color: FlutterFlowTheme.of(context).primaryBtnText,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
+              appBar: () {
+                if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointMedium) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointLarge) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }()
+                  ? AppBar(
+                      backgroundColor: FlutterFlowTheme.of(context).primary,
+                      automaticallyImplyLeading: false,
+                      leading: FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
+                        icon: Icon(
+                          Icons.arrow_back_rounded,
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                          size: 30.0,
+                        ),
+                        onPressed: () async {
+                          context.pop();
+                        },
                       ),
-                ),
-                actions: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30.0,
-                    borderWidth: 1.0,
-                    buttonSize: 60.0,
-                    icon: FaIcon(
-                      FontAwesomeIcons.cog,
-                      color: FlutterFlowTheme.of(context).primaryBtnText,
-                      size: 30.0,
-                    ),
-                    onPressed: () async {
-                      context.pushNamed('settings');
-                    },
-                  ),
-                ],
-                centerTitle: false,
-                elevation: 2.0,
-              ),
+                      title: Text(
+                        FFLocalizations.of(context).getText(
+                          'y69o17bw' /* Interactive Map */,
+                        ),
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Inter',
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                      actions: [
+                        FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 30.0,
+                          borderWidth: 1.0,
+                          buttonSize: 60.0,
+                          icon: FaIcon(
+                            FontAwesomeIcons.cog,
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            size: 30.0,
+                          ),
+                          onPressed: () async {
+                            context.pushNamed('settings');
+                          },
+                        ),
+                      ],
+                      centerTitle: false,
+                      elevation: 2.0,
+                    )
+                  : null,
               body: SafeArea(
+                top: true,
                 child: Stack(
                   children: [
                     if (!FFAppState().isViewingProfile)
@@ -191,8 +237,10 @@ class _MapWidgetState extends State<MapWidget> {
                           StreamBuilder<List<LocationsRecord>>(
                             stream: queryLocationsRecord(
                               queryBuilder: (locationsRecord) =>
-                                  locationsRecord.where('category',
-                                      arrayContains: _model.categorySelected),
+                                  locationsRecord.where(
+                                'category',
+                                arrayContains: _model.categorySelected,
+                              ),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -216,8 +264,7 @@ class _MapWidgetState extends State<MapWidget> {
                                 onCameraIdle: (latLng) =>
                                     _model.googleMapsCenter = latLng,
                                 initialLocation: _model.googleMapsCenter ??=
-                                    LatLng(
-                                        49.170049098020606, -122.8458442123441),
+                                    currentUserLocationValue!,
                                 markers: googleMapLocationsRecordList
                                     .map(
                                       (googleMapLocationsRecord) =>
@@ -230,27 +277,34 @@ class _MapWidgetState extends State<MapWidget> {
                                                 googleMapLocationsRecord;
                                           });
 
-                                          final userUpdateData = {
-                                            'recents': FieldValue.arrayUnion([
-                                              googleMapLocationsRecord.name
-                                            ]),
-                                          };
-                                          await currentUserReference!
-                                              .update(userUpdateData);
+                                          await currentUserReference!.update({
+                                            ...mapToFirestore(
+                                              {
+                                                'recents':
+                                                    FieldValue.arrayUnion([
+                                                  googleMapLocationsRecord.name
+                                                ]),
+                                              },
+                                            ),
+                                          });
                                           await showModalBottomSheet(
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
                                             barrierColor: Colors.transparent,
                                             context: context,
-                                            builder: (bottomSheetContext) {
+                                            builder: (context) {
                                               return GestureDetector(
-                                                onTap: () => FocusScope.of(
-                                                        context)
-                                                    .requestFocus(_unfocusNode),
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
                                                 child: Padding(
-                                                  padding: MediaQuery.of(
-                                                          bottomSheetContext)
-                                                      .viewInsets,
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
                                                   child: Container(
                                                     height: 650.0,
                                                     child: MapsheetWidget(
@@ -265,7 +319,8 @@ class _MapWidgetState extends State<MapWidget> {
                                                 ),
                                               );
                                             },
-                                          ).then((value) => setState(() {}));
+                                          ).then(
+                                              (value) => safeSetState(() {}));
                                         },
                                       ),
                                     )
@@ -286,7 +341,7 @@ class _MapWidgetState extends State<MapWidget> {
                             },
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -303,122 +358,260 @@ class _MapWidgetState extends State<MapWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
-                                            child: StreamBuilder<
-                                                List<CategoryRecord>>(
-                                              stream: queryCategoryRecord(
-                                                queryBuilder: (categoryRecord) =>
-                                                    categoryRecord.where(
+                                            child: Stack(
+                                              children: [
+                                                if (_model.categorySelected !=
+                                                    'none')
+                                                  StreamBuilder<
+                                                      List<CategoryRecord>>(
+                                                    stream: queryCategoryRecord(
+                                                      queryBuilder:
+                                                          (categoryRecord) =>
+                                                              categoryRecord
+                                                                  .where(
                                                         'title',
                                                         isEqualTo: _model
-                                                            .categorySelected),
-                                                singleRecord: true,
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child: SpinKitPulse(
+                                                            .categorySelected,
+                                                      ),
+                                                      singleRecord: true,
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child: SpinKitPulse(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
+                                                              size: 50.0,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      List<CategoryRecord>
+                                                          blurCategoryRecordList =
+                                                          snapshot.data!;
+                                                      final blurCategoryRecord =
+                                                          blurCategoryRecordList
+                                                                  .isNotEmpty
+                                                              ? blurCategoryRecordList
+                                                                  .first
+                                                              : null;
+                                                      return ClipRect(
+                                                        child: ImageFiltered(
+                                                          imageFilter:
+                                                              ImageFilter.blur(
+                                                            sigmaX: 0.0,
+                                                            sigmaY: 0.0,
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        10.0,
+                                                                        0.0),
+                                                            child: StreamBuilder<
+                                                                List<
+                                                                    Translations8Record>>(
+                                                              stream:
+                                                                  queryTranslations8Record(
+                                                                parent: blurCategoryRecord
+                                                                    ?.reference,
+                                                                queryBuilder:
+                                                                    (translations8Record) =>
+                                                                        translations8Record
+                                                                            .where(
+                                                                  'language',
+                                                                  isEqualTo: mapLanguagesRecord
+                                                                              ?.code !=
+                                                                          ''
+                                                                      ? mapLanguagesRecord
+                                                                          ?.code
+                                                                      : null,
+                                                                ),
+                                                                singleRecord:
+                                                                    true,
+                                                              ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          SpinKitPulse(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        size:
+                                                                            50.0,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                List<Translations8Record>
+                                                                    buttonTranslations8RecordList =
+                                                                    snapshot
+                                                                        .data!;
+                                                                final buttonTranslations8Record =
+                                                                    buttonTranslations8RecordList
+                                                                            .isNotEmpty
+                                                                        ? buttonTranslations8RecordList
+                                                                            .first
+                                                                        : null;
+                                                                return FFButtonWidget(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    setState(
+                                                                        () {
+                                                                      _model.isFiltering =
+                                                                          true;
+                                                                    });
+                                                                  },
+                                                                  text: valueOrDefault<
+                                                                      String>(
+                                                                    (mapLanguagesRecord?.name !=
+                                                                                'English') &&
+                                                                            (valueOrDefault(currentUserDocument?.translateApp, '') ==
+                                                                                'true')
+                                                                        ? buttonTranslations8Record
+                                                                            ?.value
+                                                                        : blurCategoryRecord
+                                                                            ?.title,
+                                                                    'All',
+                                                                  ),
+                                                                  icon: FaIcon(
+                                                                    FontAwesomeIcons
+                                                                        .mapMarkerAlt,
+                                                                  ),
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    width:
+                                                                        300.0,
+                                                                    height:
+                                                                        60.0,
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleLarge
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Inter',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBtnText,
+                                                                        ),
+                                                                    elevation:
+                                                                        2.0,
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30.0),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                if (_model.categorySelected ==
+                                                    'none')
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                10.0, 0.0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        setState(() {
+                                                          _model.isFiltering =
+                                                              true;
+                                                        });
+                                                      },
+                                                      text: _model.isLocation!
+                                                          ? 'All locations'
+                                                          : 'All programs',
+                                                      icon: FaIcon(
+                                                        FontAwesomeIcons
+                                                            .mapMarkerAlt,
+                                                      ),
+                                                      options: FFButtonOptions(
+                                                        width: 300.0,
+                                                        height: 60.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
-                                                        size: 50.0,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                List<CategoryRecord>
-                                                    blurCategoryRecordList =
-                                                    snapshot.data!;
-                                                final blurCategoryRecord =
-                                                    blurCategoryRecordList
-                                                            .isNotEmpty
-                                                        ? blurCategoryRecordList
-                                                            .first
-                                                        : null;
-                                                return ClipRect(
-                                                  child: ImageFiltered(
-                                                    imageFilter:
-                                                        ImageFilter.blur(
-                                                      sigmaX: 0.0,
-                                                      sigmaY: 0.0,
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0),
-                                                      child: FFButtonWidget(
-                                                        onPressed: () async {
-                                                          setState(() {
-                                                            _model.isFiltering =
-                                                                true;
-                                                          });
-                                                        },
-                                                        text: _model.categorySelected ==
-                                                                'none'
-                                                            ? 'All categories'
-                                                            : blurCategoryRecord!
-                                                                .title!,
-                                                        icon: FaIcon(
-                                                          FontAwesomeIcons
-                                                              .mapMarkerAlt,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBtnText,
+                                                                ),
+                                                        elevation: 2.0,
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
                                                         ),
-                                                        options:
-                                                            FFButtonOptions(
-                                                          width: 300.0,
-                                                          height: 60.0,
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          iconPadding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          textStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleLarge
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Inter',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryBtnText,
-                                                                  ),
-                                                          elevation: 2.0,
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Colors
-                                                                .transparent,
-                                                            width: 1.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30.0),
-                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30.0),
                                                       ),
                                                     ),
                                                   ),
-                                                );
-                                              },
+                                              ],
                                             ),
                                           ),
                                           Stack(
@@ -512,7 +705,7 @@ class _MapWidgetState extends State<MapWidget> {
                                           onPressed: () async {
                                             context.pushNamed(
                                               'home',
-                                              queryParams: {
+                                              queryParameters: {
                                                 'startingCategory':
                                                     serializeParam(
                                                   _model.categorySelected ==
@@ -584,7 +777,7 @@ class _MapWidgetState extends State<MapWidget> {
                                             onPressed: () async {
                                               context.pushNamed(
                                                 'home',
-                                                queryParams: {
+                                                queryParameters: {
                                                   'startingChip':
                                                       serializeParam(
                                                     'Locations',
@@ -613,7 +806,7 @@ class _MapWidgetState extends State<MapWidget> {
                           ),
                           if (_model.isFiltering ?? true)
                             Container(
-                              width: MediaQuery.of(context).size.width * 1.0,
+                              width: MediaQuery.sizeOf(context).width * 1.0,
                               height: 1000.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
@@ -648,7 +841,7 @@ class _MapWidgetState extends State<MapWidget> {
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBtnText,
+                                                      .secondaryBackground,
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .titleLarge
@@ -759,8 +952,10 @@ class _MapWidgetState extends State<MapWidget> {
                                     StreamBuilder<List<CategoryRecord>>(
                                       stream: queryCategoryRecord(
                                         queryBuilder: (categoryRecord) =>
-                                            categoryRecord.where('isinmap',
-                                                isEqualTo: true),
+                                            categoryRecord.where(
+                                          'isinmap',
+                                          isEqualTo: true,
+                                        ),
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
@@ -836,7 +1031,7 @@ class _MapWidgetState extends State<MapWidget> {
                                                                         0.0),
                                                             child: Text(
                                                               columnCategoryRecord
-                                                                  .icon!,
+                                                                  .icon,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -855,12 +1050,23 @@ class _MapWidgetState extends State<MapWidget> {
                                                           ),
                                                           StreamBuilder<
                                                               List<
-                                                                  Translations7Record>>(
+                                                                  Translations8Record>>(
                                                             stream:
-                                                                queryTranslations7Record(
+                                                                queryTranslations8Record(
                                                               parent:
                                                                   columnCategoryRecord
                                                                       .reference,
+                                                              queryBuilder:
+                                                                  (translations8Record) =>
+                                                                      translations8Record
+                                                                          .where(
+                                                                'language',
+                                                                isEqualTo:
+                                                                    mapLanguagesRecord
+                                                                        ?.code,
+                                                              ),
+                                                              singleRecord:
+                                                                  true,
                                                             ),
                                                             builder: (context,
                                                                 snapshot) {
@@ -884,25 +1090,25 @@ class _MapWidgetState extends State<MapWidget> {
                                                                   ),
                                                                 );
                                                               }
-                                                              List<Translations7Record>
-                                                                  textTranslations7RecordList =
+                                                              List<Translations8Record>
+                                                                  textTranslations8RecordList =
                                                                   snapshot
                                                                       .data!;
+                                                              final textTranslations8Record =
+                                                                  textTranslations8RecordList
+                                                                          .isNotEmpty
+                                                                      ? textTranslations8RecordList
+                                                                          .first
+                                                                      : null;
                                                               return AutoSizeText(
                                                                 valueOrDefault<
                                                                     String>(
-                                                                  (mapLanguagesRecord!.name !=
+                                                                  (mapLanguagesRecord?.name !=
                                                                               'English') &&
                                                                           (valueOrDefault(currentUserDocument?.translateApp, '') ==
                                                                               'true')
-                                                                      ? textTranslations7RecordList
-                                                                          .where((e) =>
-                                                                              e.reference.id ==
-                                                                              mapLanguagesRecord!
-                                                                                  .code)
-                                                                          .toList()
-                                                                          .first
-                                                                          .value
+                                                                      ? textTranslations8Record
+                                                                          ?.value
                                                                       : columnCategoryRecord
                                                                           .title,
                                                                   'n',
@@ -949,14 +1155,18 @@ class _MapWidgetState extends State<MapWidget> {
                         updateCallback: () => setState(() {}),
                         child: UserProfileWidget(),
                       ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
-                      child: wrapWithModel(
-                        model: _model.refugeeNavBarModel,
-                        updateCallback: () => setState(() {}),
-                        child: RefugeeNavBarWidget(),
+                    if (responsiveVisibility(
+                      context: context,
+                      desktop: false,
+                    ))
+                      Align(
+                        alignment: AlignmentDirectional(0.00, 1.00),
+                        child: wrapWithModel(
+                          model: _model.refugeeNavBarModel,
+                          updateCallback: () => setState(() {}),
+                          child: RefugeeNavBarWidget(),
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),

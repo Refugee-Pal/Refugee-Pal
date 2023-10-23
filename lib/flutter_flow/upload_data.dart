@@ -9,12 +9,13 @@ import 'package:mime_type/mime_type.dart';
 import 'package:video_player/video_player.dart';
 
 import '../auth/firebase_auth/auth_util.dart';
+import 'flutter_flow_theme.dart';
 import 'flutter_flow_util.dart';
 
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
 
-class SelectedMedia {
-  const SelectedMedia({
+class SelectedFile {
+  const SelectedFile({
     this.storagePath = '',
     this.filePath,
     required this.bytes,
@@ -43,7 +44,7 @@ enum MediaSource {
   camera,
 }
 
-Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
+Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
   required BuildContext context,
   String? storageFolderPath,
   double? maxWidth,
@@ -148,7 +149,7 @@ Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
   );
 }
 
-Future<List<SelectedMedia>?> selectMedia({
+Future<List<SelectedFile>?> selectMedia({
   String? storageFolderPath,
   double? maxWidth,
   double? maxHeight,
@@ -168,7 +169,7 @@ Future<List<SelectedMedia>?> selectMedia({
       imageQuality: imageQuality,
     );
     final pickedMedia = await pickedMediaFuture;
-    if (pickedMedia == null || pickedMedia.isEmpty) {
+    if (pickedMedia.isEmpty) {
       return null;
     }
     return Future.wait(pickedMedia.asMap().entries.map((e) async {
@@ -182,7 +183,7 @@ Future<List<SelectedMedia>?> selectMedia({
               : _getImageDimensions(mediaBytes)
           : null;
 
-      return SelectedMedia(
+      return SelectedFile(
         storagePath: path,
         filePath: media.path,
         bytes: mediaBytes,
@@ -215,7 +216,7 @@ Future<List<SelectedMedia>?> selectMedia({
       : null;
 
   return [
-    SelectedMedia(
+    SelectedFile(
       storagePath: path,
       filePath: pickedMedia.path,
       bytes: mediaBytes,
@@ -236,30 +237,76 @@ bool validateFileFormat(String filePath, BuildContext context) {
   return false;
 }
 
-Future<SelectedMedia?> selectFile({
+Future<SelectedFile?> selectFile({
   String? storageFolderPath,
   List<String>? allowedExtensions,
+}) =>
+    selectFiles(
+      storageFolderPath: storageFolderPath,
+      allowedExtensions: allowedExtensions,
+      multiFile: false,
+    ).then((value) => value?.first);
+
+Future<List<SelectedFile>?> selectFiles({
+  String? storageFolderPath,
+  List<String>? allowedExtensions,
+  bool multiFile = false,
 }) async {
   final pickedFiles = await FilePicker.platform.pickFiles(
     type: allowedExtensions != null ? FileType.custom : FileType.any,
     allowedExtensions: allowedExtensions,
     withData: true,
+    allowMultiple: multiFile,
   );
   if (pickedFiles == null || pickedFiles.files.isEmpty) {
     return null;
   }
-
+  if (multiFile) {
+    return Future.wait(pickedFiles.files.asMap().entries.map((e) async {
+      final index = e.key;
+      final file = e.value;
+      final storagePath =
+          _getStoragePath(storageFolderPath, file.name, false, index);
+      return SelectedFile(
+        storagePath: storagePath,
+        filePath: isWeb ? null : file.path,
+        bytes: file.bytes!,
+      );
+    }));
+  }
   final file = pickedFiles.files.first;
   if (file.bytes == null) {
     return null;
   }
   final storagePath = _getStoragePath(storageFolderPath, file.name, false);
-  return SelectedMedia(
-    storagePath: storagePath,
-    filePath: isWeb ? null : file.path,
-    bytes: file.bytes!,
-  );
+  return [
+    SelectedFile(
+      storagePath: storagePath,
+      filePath: isWeb ? null : file.path,
+      bytes: file.bytes!,
+    )
+  ];
 }
+
+List<SelectedFile> selectedFilesFromUploadedFiles(
+  List<FFUploadedFile> uploadedFiles, {
+  String? storageFolderPath,
+  bool isMultiData = false,
+}) =>
+    uploadedFiles.asMap().entries.map(
+      (entry) {
+        final index = entry.key;
+        final file = entry.value;
+        return SelectedFile(
+            storagePath: _getStoragePath(
+              storageFolderPath != null ? storageFolderPath : null,
+              file.name!,
+              false,
+              isMultiData ? index : null,
+            ),
+            bytes: file.bytes!);
+      },
+    ).toList();
 
 Future<MediaDimensions> _getImageDimensions(Uint8List mediaBytes) async {
   final image = await decodeImageFromList(mediaBytes);
@@ -300,8 +347,11 @@ String getSignatureStoragePath([String? pathPrefix]) {
   return '$pathPrefix/signature_$timestamp.png';
 }
 
-void showUploadMessage(BuildContext context, String message,
-    {bool showLoading = false}) {
+void showUploadMessage(
+  BuildContext context,
+  String message, {
+  bool showLoading = false,
+}) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(
@@ -311,11 +361,17 @@ void showUploadMessage(BuildContext context, String message,
             if (showLoading)
               Padding(
                 padding: EdgeInsetsDirectional.only(end: 10.0),
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  valueColor: Theme.of(context).brightness == Brightness.dark
+                      ? AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).accent4)
+                      : null,
+                ),
               ),
             Text(message),
           ],
         ),
+        duration: showLoading ? Duration(days: 1) : Duration(seconds: 4),
       ),
     );
 }

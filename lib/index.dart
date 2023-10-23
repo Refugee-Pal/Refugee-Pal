@@ -8,7 +8,6 @@ export '/refugeepalwelcomescreen/refugeepalwelcomescreen_widget.dart'
     show RefugeepalwelcomescreenWidget;
 export '/refugeepages/connect/connect_widget.dart' show ConnectWidget;
 export '/login_page/login_page_widget.dart' show LoginPageWidget;
-export '/forgotpassword/forgotpassword_widget.dart' show ForgotpasswordWidget;
 export '/refugeepages/categoriespages/category/category_widget.dart'
     show CategoryWidget;
 export '/refugeepages/categoriespages/subcategory/subcategory_widget.dart'
@@ -24,9 +23,8 @@ export '/settings_pages/settings_acc_info_copy/settings_acc_info_copy_widget.dar
     show SettingsAccInfoCopyWidget;
 export '/userjourney_helper/userjourney_helper_widget.dart'
     show UserjourneyHelperWidget;
-export '/helperpages/helper_profile/helper_profile_widget.dart'
-    show HelperProfileWidget;
 export '/helperpages/helper_edit/helper_edit_widget.dart' show HelperEditWidget;
 export '/helperpages/helper_organization/helper_organization_widget.dart'
     show HelperOrganizationWidget;
 export '/helperpages/helper_chat/helper_chat_widget.dart' show HelperChatWidget;
+export '/phone_code/phone_code_widget.dart' show PhoneCodeWidget;

@@ -25,7 +25,6 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
   late SettingsProfileModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -41,7 +40,6 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -52,20 +50,25 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
     return AuthUserStreamWidget(
       builder: (context) => StreamBuilder<List<LanguagesRecord>>(
         stream: queryLanguagesRecord(
-          queryBuilder: (languagesRecord) => languagesRecord.where('Name',
-              isEqualTo: valueOrDefault(currentUserDocument?.language, '')),
+          queryBuilder: (languagesRecord) => languagesRecord.where(
+            'Name',
+            isEqualTo: valueOrDefault(currentUserDocument?.language, ''),
+          ),
           singleRecord: true,
         ),
         builder: (context, snapshot) {
           // Customize what your widget looks like when it's loading.
           if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: SpinKitPulse(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+            return Scaffold(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              body: Center(
+                child: SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: SpinKitPulse(
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 50.0,
+                  ),
                 ),
               ),
             );
@@ -77,43 +80,63 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                   ? settingsProfileLanguagesRecordList.first
                   : null;
           return GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+            onTap: () => _model.unfocusNode.canRequestFocus
+                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                : FocusScope.of(context).unfocus(),
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              appBar: AppBar(
-                backgroundColor: FlutterFlowTheme.of(context).primary,
-                automaticallyImplyLeading: false,
-                leading: FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30.0,
-                  borderWidth: 1.0,
-                  buttonSize: 60.0,
-                  icon: Icon(
-                    Icons.arrow_back_rounded,
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    size: 30.0,
-                  ),
-                  onPressed: () async {
-                    context.pop();
-                  },
-                ),
-                title: Text(
-                  FFLocalizations.of(context).getText(
-                    '1tkybgot' /* Profile */,
-                  ),
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Inter',
-                        color: FlutterFlowTheme.of(context).primaryBtnText,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
+              appBar: () {
+                if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointMedium) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointLarge) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }()
+                  ? AppBar(
+                      backgroundColor: FlutterFlowTheme.of(context).primary,
+                      automaticallyImplyLeading: false,
+                      leading: FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
+                        icon: Icon(
+                          Icons.arrow_back_rounded,
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                          size: 30.0,
+                        ),
+                        onPressed: () async {
+                          context.pop();
+                        },
                       ),
-                ),
-                actions: [],
-                centerTitle: false,
-                elevation: 2.0,
-              ),
+                      title: Text(
+                        FFLocalizations.of(context).getText(
+                          '1tkybgot' /* Profile */,
+                        ),
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Inter',
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                      actions: [],
+                      centerTitle: false,
+                      elevation: 2.0,
+                    )
+                  : null,
               body: SafeArea(
+                top: true,
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
                   child: Column(
@@ -151,10 +174,12 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Image.network(
-                                  valueOrDefault<String>(
-                                    _model.uploadedFileUrl,
-                                    'https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
-                                  ),
+                                  _model.hasUploaded
+                                      ? valueOrDefault<String>(
+                                          _model.uploadedFileUrl,
+                                          'https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
+                                        )
+                                      : currentUserPhoto,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -192,6 +217,7 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                                         () => _model.isDataUploading = true);
                                     var selectedUploadedFiles =
                                         <FFUploadedFile>[];
+
                                     var downloadUrls = <String>[];
                                     try {
                                       selectedUploadedFiles = selectedMedia
@@ -233,6 +259,10 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                                       return;
                                     }
                                   }
+
+                                  setState(() {
+                                    _model.hasUploaded = true;
+                                  });
                                 },
                               ),
                             ),
@@ -307,7 +337,12 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                         child: StreamBuilder<List<Translations13Record>>(
                           stream: queryTranslations13Record(
                             parent: currentUserReference,
-                            limit: 1,
+                            queryBuilder: (translations13Record) =>
+                                translations13Record.where(
+                              'language',
+                              isEqualTo: settingsProfileLanguagesRecord?.code,
+                            ),
+                            singleRecord: true,
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -326,28 +361,22 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                             List<Translations13Record>
                                 emailAddressTranslations13RecordList =
                                 snapshot.data!;
+                            final emailAddressTranslations13Record =
+                                emailAddressTranslations13RecordList.isNotEmpty
+                                    ? emailAddressTranslations13RecordList.first
+                                    : null;
                             return TextFormField(
                               controller: _model.emailAddressController2 ??=
                                   TextEditingController(
-                                text: valueOrDefault<String>(
-                                  (settingsProfileLanguagesRecord!.name !=
-                                              'English') &&
-                                          (valueOrDefault(
-                                                  currentUserDocument
-                                                      ?.translateApp,
-                                                  '') ==
-                                              'true')
-                                      ? emailAddressTranslations13RecordList
-                                          .where((e) =>
-                                              e.reference.id ==
-                                              settingsProfileLanguagesRecord!
-                                                  .code)
-                                          .toList()
-                                          .first
-                                          .value
-                                      : currentUserDisplayName,
-                                  'Description',
-                                ),
+                                text: (settingsProfileLanguagesRecord?.name !=
+                                            'English') &&
+                                        (valueOrDefault(
+                                                currentUserDocument
+                                                    ?.translateApp,
+                                                '') ==
+                                            'true')
+                                    ? emailAddressTranslations13Record?.value
+                                    : currentUserDisplayName,
                               ),
                               obscureText: false,
                               decoration: InputDecoration(
@@ -421,18 +450,13 @@ class _SettingsProfileWidgetState extends State<SettingsProfileWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            final userUpdateData1 = createUserRecordData(
+                            await currentUserReference!
+                                .update(createUserRecordData(
                               name: _model.emailAddressController1.text,
                               description: _model.emailAddressController2.text,
-                            );
-                            await currentUserReference!.update(userUpdateData1);
-
-                            final userUpdateData2 = createUserRecordData(
                               photoUrl: _model.uploadedFileUrl,
-                            );
-                            await currentUserReference!.update(userUpdateData2);
-
-                            context.pushNamed('settings');
+                            ));
+                            context.safePop();
                           },
                           text: FFLocalizations.of(context).getText(
                             '5hzuxhex' /* Save Changes */,

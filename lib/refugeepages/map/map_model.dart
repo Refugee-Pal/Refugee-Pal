@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/navbars/refugee_nav_bar/refugee_nav_bar_widget.dart';
 import 'dart:ui';
+import 'map_widget.dart' show MapWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class MapModel extends FlutterFlowModel {
+class MapModel extends FlutterFlowModel<MapWidget> {
   ///  Local state fields for this page.
 
   bool? isFiltering = false;
@@ -34,6 +35,11 @@ class MapModel extends FlutterFlowModel {
   void removeFromAllLocations(LocationsRecord item) =>
       allLocations.remove(item);
   void removeAtIndexFromAllLocations(int index) => allLocations.removeAt(index);
+  void insertAtIndexInAllLocations(int index, LocationsRecord item) =>
+      allLocations.insert(index, item);
+  void updateAllLocationsAtIndex(
+          int index, Function(LocationsRecord) updateFn) =>
+      allLocations[index] = updateFn(allLocations[index]);
 
   bool? isEdit = false;
 
@@ -47,6 +53,7 @@ class MapModel extends FlutterFlowModel {
 
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for GoogleMap widget.
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();
@@ -63,10 +70,12 @@ class MapModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     userProfileModel.dispose();
     refugeeNavBarModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

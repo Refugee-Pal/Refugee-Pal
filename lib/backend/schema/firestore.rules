@@ -9,20 +9,13 @@ service cloud.firestore {
     }
 
     match /user/{document} {
-      allow create: if request.auth.uid == document;
-      allow read: if request.auth.uid == document;
-      allow write: if request.auth.uid == document;
-      allow delete: if false;
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
     }
 
     match /resourceprovider/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
-    }
-
-    match /professionals/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
@@ -98,8 +91,8 @@ service cloud.firestore {
     match /subcategory/{parent}/translations1/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations1/{document} {
@@ -110,8 +103,8 @@ service cloud.firestore {
     match /subcategory/{parent}/translations2/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations2/{document} {
@@ -122,8 +115,8 @@ service cloud.firestore {
     match /locations/{parent}/translations3/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations3/{document} {
@@ -134,8 +127,8 @@ service cloud.firestore {
     match /locations/{parent}/translations4/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations4/{document} {
@@ -146,8 +139,8 @@ service cloud.firestore {
     match /locations/{parent}/translations5/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations5/{document} {
@@ -158,8 +151,8 @@ service cloud.firestore {
     match /locations/{parent}/translations6/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations6/{document} {
@@ -170,8 +163,8 @@ service cloud.firestore {
     match /category/{parent}/translations7/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations7/{document} {
@@ -182,8 +175,8 @@ service cloud.firestore {
     match /category/{parent}/translations8/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations8/{document} {
@@ -194,8 +187,8 @@ service cloud.firestore {
     match /resourceprovider/{parent}/translations9/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations9/{document} {
@@ -206,8 +199,8 @@ service cloud.firestore {
     match /resourceprovider/{parent}/translations10/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations10/{document} {
@@ -218,8 +211,8 @@ service cloud.firestore {
     match /user/{parent}/translations11/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if request.auth.uid == parent;
+      allow delete: if false;
     }
 
     match /{path=**}/translations11/{document} {
@@ -230,8 +223,8 @@ service cloud.firestore {
     match /user/{parent}/translations12/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if request.auth.uid == parent;
+      allow delete: if false;
     }
 
     match /{path=**}/translations12/{document} {
@@ -242,8 +235,8 @@ service cloud.firestore {
     match /user/{parent}/translations13/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if request.auth.uid == parent;
+      allow delete: if false;
     }
 
     match /{path=**}/translations13/{document} {
@@ -254,8 +247,8 @@ service cloud.firestore {
     match /user/{parent}/translations14/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if request.auth.uid == parent;
+      allow delete: if false;
     }
 
     match /{path=**}/translations14/{document} {
@@ -263,35 +256,11 @@ service cloud.firestore {
     }
 
 
-    match /professionals/{parent}/translations15/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
-    match /{path=**}/translations15/{document} {
-      allow read: if true;
-    }
-
-
-    match /professionals/{parent}/translations16/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
-    match /{path=**}/translations16/{document} {
-      allow read: if true;
-    }
-
-
     match /professions/{parent}/translations17/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations17/{document} {
@@ -302,8 +271,8 @@ service cloud.firestore {
     match /chats/{parent}/translations18/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations18/{document} {
@@ -314,8 +283,8 @@ service cloud.firestore {
     match /organizations/{parent}/translations19/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if false;
+      allow delete: if false;
     }
 
     match /{path=**}/translations19/{document} {

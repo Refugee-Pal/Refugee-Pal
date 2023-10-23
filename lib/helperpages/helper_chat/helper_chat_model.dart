@@ -2,10 +2,8 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/delete_confirmation/delete_confirmation_widget.dart';
-import '/components/input/input_widget.dart';
 import '/components/material2_action_sheet_simple/material2_action_sheet_simple_widget.dart';
 import '/components/new_sheet/new_sheet_widget.dart';
-import '/components/no_answers_yet_widget.dart';
 import '/components/user_profile/user_profile_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -15,6 +13,8 @@ import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/navbars/helper_nav_bar/helper_nav_bar_widget.dart';
+import 'dart:ui';
+import 'helper_chat_widget.dart' show HelperChatWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
@@ -28,7 +28,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
 
-class HelperChatModel extends FlutterFlowModel {
+class HelperChatModel extends FlutterFlowModel<HelperChatWidget> {
   ///  Local state fields for this page.
 
   bool? chatting = false;
@@ -49,16 +49,25 @@ class HelperChatModel extends FlutterFlowModel {
 
   MessagesRecord? message;
 
+  List<bool> masterState = [];
+  void addToMasterState(bool item) => masterState.add(item);
+  void removeFromMasterState(bool item) => masterState.remove(item);
+  void removeAtIndexFromMasterState(int index) => masterState.removeAt(index);
+  void insertAtIndexInMasterState(int index, bool item) =>
+      masterState.insert(index, item);
+  void updateMasterStateAtIndex(int index, Function(bool) updateFn) =>
+      masterState[index] = updateFn(masterState[index]);
+
+  bool hasFirstPost = false;
+
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
-  // State field(s) for Column widget.
-  ScrollController? columnController1;
-  // Model for input component.
-  late InputModel inputModel;
-  // State field(s) for ListView widget.
-  ScrollController? listViewController1;
+  // State field(s) for emailAddress widget.
+  TextEditingController? emailAddressController1;
+  String? Function(BuildContext, String?)? emailAddressController1Validator;
   // State field(s) for CheckboxListTile widget.
 
   Map<CategoryRecord, bool> checkboxListTileValueMap1 = {};
@@ -72,20 +81,16 @@ class HelperChatModel extends FlutterFlowModel {
   ChatsRecord? newQChat;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   MessagesRecord? newQMessages;
-  // State field(s) for Column widget.
-  ScrollController? columnController2;
   // State field(s) for nameField widget.
   TextEditingController? nameFieldController;
   String? Function(BuildContext, String?)? nameFieldControllerValidator;
   // State field(s) for emailAddress widget.
-  TextEditingController? emailAddressController1;
-  String? Function(BuildContext, String?)? emailAddressController1Validator;
-  // State field(s) for emailAddress widget.
   TextEditingController? emailAddressController2;
   String? Function(BuildContext, String?)? emailAddressController2Validator;
+  // State field(s) for emailAddress widget.
+  TextEditingController? emailAddressController3;
+  String? Function(BuildContext, String?)? emailAddressController3Validator;
   List<UserRecord> simpleSearchResults = [];
-  // State field(s) for ListView widget.
-  ScrollController? listViewController2;
   // State field(s) for CheckboxListTile widget.
 
   Map<UserRecord, bool> checkboxListTileValueMap2 = {};
@@ -103,14 +108,8 @@ class HelperChatModel extends FlutterFlowModel {
   ChatsRecord? newChat2;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   MessagesRecord? messageDoc2;
-  // State field(s) for Column widget.
-  ScrollController? columnController3;
-  // State field(s) for chatList widget.
-  ScrollController? chatList;
   // Stores action output result for [Bottom Sheet - deleteConfirmation] action in IconButton widget.
   bool? toDelete;
-  // State field(s) for ListView widget.
-  ScrollController? listViewController3;
   // State field(s) for chatField widget.
   TextEditingController? chatFieldController;
   String? Function(BuildContext, String?)? chatFieldControllerValidator;
@@ -134,8 +133,6 @@ class HelperChatModel extends FlutterFlowModel {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl2 = '';
 
-  // State field(s) for ListView widget.
-  ScrollController? listViewController4;
   // Model for userProfile component.
   late UserProfileModel userProfileModel;
   // Stores action output result for [Bottom Sheet - newSheet] action in IconButton widget.
@@ -146,37 +143,22 @@ class HelperChatModel extends FlutterFlowModel {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    columnController1 = ScrollController();
-    inputModel = createModel(context, () => InputModel());
-    listViewController1 = ScrollController();
-    columnController2 = ScrollController();
-    listViewController2 = ScrollController();
-    columnController3 = ScrollController();
-    chatList = ScrollController();
-    listViewController3 = ScrollController();
-    listViewController4 = ScrollController();
     userProfileModel = createModel(context, () => UserProfileModel());
     helperNavBarModel = createModel(context, () => HelperNavBarModel());
   }
 
   void dispose() {
-    columnController1?.dispose();
-    inputModel.dispose();
-    listViewController1?.dispose();
-    columnController2?.dispose();
-    nameFieldController?.dispose();
+    unfocusNode.dispose();
     emailAddressController1?.dispose();
+    nameFieldController?.dispose();
     emailAddressController2?.dispose();
-    listViewController2?.dispose();
-    columnController3?.dispose();
-    chatList?.dispose();
-    listViewController3?.dispose();
+    emailAddressController3?.dispose();
     chatFieldController?.dispose();
-    listViewController4?.dispose();
     userProfileModel.dispose();
     helperNavBarModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

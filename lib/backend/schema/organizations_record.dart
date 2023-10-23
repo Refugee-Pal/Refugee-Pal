@@ -1,54 +1,80 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'organizations_record.g.dart';
+class OrganizationsRecord extends FirestoreRecord {
+  OrganizationsRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class OrganizationsRecord
-    implements Built<OrganizationsRecord, OrganizationsRecordBuilder> {
-  static Serializer<OrganizationsRecord> get serializer =>
-      _$organizationsRecordSerializer;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  bool hasName() => _name != null;
 
-  String? get name;
+  // "people" field.
+  List<String>? _people;
+  List<String> get people => _people ?? const [];
+  bool hasPeople() => _people != null;
 
-  BuiltList<String>? get people;
+  // "logoPath" field.
+  String? _logoPath;
+  String get logoPath => _logoPath ?? '';
+  bool hasLogoPath() => _logoPath != null;
 
-  String? get logoPath;
+  // "description" field.
+  String? _description;
+  String get description => _description ?? '';
+  bool hasDescription() => _description != null;
 
-  String? get description;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(OrganizationsRecordBuilder builder) => builder
-    ..name = ''
-    ..people = ListBuilder()
-    ..logoPath = ''
-    ..description = '';
+  void _initializeFields() {
+    _name = snapshotData['name'] as String?;
+    _people = getDataList(snapshotData['people']);
+    _logoPath = snapshotData['logoPath'] as String?;
+    _description = snapshotData['description'] as String?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('organizations');
 
-  static Stream<OrganizationsRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<OrganizationsRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => OrganizationsRecord.fromSnapshot(s));
 
   static Future<OrganizationsRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => OrganizationsRecord.fromSnapshot(s));
 
-  OrganizationsRecord._();
-  factory OrganizationsRecord(
-          [void Function(OrganizationsRecordBuilder) updates]) =
-      _$OrganizationsRecord;
+  static OrganizationsRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      OrganizationsRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static OrganizationsRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      OrganizationsRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'OrganizationsRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is OrganizationsRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createOrganizationsRecordData({
@@ -56,16 +82,34 @@ Map<String, dynamic> createOrganizationsRecordData({
   String? logoPath,
   String? description,
 }) {
-  final firestoreData = serializers.toFirestore(
-    OrganizationsRecord.serializer,
-    OrganizationsRecord(
-      (o) => o
-        ..name = name
-        ..people = null
-        ..logoPath = logoPath
-        ..description = description,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'name': name,
+      'logoPath': logoPath,
+      'description': description,
+    }.withoutNulls,
   );
 
   return firestoreData;
+}
+
+class OrganizationsRecordDocumentEquality
+    implements Equality<OrganizationsRecord> {
+  const OrganizationsRecordDocumentEquality();
+
+  @override
+  bool equals(OrganizationsRecord? e1, OrganizationsRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.name == e2?.name &&
+        listEquality.equals(e1?.people, e2?.people) &&
+        e1?.logoPath == e2?.logoPath &&
+        e1?.description == e2?.description;
+  }
+
+  @override
+  int hash(OrganizationsRecord? e) => const ListEquality()
+      .hash([e?.name, e?.people, e?.logoPath, e?.description]);
+
+  @override
+  bool isValidKey(Object? o) => o is OrganizationsRecord;
 }

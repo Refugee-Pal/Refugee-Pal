@@ -1,26 +1,37 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'translations11_record.g.dart';
+class Translations11Record extends FirestoreRecord {
+  Translations11Record._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class Translations11Record
-    implements Built<Translations11Record, Translations11RecordBuilder> {
-  static Serializer<Translations11Record> get serializer =>
-      _$translations11RecordSerializer;
+  // "value" field.
+  String? _value;
+  String get value => _value ?? '';
+  bool hasValue() => _value != null;
 
-  String? get value;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
+  // "language" field.
+  String? _language;
+  String get language => _language ?? '';
+  bool hasLanguage() => _language != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
-  static void _initializeBuilder(Translations11RecordBuilder builder) =>
-      builder..value = '';
+  void _initializeFields() {
+    _value = snapshotData['value'] as String?;
+    _language = snapshotData['language'] as String?;
+  }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -30,34 +41,64 @@ abstract class Translations11Record
   static DocumentReference createDoc(DocumentReference parent) =>
       parent.collection('translations11').doc();
 
-  static Stream<Translations11Record> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<Translations11Record> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => Translations11Record.fromSnapshot(s));
 
   static Future<Translations11Record> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => Translations11Record.fromSnapshot(s));
 
-  Translations11Record._();
-  factory Translations11Record(
-          [void Function(Translations11RecordBuilder) updates]) =
-      _$Translations11Record;
+  static Translations11Record fromSnapshot(DocumentSnapshot snapshot) =>
+      Translations11Record._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static Translations11Record getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      Translations11Record._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'Translations11Record(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is Translations11Record &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createTranslations11RecordData({
   String? value,
+  String? language,
 }) {
-  final firestoreData = serializers.toFirestore(
-    Translations11Record.serializer,
-    Translations11Record(
-      (t) => t..value = value,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'value': value,
+      'language': language,
+    }.withoutNulls,
   );
 
   return firestoreData;
+}
+
+class Translations11RecordDocumentEquality
+    implements Equality<Translations11Record> {
+  const Translations11RecordDocumentEquality();
+
+  @override
+  bool equals(Translations11Record? e1, Translations11Record? e2) {
+    return e1?.value == e2?.value && e1?.language == e2?.language;
+  }
+
+  @override
+  int hash(Translations11Record? e) =>
+      const ListEquality().hash([e?.value, e?.language]);
+
+  @override
+  bool isValidKey(Object? o) => o is Translations11Record;
 }
