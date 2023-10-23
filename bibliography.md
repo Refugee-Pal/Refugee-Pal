@@ -33,5 +33,4 @@
 32. Flutterflow Docs. Introduction - FlutterFlow Docs. (n.d.). Retrieved April 30, 2023, from https://docs.flutterflow.io/ 
 33. Canada Refugee Statistics 1960-2023. MacroTrends. (n.d.). https://www.macrotrends.net/countries/CAN/canada/refugee-statistics#:~:text=Canada%20refugee%20statistics%20for%202021,a%208.91%25%20increase%20from%202017. 
 34. Connecting refugees. UNHCR. (n.d.). https://www.unhcr.org/media/connecting-refugees
-- A note to people coming here from the Canada wide posterboard or judges, there was a typo when adding the reference number. In the post resettlement challenges section of why, we meant to reference to number 35 not 34.
 35. Newbold, K. B., &amp; McKeary, M. (2018, December). Journey to Health: (re) contextualizing the health of Canada’s refugee population. Journal of refugee studies. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6290933/ 
