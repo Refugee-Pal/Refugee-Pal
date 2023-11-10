@@ -5,7 +5,7 @@ The app is developed using the Dart programming language and the Flutter framewo
 
 Furthermore, Refugee Pal's backend infrastructure is built on Firebase, a secure and reliable cloud-based platform that allows us to manage and store data with ease. With its cutting-edge technology and robust features, Firebase ensures that the app functions smoothly and efficiently, providing a seamless experience for our users.
 
-Refugee Pal received awards at the [Canada-Wide Science Fair 2023](https://youthscience.ca/science-fairs/cwsf/edmonton-2023/) and has qualified for the [Youth Innovation Showcase](https://www.sciencefairs.ca/youth-innovation-showcase/) Semifinals.
+Refugee Pal received awards at the [Canada-Wide Science Fair 2023](https://youthscience.ca/science-fairs/cwsf/edmonton-2023/) and has qualified for the [Youth Innovation Showcase](https://www.sciencefairs.ca/youth-innovation-showcase/) Finals
 
 ## 📖 Repositories
 
