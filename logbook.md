@@ -226,4 +226,8 @@ Antony: This came with changes to the Explore page. Instead of having a standard
 
 Antony: While I was working on the app, I also set up Android Studio on my PC. It took me an entire morning to set up Android Studio, because I had to enable virtualization and because my antivirus was stopping things from working. After fixing these problems, I was able to run Refugee Pal on the android emulator.
 
-# 🗓️ 2023-5-10: Week 10
+# 🗓️ 2023-6: June
+
+### Fixing issues with Refugee Pal
+
+Antony: After going to the Canada-Wide Science Fair, we decided to take a break for a while and work on other school projects. However, I realized that during judging, we were both very nervous because there were many issues with the app we discovered last-minute. Particularly, the app's translations were very buggy. I did automatically translate all the app's content, but the frontend code for detecting languages and handling different versions of text sometimes made the app crash. I fixed these issues with the app, and it got closer to being fully functional.
