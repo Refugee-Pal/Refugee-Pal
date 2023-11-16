@@ -62,6 +62,8 @@ In order to display data from our database, whether it be search or firestore, w
 
 ![image](https://user-images.githubusercontent.com/123277428/235285708-f00fcd26-7e3f-4277-aaff-bc66aa105032.png)
 
+# Logbook before March TBA
+
 # 🗓️ 2023-03-07: Week 1
 
 ### Researching No Code and Backend
@@ -214,7 +216,7 @@ Antony: Around this time, I also managed to get my hands on a Macbook, which hel
 
 ### Plans for Testing
 
-Ali and Antony: By this time, we had begun to realize that many things that we planned for the app were not going to get done. We wanted to reach out to refugee uspport organizations and test our app, because the last test we had run was with the webapp version of Refugee Pal. Surveying a larger and more diverse sample size, as well as people who actively work to support refugees would allow us to better understand how eell our app was working and how we could develop our ideas beyond the Canada-Wide Science Fair, possibly even with external support. We started off by sending emails, but made a few phone calls as well. Unfortuantely, this took longer than expected and by next week we still had not recieved a formal invitation to test the app.
+Ali and Antony: By this time, we had begun to realize that many things that we planned for the app were not going to get done. We wanted to reach out to refugee support organizations and test our app, because the last test we had run was with the webapp version of Refugee Pal. Surveying a larger and more diverse sample size, as well as people who actively work to support refugees would allow us to better understand how well our app was working and how we could develop our ideas beyond the Canada-Wide Science Fair, possibly even with external support. We started off by sending emails, but made a few phone calls as well. Unfortuantely, this took longer than expected and by next week we still had not recieved a formal invitation to test the app.
 
 ### Improvements to Connect and Explore
 
@@ -231,3 +233,38 @@ Antony: While I was working on the app, I also set up Android Studio on my PC. I
 ### Fixing issues with Refugee Pal
 
 Antony: After going to the Canada-Wide Science Fair, we decided to take a break for a while and work on other school projects. However, I realized that during judging, we were both very nervous because there were many issues with the app we discovered last-minute. Particularly, the app's translations were very buggy. I did automatically translate all the app's content, but the frontend code for detecting languages and handling different versions of text sometimes made the app crash. I fixed these issues with the app, and it got closer to being fully functional.
+
+# 🗓️ 2023-7: July
+
+### Planning what to do for the summer
+
+Antony: Sadly Ali's going to move to another school next year, so we won't be working on Refugee Pal together anymore. Now, over the summer I mainly want to get two things done - refine the app further and properly test how well Refugee Pal works with refugees in real life. I did some research and I found an interesting science fair in September that I might want to shoot for, the Youth Innovation Showcase. I wrote a brief timeline of what I wanted to achieve, especially during the summer and started a continuation of my logbook from earlier.
+
+### Working towards trialing Refugee Pal
+
+Antony: Back in May we emailed some refugee support organizations to see if they were willing to test the app and I got a response, from Margarita Tellez Espana, manager of Refugee and Specialized Programs at DIVERSEcity. I followed up with her and asked if we could meet sometime to start working on a plan to test Refugee Pal.
+
+# 🗓️ 2023-8: August
+
+### Starting testing
+
+Antony: Margarita replied to my email and I met with her at DIVERSEcity. We decided to first look over the app together. After that, we could test the app with case workers, who are social workers that work with refugees, refer them to services and help them get settled. Hopefully after that, we could start to test the app with refugees and get a wider range of feedback and testing results. This time, I actually had a lot of time to test the app, so I could take my time with gathering feedback and making improvements. However, I still had more work to do to refine the app, an unexpected amount. I decided to go through every single possible user process to try and catch all the bugs.
+
+### Additional fixes to translations
+
+Antony: After looking at the backend again, I noticed that the Firebase Google Translate plugin was set to translate automatically, but the cloud functions that made it readable (the Google Translate plugin outputs data in key-value pairs or the "map" data type, which isn't compatible with FlutterFlow yet) have to be manually triggered. I rewrote the NodeJS code so that the translations automatically get converted into a readable subcollection. I also had to enable features in Google Cloud that required billing, so I created a Google Cloud Function to disable billing if Firestore or Google Translate usage accidentally spiked by experimenting with Pub/Sub triggers and finding a solution in the documentation.
+
+### Planning tweaks to the app structure
+
+Antony: I also had some other changes to the app planned, focused on making existing functions of Refugee Pal more user friendly. Most importantly, I wanted to adapt app widgets so that Refugee Pal would render properly on any screen size. This way, a user could access Refugee Pal on iOS or Android through the native app but also on laptops, desktops and iPads through the web app. This is why I'm really happy we chose to use FlutterFlow in the beginning, because the same code base works on any platform, while typically I'd have to code a Swift app for iOS, a Kotlin app for Android and a React app for web.
+
+Antony: Additionally, I plan on revising some features long term and actually dropping one. The bugs that kept popping up just before the national science fair reminded me that maybe we spent too much time working on new ideas, while neglecting potential problems and synergy between features because we simply didn't have enough time. I decided to drop the Connect with Professionals feature, because all of the doctor data came from a website that could do the exact same thing as Refugee Pal and I realized I could just link to that website in Resources. I also decided to remove direct chats in Refugee Pal, instead connecting user contacts like social workers and case managers through contacts and integrating with WhatsApp for messaging.
+
+Antony: Ultimately I want to focus Refugee Pal around bridging the gap between refugees and information, so I also planned on making finding information more intuitive, simply having topics and subtopics which would lead to locations, Q&A threads and resources on one page making things easier for the user. I also thought about adding generative AI integration, to act as somewhat of a way to search but mostly to act as a way to respond to a human question concisely.
+
+# 🗓️ 2023-9: September
+
+### Preparing for YIS
+
+
+
