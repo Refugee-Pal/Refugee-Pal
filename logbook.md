@@ -266,5 +266,5 @@ Antony: Ultimately I want to focus Refugee Pal around bridging the gap between r
 
 ### Preparing for YIS
 
-
+Antony: Today I started to prepare for the Youth Innovation Showcase, I started by writing my Project Report, which I'd then use as a launching pad for my video and centre the general theme of my presentation around. It was very difficult representing everything I'd worked on in one page, but I tried my best. For the video, I talked about the difficult challenges faced by refugees in their first months in Canada as a hook, then dove deeper into how Refugee Pal works and how it helps, by connecting refugees to services, healthcare and employment which improves their mental health and independence, as well as their sense of belonging.
 
