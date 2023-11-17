@@ -240,6 +240,9 @@ Antony: After going to the Canada-Wide Science Fair, we decided to take a break 
 
 Antony: Sadly Ali's going to move to another school next year, so we won't be working on Refugee Pal together anymore. Now, over the summer I mainly want to get two things done - refine the app further and properly test how well Refugee Pal works with refugees in real life. I did some research and I found an interesting science fair in September that I might want to shoot for, the Youth Innovation Showcase. I wrote a brief timeline of what I wanted to achieve, especially during the summer and started a continuation of my logbook from earlier.
 
+### Finding a mentor
+Antony: Today, I got a response from Minna Allarakhia, a professor at the University of Waterloo. I asked her if she could be my mentor, and she said yes. I am very excited to meet her virtually. I had a call with her and I showed her through the app, and she gave me some ideas on how I could improve, even some ideas for a whole new way to help refugees by translating signs, but unfortunately I didn't have the time to look into that.
+
 ### Working towards trialing Refugee Pal
 
 Antony: Back in May we emailed some refugee support organizations to see if they were willing to test the app and I got a response, from Margarita Tellez Espana, manager of Refugee and Specialized Programs at DIVERSEcity. I followed up with her and asked if we could meet sometime to start working on a plan to test Refugee Pal.
@@ -248,7 +251,7 @@ Antony: Back in May we emailed some refugee support organizations to see if they
 
 ### Starting testing
 
-Antony: Margarita replied to my email and I met with her at DIVERSEcity. We decided to first look over the app together. After that, we could test the app with case workers, who are social workers that work with refugees, refer them to services and help them get settled. Hopefully after that, we could start to test the app with refugees and get a wider range of feedback and testing results. This time, I actually had a lot of time to test the app, so I could take my time with gathering feedback and making improvements. However, I still had more work to do to refine the app, an unexpected amount. I decided to go through every single possible user process to try and catch all the bugs.
+Antony: Margarita replied to my email and I met with her at DIVERSEcity. We decided to first look over the app together. After that, we could test the app with case workers, who are social workers that work with refugees, refer them to services and help them get settled. Hopefully after that, we could start to test the app with refugees and get a wider range of feedback and testing results. This time, I actually had a lot of time to test the app, so I could take my time with gathering feedback and making improvements. However, I still had more work to do to refine the app, an unexpected amount. I decided to go through every single possible user process to try and catch all the bugs. She also gave me some feedback and suggested that I change the login for Refugee Pal from using email to using phone numbers, which would make it more intuitive.
 
 ### Additional fixes to translations
 
@@ -268,3 +271,32 @@ Antony: Ultimately I want to focus Refugee Pal around bridging the gap between r
 
 Antony: Today I started to prepare for the Youth Innovation Showcase, I started by writing my Project Report, which I'd then use as a launching pad for my video and centre the general theme of my presentation around. It was very difficult representing everything I'd worked on in one page, but I tried my best. For the video, I talked about the difficult challenges faced by refugees in their first months in Canada as a hook, then dove deeper into how Refugee Pal works and how it helps, by connecting refugees to services, healthcare and employment which improves their mental health and independence, as well as their sense of belonging.
 
+### More feature planning and development
+
+Antony: This month I knew I would be fairly busy with the start of school, but I still set aside some time to work on revamping Refugee Pal. I focused on doing technical research on how I could implement my changes and drawing how the revamped app would interact with itself. For technical research I found I could achieve WhatsApp integration using deep linking, which technically works like a web link but prompts the phone to start a chat with a specific WhatsApp number instead. For the intelligent summarizer feature, I chose to use LangChain, another low-code builder for AI workflows that could read data off of websites and the OpenAI API. Lastly, I made sketches of the app and some flowcharts on paper to plan out the revamp.
+
+### Implementing earlier feedback
+
+Antony: I implemented some feedback from earlier that Margarita gave me. Firstly, I dropped the email authentication system, which allows refugees to sign in using email and replaced it with phone authentication. I also added a LGBTQ+ category in the app for resources and services for LGBTQ+ refugees and renamed the Food Banks category to broadly encompass food security.
+
+### Testing with case workers
+
+Antony: I continued to work with Margarita to start testing the app with case workers. After meeting again, we decided to have her send the app to case workers, and then they could give the app a look and decide if we could keep moving on with testing. After waiting for two weeks, I received some constructive feedback, but I realized the app wasn't formatting properly. One case worker suggested I change the question and answer threads so that answers given by helpers automatically translate, which I think was an amazing idea. Due to Apple's unsigned app restrictions, I decided to deploy Refugee Pal as a web app that would retain all the functions of the mobile app but run as a progressive web app instead. Next time I need to provide more detailed instructions, and a list of existing issues.
+
+### Finding a new opportunity
+
+Antony: I also did some research on other ways I could work on the market research and outreach aspects of Refugee Pal, possibly by pitching the app with investors, networking or some other way that would give me guidance and help me work towards release. I did some selective searching on Google and I found RADIUS, which is a social innovation lab and startup incubator at Simon Fraser University. One of their programs is Trampoline which helps people who have an idea for an initiative to help migrants and refugees. The program is mostly online and starts next year, so I emailed them - waiting to hear back.
+
+# 🗓️ 2023-10: October
+
+### Adapting app for different screen sizes
+
+Antony: As I prepared for YIS, I made a few final changes to Refugee Pal. I started adapting Refugee Pal for different screen sizes by using adaptive media queries to determine the size of the screen and show or hide certain widgets depending on size. I can use this to have a column of cards, each with information about a resource that turns into a row on desktop. I'm still working on scaling the fonts, because the custom icon font I added to the app crashes when I turn on adaptive text
+
+### Preparing for the interview
+
+Antony: After making some changes, I got an email that I got into the Youth Innovation Showcase semifinals! Unfortunately, the interview was in a few days and I had a lot of work, but I wanted to carefully plan for the interview. I went back to my videos and my project report, even statistics that we used in our presentations back in April and May. I wrote a script for my pitch, making sure to have a few different hooks/pathways depending on if my judges knew a lot about refugees and what they go through.
+
+### Other updates
+
+Antony: Around this time, I also continued staying in touch with my mentor, and I updated her about the Youth Innovation Showcase. I emailed Margarita about meeting again to discuss what I'd been working on with Refugee Pal, but I didn't get a response initially. After my third email, she told me the refugee and specialized programs at DIVERSEcity didn't have a coordinator, so I'd have to wait until the end of November.
