@@ -62,7 +62,23 @@ In order to display data from our database, whether it be search or firestore, w
 
 ![image](https://user-images.githubusercontent.com/123277428/235285708-f00fcd26-7e3f-4277-aaff-bc66aa105032.png)
 
-# Logbook before March TBA
+## Below is the logbook, documenting all the work Ali and I have done on Refugee Pal, including the processes of planning, designing, prototyping, building and testing. 
+
+### I currently do not have a copy of the logbook before March - here is a brief summary instead of what we did.
+
+### 🗓️ January
+
+A little bit of a backstory - the STEAMX program in SAIL Academy, which Ali and I go to is centred around project based learning. We have three major projects called inquiries a year, and for the second inquiry we have to create an innovation and enter it in the school science fair in February. My friend Ali was interested in creating an innovation to help refugees navigate their difficult journey or help them adjust to Canada. He told me about his idea for an app to help refugees resettle in Canada, and I was also interested in helping refugees in my community so I jumped on board. Initially we did some research on refugees and what challenges they faced after being resettled. We realized that refugees from different backgrounds were different, but they all had some challenges in common like language barriers and difficulty accessing healthcare. We though barriers to information were a big problem, along with refugees not being able to find employers willing to hire them, interpreters, doctors and lawyers.
+
+We did a lot of research, looking at the website of a local organization, ISSofBC and we found some reports they published. We found out about what challenges refugees reported. But we thought this was not enough, and we decided to email ISSofBC (Ali's mom worked with them before). We interviewed a settlement worker and they confirmed the concerns that we researched, especially the need for a list of doctors but they didn't seem that interested. We ended up using Notion to write down all the ideas we had for features for the app, and we definitely did a lot of heavy brainstorming aiming to turn Refugee Pal into an all-in-one app where refugees could conveniently access everything they needed. However, we did not do a lot of technical research and we realized learning many programming languages would take us months. We went with HTML, CSS and JavaScript, hoping to build a minimal web app as a proof of concept.
+
+In the second half of the month, we started watching tutorials on programming in HTML, CSS and JS. I (Antony) focused more on learning how to code and Ali focused more on designing the app. We used GitHub to collaborate on code, and I realized we could learn best by doing and starting to build a frame for the app, adding a homepage and navbar as practice for the more complicated features we would add later.
+
+### 🗓️ February
+
+As the month began we started preparing for our school science fair. If we did well at our school science fair we could qualify for two science fairs - the Surrey School District science fair and our regional science fair. We were really excited, and we felt like each day something new and interesting happened - like we were trailblazers. Starting off the month, we were finishing up the features of the app. In the beginning progress was slow because of the steep learning curve, but after we mastered HTML and knew how to style pages with CSS it got a lot faster. I found a way to make adaptive webpages that could show content after an interaction with inner HTML. We finished the "Find" feature, a map with helpful location, the digital resource hub and the audio guide feature, along with the homepage. Ali and I started working on the presentation as well. Ali made a logo for Refugee Pal and designed the app branding. He also focused on the posterboard, designing it digitally with mockups of the app and printing it. At this point we were all set, and it only took us some practice.
+
+We ended up doing well and qualifying for both the district and regional science fairs. With the district science fair in two weeks, we used an old Google framework for integrating Google Translate into websites. It was outdated and looked bad, but its basic functionality worked. Implementing proper translations later on took us much longer. Unfortunately we knew our current prototype wasn't very extendable because it was based on web technologies, which wouldn't properly run as an app on mobile devices, so we had to make changes.
 
 # 🗓️ 2023-03-07: Week 1
 
